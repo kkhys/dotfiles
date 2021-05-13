@@ -4,6 +4,9 @@
 
 # not ignore #
 
+## zsh
+!/.zshrc
+
 ## git
 !/README.md
 !/LICENSE
