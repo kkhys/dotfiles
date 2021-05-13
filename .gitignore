@@ -4,15 +4,18 @@
 
 # not ignore #
 
+## config
+!Brewfile
+
 ## zsh
-!/.zshrc
+!.zshrc
 
 ## IntelliJ IDEA
-!/.ideavimrc
+!.ideavimrc
 
 ## git
-!/README.md
-!/LICENSE
+!README.md
+!LICENSE
 !.gitignore
 !.gitkeep
 !.commit_template
