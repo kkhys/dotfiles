@@ -7,6 +7,9 @@
 ## zsh
 !/.zshrc
 
+## IntelliJ IDEA
+!/.ideavimrc
+
 ## git
 !/README.md
 !/LICENSE
