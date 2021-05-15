@@ -13,6 +13,10 @@
 ## Homebrew
 !/Brewfile
 
+## etc
+!/.bin/
+!/.bin/**
+
 ## git
 !/.github/
 !/.github/**
