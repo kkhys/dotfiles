@@ -4,19 +4,20 @@
 
 # not ignore #
 
-## config
-!Brewfile
-
 ## zsh
-!.zshrc
+!/.zshrc
 
 ## IntelliJ IDEA
-!.ideavimrc
+!/.ideavimrc
+
+## Homebrew
+!/Brewfile
 
 ## git
-!README.md
-!LICENSE
-!.gitignore
-!.gitkeep
-!.commit_template
-!.gitconfig
+!/.github/
+!/.github/**
+!/.commit_template
+!/.gitconfig
+!/.gitignore
+!/LICENSE
+!/README.md
