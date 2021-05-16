@@ -23,5 +23,6 @@
 !/.commit_template
 !/.gitconfig
 !/.gitignore
+!/.gitignore_global
 !/LICENSE
 !/README.md
