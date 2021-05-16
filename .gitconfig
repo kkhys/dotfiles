@@ -1,6 +1,7 @@
 [user]
         name = Keiten Kiki
         email = oo@kiki.ooo
+        signingkey = ****************************************
 [github]
         user = ktnkk
 [core]
@@ -8,6 +9,8 @@
         editor = vim
         autocrlf = false
         ignorecase = false
+[gpg]
+        program = /usr/local/bin/gpg
 [color]
         status = auto
         diff = auto
@@ -39,6 +42,7 @@
         helper = osxkeychain
 [commit]
         template = /Users/kh/.commit_template
+        gpgsign = true
 [push]
         default = current
 [pull]
