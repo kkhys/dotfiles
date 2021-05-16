@@ -37,6 +37,8 @@
         find = "!f() { git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S'pretty' -S\"$@\" | peco | awk '{print $1}' | xargs -I {} git diff {}^ {}; }; f"
 [credential]
         helper = osxkeychain
+[commit]
+        template = /Users/kh/.commit_template
 [push]
         default = current
 [pull]
