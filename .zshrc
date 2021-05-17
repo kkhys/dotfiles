@@ -31,6 +31,10 @@ function git(){hub "$@"}
 # coreutils
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
+# Golang
+export GOPATH=$HOME
+export PATH=$PATH:$GOPATH/bin
+
 # SDKMAN!
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/kh/.sdkman"
