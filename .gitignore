@@ -17,6 +17,9 @@
 !/.bin/
 !/.bin/**
 
+## Karabiner-Elements
+!/karabiner.json
+
 ## git
 !/.github/
 !/.github/**
