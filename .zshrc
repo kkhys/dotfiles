@@ -35,6 +35,9 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
 
+# wakatime
+export PATH="/usr/local/bin/wakatime:$PATH"
+
 # SDKMAN!
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/kh/.sdkman"
