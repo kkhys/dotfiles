@@ -4,6 +4,10 @@
 
 # not ignore #
 
+## config
+!/.config/
+!/.config/**
+
 ## zsh
 !/.zshrc
 
