@@ -24,6 +24,10 @@
 ## Karabiner-Elements
 !/karabiner.json
 
+## Vim
+!/.vimrc
+!/.gvimrc
+
 ## git
 !/.github/
 !/.github/**
