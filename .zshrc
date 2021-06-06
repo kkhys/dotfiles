@@ -38,6 +38,11 @@ export PATH=$PATH:$GOPATH/bin
 # wakatime
 export PATH="/usr/local/bin/wakatime:$PATH"
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+
 # SDKMAN!
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/kh/.sdkman"
