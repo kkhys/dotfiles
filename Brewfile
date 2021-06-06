@@ -55,6 +55,7 @@ brew "zsh-completions"
 brew "zsh-syntax-highlighting"
 brew "heroku/brew/heroku"
 brew "shopify/shopify/shopify-cli", link: false
+cask "alacritty"
 cask "alfred"
 cask "appcleaner"
 cask "authy"
