@@ -11,27 +11,9 @@
 ## zsh
 !/.zshrc
 
-## IntelliJ IDEA
-!/.ideavimrc
-
-## Homebrew
-!/Brewfile
-
-## etc
-!/.bin/
-!/.bin/**
-
-## Karabiner-Elements
-!/karabiner.json
-
-## Vim
-!/.vimrc
-!/.gvimrc
-
 ## git
 !/.github/
 !/.github/**
-!/.commit_template
 !/.gitconfig
 !/.gitignore
 !/.gitignore_global
@@ -40,3 +22,4 @@
 
 !/.czrc
 !/package.json
+!/yarn.lock

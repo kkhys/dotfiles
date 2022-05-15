@@ -1,7 +1,0 @@
-set surround
-set clipboard=unnamedplus
-set smartcase
-set incsearch
-set hlsearch
-set timeout
-set timeoutlen=1000
