@@ -37,3 +37,6 @@
 !/.gitignore_global
 !/LICENSE
 !/README.md
+
+!/.czrc
+!/package.json
