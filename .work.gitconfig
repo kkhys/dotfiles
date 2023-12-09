@@ -1,0 +1,10 @@
+[user]
+    name = kkhys2
+    email = keisuke.hayashi@state-of-mind.co.jp
+    signingkey = C48918C3C75CF91C56DEBD7E15337C322E8D8E5F
+
+[github]
+    user = kkhys2
+
+[url "github_work"]
+    insteadOf = git@github.com
