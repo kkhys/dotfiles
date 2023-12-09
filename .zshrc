@@ -1,50 +1,54 @@
 # alias
 alias ..='cd ..'
+alias ...='cd ../..'
 alias l='less'
-alias la='ls -aF --color=auto'
-alias lla='ls -alF --color=auto'
-alias lal='ls -alF --color=auto'
-alias ls='ls --color=auto'
-alias ll='ls -l --color=auto'
-alias l.='ls -d .[a-zA-Z]* --color=auto'
-alias v="vim"
+alias ls='exa'
+alias la='ls -aF'
+alias ll='ls -l'
+alias lla='ls -alF'
+alias l.='ls -d .[a-zA-Z]*'
+alias v="nvim"
 alias g="git"
+alias dc='docker compose'
+alias de='docker exec'
+alias t='tmux'
+alias pn='pnpm'
 
-# zsh-syntax-highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+function peco_history_selection() {
+  BUFFER=`history -n 1 | tac | awk '!a[$0]++' | peco`
+  CURSOR=$#BUFFER
+  zle reset-prompt
+}
+zle -N peco_history_selection
+bindkey '^R' peco_history_selection
 
-# zsh-autosuggestious
-if type brew &>/dev/null; then
-    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
-    autoload -Uz compinit
-    compinit
+function find_cd() {
+  local selected_dir=$(find . -type d | peco)
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
   fi
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+}
+zle -N find_cd
+bindkey '^X' find_cd
 
-# anyenv
-eval "$(anyenv init -)"
+HISTFILE=$ZDOTDIR/.zsh-history
+HISTSIZE=2000
+SAVEHIST=2000
 
-# hub
-function git(){hub "$@"}
+setopt inc_append_history
+setopt share_history
+setopt AUTO_CD
+setopt AUTO_PARAM_KEYS
 
-# coreutils
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Golang
-export GOPATH=$HOME
-export PATH=$PATH:$GOPATH/bin
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
-# wakatime
-export PATH="/usr/local/bin/wakatime:$PATH"
+export LC_ALL=ja_JP.UTF-8
+export LANG=ja_JP.UTF-8
+export BAT_THEME="base16"
 
-# fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
-
-# SDKMAN!
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/Users/kh/.sdkman"
-[[ -s "/Users/kh/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/kh/.sdkman/bin/sdkman-init.sh"
-export PATH="/usr/local/sbin:$PATH"
+eval "$(sheldon source)"

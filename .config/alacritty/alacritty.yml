@@ -1,48 +1,78 @@
-shell:
-  program: /usr/local/bin/fish
-  args:
-    - --login
-    - --command
-    - "tmux attach || tmux"
-# テーマ
-colors:
-  primary:
-    background: '#32302f'
-    foreground: '#ebdbb2'
-  normal:
-    black: '#282828'
-    red: '#cc241d'
-    green: '#98971a'
-    yellow: '#d79921'
-    blue: '#458588'
-    magenta: '#b16286'
-    cyan: '#689d6a'
-    white: '#a89984'
-  bright:
-    black: '#928374'
-    red: '#fb4934'
-    green: '#b8bb26'
-    yellow: '#fabd2f'
-    blue: '#83a598'
-    magenta: '#d3869b'
-    cyan: '#8ec07c'
-    white: '#ebdbb2'
-# フォント
+window:
+  dynamic_title: true
+  dimensions:
+    columns: 150
+    lines: 40
+  opacity: 0.95
+  padding:
+    x: 5
+    y: 0
+  decorations: full
+
+draw_bold_text_with_bright_colors: true
+
+cursor:
+  style:
+    shape: Block #(Block, Underline, Beam)
+    blinking: Always
+  unfocused_hollow: true
+  blink_interval: 400
+
+scrolling:
+  history: 10000
+
+env:
+  TERM: xterm-256color
+
+live_config_reload: true
+
 font:
-  size: 12  # フォントサイズ
   normal:
-    family: 'Menlo'
+    family: JetBrains Mono
     style: Regular
   bold:
-    family: 'Menlo'
+    family: JetBrains Mono
     style: Bold
   italic:
-    family: 'Menlo'
+    family: JetBrains Mono
     style: Italic
-  bold_italic:
-    family: 'Menlo'
-    style: Bold Italic
-window:
-  decorations: full         # ボーダーとタイトルバーを表示する
-  startup_mode: Fullscreen  # フルスクリーンで起動する
-background_opacity: 0.95    # 背景を透過させる
+  size: 13.0
+  offset:
+    x: 0
+    y: 5
+  glyph_offset:
+    x: 0
+    y: 0
+
+colors:
+  primary:
+    background: '0x0d1117'
+    foreground: '0xc9d1d9'
+  cursor:
+    text: '0x0d1117'
+    cursor: '0xc9d1d9'
+  normal:
+    black: '0x484f58'
+    red: '0xec8e2c'
+    green: '0x58a6ff'
+    yellow: '0xd29922'
+    blue: '0x58a6ff'
+    magenta: '0xbc8cff'
+    cyan: '0x39c5cf'
+    white: '0xb1bac4'
+  bright:
+    black: '0x6e7681'
+    red: '0xfdac54'
+    green: '0x79c0ff'
+    yellow: '0xe3b341'
+    blue: '0x79c0ff'
+    magenta: '0xbc8cff'
+    cyan: '0x39c5cf'
+    white: '0xb1bac4'
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "/opt/homebrew/bin/tmux a -t 0 || /opt/homebrew/bin/tmux -u"
