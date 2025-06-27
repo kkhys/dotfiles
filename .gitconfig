@@ -60,8 +60,5 @@
 [url "https://"]
     insteadOf = git://
 
-[includeIf "gitdir:~/projects/work/"]
-    path = ~/.work.gitconfig
-
 [includeIf "gitdir:~/projects/private/"]
     path = ~/.private.gitconfig
