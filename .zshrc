@@ -15,6 +15,7 @@ alias de='docker exec'
 alias pn='pnpm'
 alias b='bun'
 alias cl='claude'
+alias yolo='claude --dangerously-skip-permissions'
 
 HISTFILE=$ZDOTDIR/.zsh-history
 HISTSIZE=2000
