@@ -14,6 +14,7 @@ alias dc='docker compose'
 alias de='docker exec'
 alias pn='pnpm'
 alias b='bun'
+alias cl='claude'
 
 HISTFILE=$ZDOTDIR/.zsh-history
 HISTSIZE=2000
