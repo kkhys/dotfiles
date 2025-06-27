@@ -27,7 +27,6 @@ setopt AUTO_PARAM_KEYS
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
 
-
 # bun completions
 [ -s "/Users/kkhys/.bun/_bun" ] && source "/Users/kkhys/.bun/_bun"
 
