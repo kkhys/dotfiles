@@ -1,64 +1,64 @@
 [commit]
-    gpgsign = true
+	gpgsign = true
 
 [color]
-    status = auto
-    diff = auto
-    branch = auto
-    interactive = auto
-    grep = auto
-    ui = auto
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+	ui = auto
 
 [alias]
-    a = "!git status --short | peco | awk '{print $2}' | xargs git add"
-    d = diff
-    co = checkout
-    ci = commit
-    ca = commit -a
-    ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
-    pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
-    st = status
-    br = branch
-    ba = branch -a
-    bm = branch --merged
-    bn = branch --no-merged
-    df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}"
-    hist = log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
-    llog = log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
-    open = "!hub browse"
-    type = cat-file -t
-    dump = cat-file -p
-    find = "!f() { git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S'pretty' -S\"$@\" | peco | awk '{print $1}' | xargs -I {} git diff {}^ {}; }; f"
+	a = "!git status --short | peco | awk '{print $2}' | xargs git add"
+	d = diff
+	co = checkout
+	ci = commit
+	ca = commit -a
+	ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+	pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+	st = status
+	br = branch
+	ba = branch -a
+	bm = branch --merged
+	bn = branch --no-merged
+	df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}"
+	hist = log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
+	llog = log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
+	open = "!hub browse"
+	type = cat-file -t
+	dump = cat-file -p
+	find = "!f() { git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S'pretty' -S\"$@\" | peco | awk '{print $1}' | xargs -I {} git diff {}^ {}; }; f"
 
 [core]
-    quotepath = false
-    autocrlf = false
-    ignorecase = false
+	quotepath = false
+	autocrlf = input
+	ignorecase = false
 
 [credential]
-    helper = osxkeychain
+	helper = osxkeychain
 
 [push]
-    default = current
+	default = current
 
 [pull]
-    ff = only
-    rebase = false
+	ff = only
+	rebase = false
 
 [merge]
-    ff = false
+	ff = false
 
 [gpg]
-    program = /opt/homebrew/bin/gpg
+	program = /opt/homebrew/bin/gpg
 
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 
 [url "https://"]
-    insteadOf = git://
+	insteadOf = git://
 
 [includeIf "gitdir:~/projects/private/"]
-    path = ~/.private.gitconfig
+	path = ~/.private_gitconfig
