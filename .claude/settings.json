@@ -1,5 +1,26 @@
 {
-  "theme": "dark",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Hero.aiff"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Bash(npm:*)",
@@ -318,6 +339,5 @@
   },
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
-  },
-  "preferredNotifChannel": "terminal_bell"
+  }
 }
