@@ -1,316 +1,316 @@
-# CLAUDE.md - Claude Code グローバル設定
+# CLAUDE.md - Claude Code Global Configuration
 
-このファイルは、すべてのプロジェクトで Claude Code (claude.ai/code) が作業する際のガイダンスを提供します。
+This file provides guidance for Claude Code (claude.ai/code) when working on all projects.
 
-## 概要
+## Overview
 
-これは私の Claude Code のグローバル設定（~/.claude）で、以下を設定します：
+This is my Claude Code global configuration (~/.claude) that sets up:
 
-- プロフェッショナルな開発標準とワークフロー
-- 言語固有のベストプラクティス（TypeScript、Bash）
-- ツール使用の許可ルール
-- 開発用環境変数
-- セッション履歴と TODO 管理
+- Professional development standards and workflows
+- Language-specific best practices (TypeScript, Bash)
+- Tool usage permission rules
+- Development environment variables
+- Session history and TODO management
 
-## 大前提
+## Core Premise
 
-- 常に日本語で会話する
+- Always communicate in English
 
-## 先回りする AI アシスタンス
+## Proactive AI Assistance
 
-### 必須事項：常に改善提案を行う
+### Essential Requirement: Always Provide Improvement Suggestions
 
-すべてのやり取りで、エンジニアの時間を節約するための先回りした提案を含める必要があります。
+Every interaction must include proactive suggestions to save engineer time.
 
-#### パターン認識
+#### Pattern Recognition
 
-- 繰り返しコードパターンを特定し、抽象化を提案
-- 重要になる前にパフォーマンスのボトルネックを検出
-- エラーハンドリングの不備を認識し、追加を提案
-- 並列化やキャッシュの機会を発見
+- Identify repetitive code patterns and suggest abstractions
+- Detect performance bottlenecks before they become critical
+- Recognize missing error handling and suggest additions
+- Discover opportunities for parallelization and caching
 
-#### コード品質の改善
+#### Code Quality Improvements
 
-- より慣用的な言語アプローチを提案
-- プロジェクトニーズに基づいたより良いライブラリ選択を推奨
-- パターンが現れた時のアーキテクチャ改善を提案
-- 技術的負債を特定し、リファクタリング計画を提案
+- Suggest more idiomatic language approaches
+- Recommend better library choices based on project needs
+- Propose architectural improvements when patterns emerge
+- Identify technical debt and suggest refactoring plans
 
-#### 時間節約の自動化
+#### Time-Saving Automation
 
-- 観察された反復タスクのスクリプト作成
-- 完全なドキュメント付きボイラープレートコード生成
-- 一般的なワークフロー用 GitHub Actions 設定
-- プロジェクト固有ニーズのカスタム CLI ツール構築
+- Script creation for observed repetitive tasks
+- Complete boilerplate code generation with full documentation
+- GitHub Actions setup for common workflows
+- Custom CLI tool construction for project-specific needs
 
-#### ドキュメント生成
+#### Documentation Generation
 
-- 包括的ドキュメントの自動生成（JSDoc）
-- コードからの API ドキュメント作成
-- README セクションの自動生成
-- アーキテクチャ決定記録（ADR）の維持
+- Automatic generation of comprehensive documentation (JSDoc)
+- API documentation creation from code
+- Automatic README section generation
+- Maintenance of Architecture Decision Records (ADRs)
 
-### 先回り提案フォーマット
+### Proactive Suggestion Format
 
 ```
-**改善提案**: [簡潔なタイトル]
-**時間節約**: 発生ごとに約 X 分
-**実装**: [クイックコマンドまたはコードスニペット]
-**利点**: [これがコードベースを改善する理由]
+**Improvement Suggestion**: [Concise Title]
+**Time Saved**: ~X minutes per occurrence
+**Implementation**: [Quick command or code snippet]
+**Benefits**: [Why this improves the codebase]
 ```
 
-## 開発哲学
+## Development Philosophy
 
-### 核となる原則
+### Core Principles
 
-- **エンジニア時間は貴重** - 可能な限りすべてを自動化
-- **官僚主義なしの品質** - プロセスよりもスマートなデフォルト
-- **先回りした支援** - 求められる前に改善を提案
-- **自己文書化コード** - ドキュメントを自動生成
-- **継続的改善** - パターンから学習し最適化
+- **Engineer time is precious** - Automate everything possible
+- **Quality without bureaucracy** - Smart defaults over process
+- **Proactive assistance** - Suggest improvements before being asked
+- **Self-documenting code** - Generate documentation automatically
+- **Continuous improvement** - Learn from patterns and optimize
 
-## AI アシスタントガイドライン
+## AI Assistant Guidelines
 
-### 効率的なプロフェッショナルワークフロー
+### Efficient Professional Workflow
 
-時間節約の自動化を伴うスマートな探索-計画-コード-コミット
+Smart explore-plan-code-commit with time-saving automation
 
-#### 1. 探索フェーズ（自動化）
+#### 1. Exploration Phase (Automated)
 
-- AI を使用してコードベースを迅速にスキャンし要約
-- 依存関係と影響範囲を自動特定
-- 依存関係グラフを自動生成
-- 実行可能なインサイトで結果を簡潔に提示
+- Use AI to rapidly scan and summarize codebase
+- Automatically identify dependencies and impact scope
+- Auto-generate dependency graphs
+- Present results concisely with actionable insights
 
-#### 2. 計画フェーズ（AI 支援）
+#### 2. Planning Phase (AI-Assisted)
 
-- 複数の実装アプローチを生成
-- 要件からテストシナリオを自動作成
-- パターン分析を使用して潜在的問題を予測
-- 各アプローチの時間見積もりを提供
+- Generate multiple implementation approaches
+- Auto-create test scenarios from requirements
+- Use pattern analysis to predict potential issues
+- Provide time estimates for each approach
 
-#### 3. コードフェーズ（加速）
+#### 3. Code Phase (Accelerated)
 
-- 完全なドキュメント付きボイラープレート生成
-- 反復パターンの自動補完
-- リアルタイムエラー検出と修正
-- 独立コンポーネントの並列実装
-- 複雑なロジックを説明する包括的コメントの自動生成
+- Generate complete boilerplate with full documentation
+- Auto-complete repetitive patterns
+- Real-time error detection and correction
+- Parallel implementation of independent components
+- Auto-generate comprehensive comments explaining complex logic
 
-#### 4. コミットフェーズ（自動化）
+#### 4. Commit Phase (Automated)
 
 ```bash
-# 言語固有の品質チェック
+# Language-specific quality checks
 npm run precommit  # TypeScript
 ```
 
-### ドキュメント&コード品質要件
+### Documentation & Code Quality Requirements
 
-- **YOU MUST**: すべての関数に包括的なドキュメントを生成
-- **YOU MUST**: ビジネスロジックを説明する明確なコメントを追加
-- **YOU MUST**: ドキュメントに例を作成
-- **YOU MUST**: すべてのリンティング/フォーマット問題を自動修正
-- **YOU MUST**: 新しいコードに単体テストを生成
+- **YOU MUST**: Generate comprehensive documentation for all functions
+- **YOU MUST**: Add clear comments explaining business logic
+- **YOU MUST**: Create examples in documentation
+- **YOU MUST**: Auto-fix all linting/formatting issues
+- **YOU MUST**: Generate unit tests for new code
 
-## TypeScript 開発
+## TypeScript Development
 
-### 核となるルール
+### Core Rules
 
-- **パッケージマネージャー**: pnpm > npm > yarn
-- **型安全性**: tsconfig.json で strict: true
-- **Null ハンドリング**: オプショナルチェーン ?. と null 合体演算子 ?? を使用
-- **インポート**: ES モジュールを使用、require() を避ける
+- **Package Manager**: pnpm > npm > yarn
+- **Type Safety**: strict: true in tsconfig.json
+- **Null Handling**: Use optional chaining ?. and nullish coalescing ??
+- **Imports**: Use ES modules, avoid require()
 
-### コード品質ツール
+### Code Quality Tools
 
 ```bash
-# prettier と ESLint を使っている場合
-# コードフォーマット
+# When using prettier and ESLint
+# Code formatting
 npx prettier --write .
 
-# コードリント
+# Code linting
 npx eslint . --fix
 
-# Biome を使っている場合
-# Biome でコードフォーマットとリント
+# When using Biome
+# Biome code formatting and linting
 npx @biomejs/biome check --write .
 
-# 型チェック
+# Type checking
 npx tsc --noEmit
 
-# テスト実行
+# Test execution
 npm test -- --coverage
 
-# バンドル分析
+# Bundle analysis
 npx webpack-bundle-analyzer
 ```
 
-### ドキュメントテンプレート（TypeScript）
+### Documentation Template (TypeScript)
 
 ```typescript
 /**
- * 関数が何を行うかの簡潔な説明
+ * Brief description of what the function does
  * 
- * @description ビジネスロジックと目的の詳細な説明
- * @param paramName - このパラメーターが何を表すか
- * @returns 関数が何を返すかとその理由
- * @throws {ErrorType} このエラーが発生する時
+ * @description Detailed explanation of business logic and purpose
+ * @param paramName - What this parameter represents
+ * @returns What the function returns and why
+ * @throws {ErrorType} When this error occurs
  * @example
  * ```typescript
- * // 使用例
+ * // Usage example
  * const result = functionName({ key: 'value' });
- * console.log(result); // 期待される出力
+ * console.log(result); // Expected output
  * ```
- * @see {@link RelatedFunction} 関連機能について
+ * @see {@link RelatedFunction} For related functionality
  * @since 1.0.0
 */
   export function functionName(paramName: ParamType): ReturnType {
-  // 実装
+  // Implementation
   }
 ```
 
-### ベストプラクティス
-- **型推論**: 明らかな場合は TypeScript に推論させる
-- **ジェネリクス**: 再利用可能なコンポーネントに使用
-- **ユニオン型**: 文字列リテラルには enum よりも優先
-- **ユーティリティ型**: 組み込み型（Partial、Pick、Omit）を使用
+### Best Practices
+- **Type Inference**: Let TypeScript infer when obvious
+- **Generics**: Use for reusable components
+- **Union Types**: Prefer over enums for string literals
+- **Utility Types**: Use built-in types (Partial, Pick, Omit)
 
-## Bash 開発
+## Bash Development
 
-### 核となるルール
-- **シバン**: 常に `#!/usr/bin/env bash`
-- **オプション設定**: `set -euo pipefail` を使用
-- **クォート**: 常に変数をクォート `"${var}"`
-- **関数**: ローカル変数を使用
+### Core Rules
+- **Shebang**: Always use `#!/usr/bin/env bash`
+- **Options**: Use `set -euo pipefail`
+- **Quoting**: Always quote variables `"${var}"`
+- **Functions**: Use local variables
 
-### ベストプラクティス
+### Best Practices
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
-# グローバル変数は大文字
+# Global variables in uppercase
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
 
-# 関数ドキュメント
-# 使用法: function_name <arg1> <arg2>
-# 説明: この関数が何を行うか
-# 戻り値: 成功時 0、エラー時 1
+# Function documentation
+# Usage: function_name <arg1> <arg2>
+# Description: What this function does
+# Returns: 0 on success, 1 on error
 function_name() {
     local arg1="${1:?Error: arg1 required}"
     local arg2="${2:-default}"
     
-    # 実装
+    # Implementation
 }
 
-# エラーハンドリング
+# Error handling
 trap 'echo "Error on line $LINENO"' ERR
 ```
 
-## セキュリティと品質標準
+## Security and Quality Standards
 
-### 禁止ルール（非交渉）
-- **NEVER**: 明示的な確認なしに本番データを削除
-- **NEVER**: API キー、パスワード、シークレットをハードコード
-- **NEVER**: テストやリンティングエラーがあるコードをコミット
-- **NEVER**: main/master ブランチに直接プッシュ
-- **NEVER**: 認証/認可コードのセキュリティレビューをスキップ
-- **NEVER**: TypeScript 本番コードで any 型を使用
+### Forbidden Rules (Non-negotiable)
+- **NEVER**: Delete production data without explicit confirmation
+- **NEVER**: Hardcode API keys, passwords, secrets
+- **NEVER**: Commit code with test or linting errors
+- **NEVER**: Push directly to main/master branch
+- **NEVER**: Skip security review for auth/authorization code
+- **NEVER**: Use any type in production TypeScript code
 
-### 必須ルール（必要な標準）
-- **YOU MUST**: 新機能とバグ修正にテストを書く
-- **YOU MUST**: タスク完了前に CI/CD チェックを実行
-- **YOU MUST**: リリースにセマンティックバージョニングを使用
-- **YOU MUST**: 破壊的変更を文書化
-- **YOU MUST**: すべての開発にフィーチャーブランチを使用
-- **YOU MUST**: すべてのパブリック API に包括的なドキュメントを追加
+### Required Rules (Necessary Standards)
+- **YOU MUST**: Write tests for new features and bug fixes
+- **YOU MUST**: Run CI/CD checks before task completion
+- **YOU MUST**: Use semantic versioning for releases
+- **YOU MUST**: Document breaking changes
+- **YOU MUST**: Use feature branches for all development
+- **YOU MUST**: Add comprehensive documentation to all public APIs
 
-## Git Worktree ワークフロー
+## Git Worktree Workflow
 
-### Git Worktree を使う理由
+### Why Use Git Worktree
 
-Git worktree は、スタッシュやコンテキスト切り替えなしに複数のブランチで同時に作業できます。各 worktree は独自のブランチを持つ独立した作業ディレクトリです。
+Git worktree allows working on multiple branches simultaneously without stashing or context switching. Each worktree is an independent working directory with its own branch.
 
-### Worktree の設定
+### Worktree Setup
 
 ```bash
-# フィーチャー開発用 worktree 作成
+# Create worktree for feature development
 git worktree add ../project-feature-auth feature/user-authentication
 
-# バグ修正用 worktree 作成
+# Create worktree for bug fixes
 git worktree add ../project-bugfix-api hotfix/api-validation
 
-# 実験用 worktree 作成
+# Create worktree for experiments
 git worktree add ../project-experiment-new-ui experiment/react-19-upgrade
 ```
 
-### Worktree 命名規則
+### Worktree Naming Convention
 
 ```
 ../project-<type>-<description>
 ```
 
-タイプ: feature、bugfix、hotfix、experiment、refactor
+Types: feature, bugfix, hotfix, experiment, refactor
 
-### Worktree の管理
+### Worktree Management
 
 ```bash
-# すべての worktree をリスト
+# List all worktrees
 git worktree list
 
-# マージ後に worktree を削除
+# Remove worktree after merge
 git worktree remove ../project-feature-auth
 
-# 古い worktree 情報をプルーン
+# Prune old worktree information
 git worktree prune
 ```
 
-## AI の力を最大限活かしたコードレビュー
+## AI-Powered Code Review at Maximum Efficiency
 
-### 継続的分析
+### Continuous Analysis
 
-AI はコードを継続的に分析し、改善を提案する必要があります。
+AI must continuously analyze code and suggest improvements.
 
 ```
-コード分析結果:
-- パフォーマンス: 3つの最適化機会を発見
-- セキュリティ: 問題なし
-- 保守性: 2つのメソッド抽出を提案
-- テストカバレッジ: 85% → 3つの追加テストケースを提案
-- ドキュメント: 2つの関数に適切なドキュメントが不足
+Code Analysis Results:
+- Performance: 3 optimization opportunities discovered
+- Security: No issues found
+- Maintainability: 2 method extractions suggested
+- Test Coverage: 85% → 3 additional test cases suggested
+- Documentation: 2 functions lack proper documentation
 ```
 
-## コミット標準
+## Commit Standards
 
-### 従来型コミット
+### Conventional Commits
 
 ```bash
-# フォーマット: <type>(<scope>): <subject>
-git commit -m "feat(auth): JWT トークンリフレッシュを追加"
-git commit -m "fix(api): null レスポンスを正しくハンドリング"
-git commit -m "docs(readme): インストール手順を更新"
-git commit -m "perf(db): クエリパフォーマンスを最適化"
-git commit -m "refactor(core): バリデーションロジックを抽出"
+# Format: <type>(<scope>): <subject>
+git commit -m "feat(auth): add JWT token refresh"
+git commit -m "fix(api): handle null responses correctly"
+git commit -m "docs(readme): update installation instructions"
+git commit -m "perf(db): optimize query performance"
+git commit -m "refactor(core): extract validation logic"
 ```
 
-### コミットトレーラー
+### Commit Trailers
 
 ```bash
-# ユーザーレポートに基づくバグ修正
+# Bug fix based on user report
 git commit --trailer "Reported-by: John Doe"
 
-# GitHub イシュー
+# GitHub issue
 git commit --trailer "Github-Issue: #123"
 ```
 
-### PR ガイドライン
+### PR Guidelines
 
-- 高レベルの問題と解決策に焦点を当てる
-- 使用されたツールには言及しない（co-authored-by なし）
-- 設定された特定のレビュアーを追加
-- 関連する場合はパフォーマンスへの影響を含める
+- Focus on high-level problems and solutions
+- Don't mention tools used (no co-authored-by)
+- Add specific reviewers if configured
+- Include performance impact when relevant
 
 ---
 
-**覚えておくこと**: エンジニアの時間は金なり - すべてを自動化し、包括的に文書化し、先回りして改善を提案する。すべてのやり取りで時間を節約し、コード品質を向上させる必要があります。
+**Remember**: Engineer time is money - automate everything, document comprehensively, and suggest improvements proactively. Every interaction must save time and improve code quality.
