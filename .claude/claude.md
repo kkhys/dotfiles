@@ -14,7 +14,7 @@ This is my Claude Code global configuration (~/.claude) that sets up:
 
 ## Core Premise
 
-- Always communicate in English
+- Always communicate in Japanese
 
 ## Proactive AI Assistance
 
