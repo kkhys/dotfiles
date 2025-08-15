@@ -11,7 +11,6 @@ set -euo pipefail
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SCRIPT_NAME="$(basename "${BASH_SOURCE[0]}")"
 
-# Files to synchronize
 readonly SYNC_FILES=(
     ".zshrc"
     ".gitconfig"
@@ -23,14 +22,12 @@ readonly SYNC_FILES=(
     ".config/github-copilot/intellij/mcp.json"
 )
 
-# Color output
 readonly RED='\033[0;31m'
 readonly GREEN='\033[0;32m'
 readonly YELLOW='\033[1;33m'
 readonly BLUE='\033[0;34m'
 readonly NC='\033[0m' # No Color
 
-# Display usage information
 usage() {
     cat <<EOF
 ${SCRIPT_NAME} - dotfiles synchronization tool
@@ -51,7 +48,6 @@ Examples:
 EOF
 }
 
-# Logging functions
 log_info() {
     echo -e "${BLUE}[INFO]${NC} $1"
 }
@@ -68,7 +64,6 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# Check if file exists
 check_file_exists() {
     local file_path="$1"
     if [[ ! -f "$file_path" ]]; then
@@ -78,11 +73,10 @@ check_file_exists() {
     return 0
 }
 
-# Ensure directory exists
 ensure_directory() {
     local file_path="$1"
     local dir_path="$(dirname "$file_path")"
-    
+
     if [[ ! -d "$dir_path" ]]; then
         mkdir -p "$dir_path"
         log_info "Created directory: $dir_path"
@@ -90,7 +84,6 @@ ensure_directory() {
 }
 
 
-# Show differences
 show_diff() {
     local home_file="$1"
     local repo_file="$2"
@@ -117,7 +110,6 @@ show_diff() {
     fi
 }
 
-# Check status
 check_status() {
     log_info "Checking dotfiles synchronization status..."
 
@@ -150,7 +142,6 @@ check_status() {
     fi
 }
 
-# Sync from home to repository
 sync_from_home() {
     log_info "Syncing from home directory to repository..."
 
@@ -159,9 +150,7 @@ sync_from_home() {
         local repo_file="$SCRIPT_DIR/$file"
 
         if check_file_exists "$home_file"; then
-            # Ensure target directory exists
             ensure_directory "$repo_file"
-            # Execute copy
             cp "$home_file" "$repo_file"
             log_success "Synced: $file"
         else
@@ -178,7 +167,6 @@ sync_from_home() {
     log_info "To commit changes: git add . && git commit -m \"sync: update dotfiles from home\""
 }
 
-# Sync from repository to home
 sync_to_home() {
     log_info "Syncing from repository to home directory..."
 
@@ -187,9 +175,7 @@ sync_to_home() {
         local repo_file="$SCRIPT_DIR/$file"
 
         if check_file_exists "$repo_file"; then
-            # Ensure target directory exists
             ensure_directory "$home_file"
-            # Execute copy
             cp "$repo_file" "$home_file"
             log_success "Synced: $file"
         else
@@ -202,7 +188,6 @@ sync_to_home() {
     log_info "To apply settings: exec $SHELL (or open a new terminal)"
 }
 
-# Main function
 main() {
     local command="${1:-status}"
 
@@ -228,8 +213,6 @@ main() {
     esac
 }
 
-# Error handling during script execution
 trap 'log_error "An error occurred during script execution (line $LINENO)"' ERR
 
-# Execute main function
 main "$@"
