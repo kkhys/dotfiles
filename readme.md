@@ -17,7 +17,7 @@ This repository contains the following configurations:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/kkhys/dotfiles.git ~/projects/private/dotfiles
+git clone https://github.com/kkhys/dotfiles.git
 
 cd dotfiles
 ```
