@@ -16,6 +16,11 @@ readonly SYNC_FILES=(
     ".zshrc"
     ".gitconfig"
     ".Brewfile"
+    ".claude/claude.md"
+    ".config/git/ignore"
+    ".config/github-copilot/intellij/global-copilot-instructions.md"
+    ".config/github-copilot/intellij/global-git-commit-instructions.md"
+    ".config/github-copilot/intellij/mcp.json"
 )
 
 # Color output
@@ -71,6 +76,17 @@ check_file_exists() {
         return 1
     fi
     return 0
+}
+
+# Ensure directory exists
+ensure_directory() {
+    local file_path="$1"
+    local dir_path="$(dirname "$file_path")"
+    
+    if [[ ! -d "$dir_path" ]]; then
+        mkdir -p "$dir_path"
+        log_info "Created directory: $dir_path"
+    fi
 }
 
 
@@ -143,6 +159,8 @@ sync_from_home() {
         local repo_file="$SCRIPT_DIR/$file"
 
         if check_file_exists "$home_file"; then
+            # Ensure target directory exists
+            ensure_directory "$repo_file"
             # Execute copy
             cp "$home_file" "$repo_file"
             log_success "Synced: $file"
@@ -169,6 +187,8 @@ sync_to_home() {
         local repo_file="$SCRIPT_DIR/$file"
 
         if check_file_exists "$repo_file"; then
+            # Ensure target directory exists
+            ensure_directory "$home_file"
             # Execute copy
             cp "$repo_file" "$home_file"
             log_success "Synced: $file"
