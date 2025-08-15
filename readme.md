@@ -74,6 +74,11 @@ The `sync.sh` script automates configuration file synchronization:
 - `.zshrc` - Shell configuration
 - `.gitconfig` - Git configuration
 - `.Brewfile` - Package management
+- `.claude/claude.md` - Claude Code configuration
+- `.config/git/ignore` - Global Git ignore patterns
+- `.config/github-copilot/intellij/global-copilot-instructions.md` - GitHub Copilot instructions
+- `.config/github-copilot/intellij/global-git-commit-instructions.md` - Git commit guidelines
+- `.config/github-copilot/intellij/mcp.json` - MCP server configuration
 
 ## Daily Usage
 
