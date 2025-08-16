@@ -20,6 +20,8 @@ readonly SYNC_FILES=(
     ".config/github-copilot/intellij/global-copilot-instructions.md"
     ".config/github-copilot/intellij/global-git-commit-instructions.md"
     ".config/github-copilot/intellij/mcp.json"
+    ".config/karabiner/karabiner.json"
+    ".gnupg/gpg-agent.conf"
 )
 
 readonly RED='\033[0;31m'
