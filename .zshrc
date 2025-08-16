@@ -28,3 +28,5 @@ setopt HIST_REDUCE_BLANKS
 
 export LANG=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
+
+export PATH="/opt/homebrew/bin:$PATH"
