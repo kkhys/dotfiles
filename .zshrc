@@ -1,4 +1,3 @@
-# alias
 alias ..='cd ..'
 alias ...='cd ../..'
 alias l='less'
