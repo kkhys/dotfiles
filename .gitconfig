@@ -24,6 +24,7 @@
 	bm = branch --merged
 	bn = branch --no-merged
 	open = "!gh repo view --web"
+	us = reset --soft HEAD^
 
 [credential]
 	helper = osxkeychain
