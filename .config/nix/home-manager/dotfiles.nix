@@ -10,6 +10,7 @@ in
     "zed/settings.json".source = mkLink ".config/zed/settings.json";
     "git".source = mkLink ".config/git";
     "karabiner".source = mkLink ".config/karabiner";
+    "mise".source = mkLink ".config/mise";
   };
 
   # Files under ~/

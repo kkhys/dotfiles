@@ -27,5 +27,7 @@
     # JavaScript/TypeScript Runtime
     deno
     bun
+    
+    mise
   ];
 }
