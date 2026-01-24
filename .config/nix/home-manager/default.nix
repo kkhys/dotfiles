@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, hostSpec, ... }:
 
 {
   imports = [
@@ -7,8 +7,8 @@
     ./zsh.nix
   ];
 
-  home.username = config.hostSpec.username;
-  home.homeDirectory = lib.mkForce "/Users/${config.hostSpec.username}";
+  home.username = hostSpec.username;
+  home.homeDirectory = lib.mkForce "/Users/${hostSpec.username}";
   home.stateVersion = "24.11";
 
   programs.home-manager.enable = true;
