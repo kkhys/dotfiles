@@ -14,7 +14,7 @@ in
 
   # Files under ~/
   home.file = {
-    # ".gitconfig".source = mkLink ".gitconfig";
     # Note: .zshrc is managed by programs.zsh, not symlinked
+    ".gitconfig".source = mkLink ".gitconfig";
   };
 }
