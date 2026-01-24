@@ -1,12 +1,24 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
+  imports = [
+    ./homebrew.nix
+    ./homebrew-work.nix
+    ./homebrew-personal.nix
   ];
 
-  programs.zsh.shellAliases = {
-  };
+  environment.systemPackages = with pkgs; [
+    git
+    vim
+  ];
 
-  home.sessionVariables = {
+  nix.gc = {
+    automatic = true;
+    interval = {
+      Weekday = 0;
+      Hour = 2;
+      Minute = 0;
+    };
+    options = "--delete-older-than 30d";
   };
 }
