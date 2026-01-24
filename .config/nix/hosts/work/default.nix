@@ -7,12 +7,22 @@
     isWork = true;
   };
 
-  home.packages = with pkgs; [
-  ];
+  networking.hostName = config.hostSpec.hostName;
+  system.primaryUser = config.hostSpec.username;
 
-  programs.zsh.shellAliases = {
+  users.users.${config.hostSpec.username} = {
+    name = config.hostSpec.username;
+    home = "/Users/${config.hostSpec.username}";
   };
 
-  home.sessionVariables = {
+  environment.systemPackages = with pkgs; [
+  ];
+
+  home-manager.users.${config.hostSpec.username} = {
+    programs.zsh.shellAliases = {
+      dr = "darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#work";
+      drb = "darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#work";
+      drc = "darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#work";
+    };
   };
 }
