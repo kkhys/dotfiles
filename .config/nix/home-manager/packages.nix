@@ -2,12 +2,30 @@
 
 {
   home.packages = with pkgs; [
-    # Git & Tools
-    # git
-    # gh
-    # gibo
+    # Git Tools
+    git
+    gh
+    gibo
+    lefthook
+
+    # Security
+    gnupg
+    pinentry_mac
+
+    # Development Tools
+    uv
 
     # Editor
-    # vim
+    vim
+
+    # Terminal Tools
+    zellij
+
+    # Data Processing
+    jq
+
+    # JavaScript/TypeScript Runtime
+    deno
+    bun
   ];
 }
