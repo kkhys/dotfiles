@@ -11,7 +11,7 @@ in
     # "zed".source = mkLink ".config/zed";
     "git".source = mkLink ".config/git";
     # "github-copilot".source = mkLink ".config/github-copilot";
-    # "karabiner".source = mkLink ".config/karabiner";
+    "karabiner".source = mkLink ".config/karabiner";
   };
 
   # Files under ~/
