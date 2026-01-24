@@ -49,9 +49,6 @@
 
       # Terminal
       z = "zellij";
-
-      # Nix
-      hm = "home-manager --flake ~/projects/dotfiles/.config/nix#kkhys";
     };
 
     # Environment variables (.zshenv)

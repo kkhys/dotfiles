@@ -1,7 +1,6 @@
 { lib, pkgs, config, ... }:
 
 {
-  # Import modules
   imports = [
     ./dotfiles.nix
     ./packages.nix
