@@ -7,10 +7,8 @@ in
 {
   # Files under ~/.config/
   xdg.configFile = {
-    # Editor and tools
-    # "zed".source = mkLink ".config/zed";
+    "zed/settings.json".source = mkLink ".config/zed/settings.json";
     "git".source = mkLink ".config/git";
-    # "github-copilot".source = mkLink ".config/github-copilot";
     "karabiner".source = mkLink ".config/karabiner";
   };
 
