@@ -11,6 +11,11 @@ This repository contains the following configurations:
 - **Package management** (`.Brewfile`) - Homebrew packages, VSCode extensions
 - **Claude Code configuration** (`.claude/`) - development AI settings
 - **Other configurations** (`.config/`) - application-specific settings
+- **Nix configuration** (`nix/`, `flake.nix`) - declarative system and user environment management
+
+## 🚀 Quick Start
+
+### Option A: 従来の管理（sync.sh）
 
 ## Setup
 
@@ -136,6 +141,10 @@ rm ~/.zshrc && ./sync.sh to-home
 # Grant execute permission to script
 chmod +x sync.sh
 ```
+
+## 🆕 Nix管理（実験的）
+
+zshrcをNixで管理する実験中。詳細は[NIX.md](./NIX.md)を参照。
 
 ## License
 
