@@ -23,7 +23,7 @@
 	ba = branch -a
 	bm = branch --merged
 	bn = branch --no-merged
-	open = "!gh repo view --web"
+	op = "!gh repo view --web"
 	us = reset --soft HEAD^
 
 [credential]
