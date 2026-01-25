@@ -11,6 +11,7 @@ in
     "git".source = mkLink ".config/git";
     "karabiner".source = mkLink ".config/karabiner";
     "mise".source = mkLink ".config/mise";
+    "ghostty".source = mkLink ".config/ghostty";
   };
 
   # Files under ~/
