@@ -14,6 +14,7 @@ in
     "ghostty".source = mkLink ".config/ghostty";
     "gh".source = mkLink ".config/gh";
     "zellij".source = mkLink ".config/zellij";
+    "claude".source = mkLink ".config/claude";
   };
 
   # Files under ~/
