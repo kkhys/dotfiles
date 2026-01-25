@@ -14,12 +14,13 @@ in
     "ghostty".source = mkLink ".config/ghostty";
     "gh".source = mkLink ".config/gh";
     "zellij".source = mkLink ".config/zellij";
-    "claude".source = mkLink ".config/claude";
   };
 
   # Files under ~/
   home.file = {
     # Note: .zshrc is managed by programs.zsh, not symlinked
     ".gitconfig".source = mkLink ".gitconfig";
+    ".claude/CLAUDE.md".source = mkLink ".claude/CLAUDE.md";
+    ".claude/settings.json".source = mkLink ".claude/settings.json";
   };
 }
