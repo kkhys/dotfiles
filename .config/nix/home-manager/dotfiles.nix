@@ -1,26 +1,29 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
   dotfilesPath = "${config.home.homeDirectory}/projects/dotfiles";
   mkLink = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${path}";
+
+  mkConfigFiles = files:
+    lib.genAttrs files (file: { source = mkLink ".config/${file}"; });
+
+  mkHomeFiles = files: lib.genAttrs files (file: { source = mkLink file; });
 in
 {
-  # Files under ~/.config/
-  xdg.configFile = {
+  xdg.configFile = mkConfigFiles [
+    "git"
+    "karabiner"
+    "mise"
+    "ghostty"
+    "gh"
+    "zellij"
+  ] // {
     "zed/settings.json".source = mkLink ".config/zed/settings.json";
-    "git".source = mkLink ".config/git";
-    "karabiner".source = mkLink ".config/karabiner";
-    "mise".source = mkLink ".config/mise";
-    "ghostty".source = mkLink ".config/ghostty";
-    "gh".source = mkLink ".config/gh";
-    "zellij".source = mkLink ".config/zellij";
   };
 
-  # Files under ~/
-  home.file = {
-    # Note: .zshrc is managed by programs.zsh, not symlinked
-    ".gitconfig".source = mkLink ".gitconfig";
-    ".claude/CLAUDE.md".source = mkLink ".claude/CLAUDE.md";
-    ".claude/settings.json".source = mkLink ".claude/settings.json";
-  };
+  home.file = mkHomeFiles [
+    ".gitconfig"
+    ".claude/CLAUDE.md"
+    ".claude/settings.json"
+  ];
 }
