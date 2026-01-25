@@ -12,6 +12,8 @@ in
     "karabiner".source = mkLink ".config/karabiner";
     "mise".source = mkLink ".config/mise";
     "ghostty".source = mkLink ".config/ghostty";
+    "gh".source = mkLink ".config/gh";
+    "zellij".source = mkLink ".config/zellij";
   };
 
   # Files under ~/
