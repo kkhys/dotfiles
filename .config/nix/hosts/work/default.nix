@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 {
   hostSpec = {
@@ -15,8 +15,8 @@
     home = "/Users/${config.hostSpec.username}";
   };
 
-  environment.systemPackages = with pkgs; [
-  ];
+  # environment.systemPackages = with pkgs; [
+  # ];
 
   home-manager.users.${config.hostSpec.username} = {
     programs.zsh.shellAliases = {

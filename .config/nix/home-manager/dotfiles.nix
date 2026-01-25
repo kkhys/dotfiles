@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 
 let
   dotfilesPath = "${config.home.homeDirectory}/projects/dotfiles";
