@@ -7,8 +7,5 @@
       autoUpdate = true;
       cleanup = "uninstall";
     };
-
-    taps = [
-    ];
   };
 }
