@@ -40,7 +40,7 @@
 	ff = false
 
 [gpg]
-    program = gpg
+    program = /etc/profiles/per-user/kkhys/bin/gpg
 
 [commit]
 	gpgsign = true
