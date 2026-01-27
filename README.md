@@ -79,7 +79,9 @@ sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#kkhys
 sudo dr
 ```
 
-### Add Homebrew Packages
+### Add Packages
+
+#### Homebrew Packages
 
 Edit `.config/nix/hosts/common/homebrew.nix` (all hosts):
 
@@ -94,7 +96,6 @@ Edit `.config/nix/hosts/common/homebrew-personal.nix` (personal only):
 
 ```nix
 homebrew = lib.mkIf (!config.hostSpec.isWork) {
-  brews = [ "terraform" ];
   casks = [ "discord" ];
 };
 ```
@@ -105,6 +106,17 @@ Edit `.config/nix/hosts/common/homebrew-work.nix` (work only):
 homebrew = lib.mkIf config.hostSpec.isWork {
   casks = [ "slack" "zoom" ];
 };
+```
+
+#### Nix Packages
+
+Edit `.config/nix/home-manager/packages.nix`:
+
+```nix
+home.packages = with pkgs; [
+  ripgrep
+  fd
+];
 ```
 
 Then apply:
@@ -171,20 +183,55 @@ git add -A
 
 ```
 .config/nix/
-├── flake.nix
-├── darwin/              # nix-darwin system settings
-├── home-manager/        # User-level configuration
-├── hosts/
-│   ├── common/         # Shared configuration
-│   │   ├── homebrew.nix
-│   │   ├── homebrew-personal.nix
-│   │   └── homebrew-work.nix
-│   ├── kkhys/          # Personal machine
-│   └── work/           # Work machine
-└── modules/
-    └── hostSpec.nix
+├── flake.nix              # Entry point
+├── modules/
+│   └── host-spec.nix      # Custom host options (hostName, username, isWork)
+├── darwin/                # nix-darwin system settings
+│   ├── default.nix
+│   ├── homebrew.nix       # Homebrew settings and taps
+│   ├── system.nix         # macOS preferences (Dock, Finder, etc.)
+│   └── nix.nix            # Nix configuration
+├── home-manager/          # User-level configuration
+│   ├── default.nix
+│   ├── packages.nix       # Nix packages
+│   ├── dotfiles.nix       # Symlink management
+│   ├── zsh.nix            # Zsh configuration
+│   ├── git.nix            # Git configuration with GPG signing
+│   ├── gh.nix             # GitHub CLI configuration
+│   ├── ghostty.nix        # Ghostty terminal settings
+│   └── mise.nix           # mise version manager settings
+└── hosts/
+    ├── common/            # Shared configuration
+    │   ├── default.nix
+    │   ├── homebrew.nix
+    │   ├── homebrew-personal.nix
+    │   └── homebrew-work.nix
+    ├── kkhys/             # Personal machine
+    │   └── default.nix
+    └── work/              # Work machine
+        └── default.nix
 ```
 
-## License
+## What's Managed
 
-MIT License - see [LICENSE.md](LICENSE.md) for details.
+### System Level (nix-darwin)
+
+- macOS preferences (Dock, Finder, keyboard, trackpad)
+- Homebrew packages (brews, casks)
+- Touch ID for sudo
+- Nix garbage collection
+
+### User Level (Home Manager)
+
+- Shell (Zsh with aliases, history, environment)
+- Git (config, GPG signing, global ignores)
+- GitHub CLI
+- Ghostty terminal
+- mise (Node.js, pnpm, npm tools)
+- Symlinks for Karabiner, Zellij, Zed, Claude
+
+### Nix Packages
+
+- Development: git, gh, vim, uv, deno, bun
+- Utilities: jq, zellij, gibo, lefthook
+- Security: gnupg, pinentry_mac
