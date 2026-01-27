@@ -57,8 +57,6 @@
       export LANG="''${LANGUAGE}"
       export LC_ALL="''${LANGUAGE}"
       export LC_CTYPE="''${LANGUAGE}"
-
-      export PATH="$HOME/.local/share/mise/shims:$PATH"
     '';
 
     # .zshrc content (full control)
@@ -69,13 +67,6 @@
       setopt INC_APPEND_HISTORY
       setopt HIST_REDUCE_BLANKS
       setopt AUTO_PARAM_KEYS
-
-      # ----------------------------------------------------
-      # mise
-      # ----------------------------------------------------
-      if type mise &>/dev/null; then
-        eval "$(mise activate zsh)"
-      fi
     '';
   };
 }
