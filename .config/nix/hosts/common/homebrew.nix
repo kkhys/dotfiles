@@ -6,6 +6,7 @@
     ];
 
     casks = [
+      "aqua-voice"
       "obsidian"
       "ghostty"
       "zed"
