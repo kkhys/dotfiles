@@ -3,6 +3,7 @@
 {
   imports = [
     ./dotfiles.nix
+    ./git.nix
     ./packages.nix
     ./zsh.nix
   ];
