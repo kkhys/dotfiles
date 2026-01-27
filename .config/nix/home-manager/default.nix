@@ -3,6 +3,7 @@
 {
   imports = [
     ./dotfiles.nix
+    ./ghostty.nix
     ./git.nix
     ./mise.nix
     ./packages.nix
