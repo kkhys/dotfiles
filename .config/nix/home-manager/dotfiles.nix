@@ -12,7 +12,6 @@ in
 {
   xdg.configFile = mkConfigFiles [
     "karabiner"
-    "gh"
     "zellij"
   ] // {
     "zed/settings.json".source = mkLink ".config/zed/settings.json";
