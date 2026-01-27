@@ -76,7 +76,7 @@ git add -A
 sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#kkhys
 
 # Or use alias
-sudo dr
+dr
 ```
 
 ### Add Packages
@@ -123,21 +123,21 @@ Then apply:
 
 ```bash
 git add -A
-sudo dr
+dr
 ```
 
 ### Update Dependencies
 
 ```bash
-nix flake update --flake .config/nix
-sudo dr
+nfu  # nix flake update
+dr
 ```
 
 ## Commands
 
 ```bash
 # Apply configuration
-sudo dr
+dr
 
 # Build without activating
 drb
