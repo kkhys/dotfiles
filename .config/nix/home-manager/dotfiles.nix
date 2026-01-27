@@ -12,7 +12,6 @@ in
 {
   xdg.configFile = mkConfigFiles [
     "karabiner"
-    "ghostty"
     "gh"
     "zellij"
   ] // {
