@@ -11,7 +11,6 @@ let
 in
 {
   xdg.configFile = mkConfigFiles [
-    "git"
     "karabiner"
     "mise"
     "ghostty"
@@ -22,7 +21,6 @@ in
   };
 
   home.file = mkHomeFiles [
-    ".gitconfig"
     ".claude/CLAUDE.md"
     ".claude/settings.json"
   ];
