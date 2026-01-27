@@ -4,6 +4,7 @@
   imports = [
     ./dotfiles.nix
     ./git.nix
+    ./mise.nix
     ./packages.nix
     ./zsh.nix
   ];
