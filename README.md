@@ -129,7 +129,7 @@ sudo dr
 ### Update Dependencies
 
 ```bash
-nix flake update .config/nix
+nix flake update --flake .config/nix
 sudo dr
 ```
 

@@ -49,6 +49,9 @@
 
       # Terminal
       z = "zellij";
+
+      # Nix
+      nfu = "nix flake update --flake ~/projects/dotfiles/.config/nix";
     };
 
     # Environment variables (.zshenv)

@@ -40,7 +40,7 @@ nix flake check .config/nix
 nix flake show .config/nix
 
 # Update flake inputs
-nix flake update .config/nix
+nix flake update --flake .config/nix
 ```
 
 ### Homebrew
