@@ -35,7 +35,7 @@
       system = "aarch64-darwin";
 
       commonModules = [
-        ./modules/hostSpec.nix
+        ./modules/host-spec.nix
         ./hosts/common
         ./darwin
         home-manager.darwinModules.home-manager
