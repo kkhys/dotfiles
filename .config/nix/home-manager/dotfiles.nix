@@ -11,10 +11,10 @@ let
     "zellij/config.kdl"
   ];
 
-  # Home directory files
-  homeFiles = [
-    ".claude/CLAUDE.md"
-    ".claude/settings.json"
+  # Claude config files (stored in .config/claude/, linked to ~/.claude/)
+  claudeFiles = [
+    "CLAUDE.md"
+    "settings.json"
   ];
 in
 {
@@ -22,7 +22,8 @@ in
     source = mkLink ".config/${file}";
   });
 
-  home.file = lib.genAttrs homeFiles (file: {
-    source = mkLink file;
-  });
+  home.file = builtins.listToAttrs (map (file: {
+    name = ".claude/${file}";
+    value = { source = mkLink ".config/claude/${file}"; };
+  }) claudeFiles);
 }
