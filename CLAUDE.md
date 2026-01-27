@@ -45,17 +45,17 @@ nix flake update .config/nix
 
 ### Homebrew
 
-Homebrew is now managed declaratively via Nix. Packages are defined in:
-- `.config/nix/darwin/homebrew.nix` - Taps and basic settings
+Homebrew is managed declaratively via Nix. Packages are defined in:
+- `.config/nix/darwin/homebrew.nix` - Basic settings and taps
 - `.config/nix/hosts/common/homebrew.nix` - Common packages for all hosts
+- `.config/nix/hosts/common/homebrew-personal.nix` - Personal-only packages
+- `.config/nix/hosts/common/homebrew-work.nix` - Work-only packages
 
 No manual `brew bundle` commands are needed. Homebrew packages are installed/updated automatically when you run `darwin-rebuild switch`.
 
 ## Architecture
 
 ### Flake Structure
-
-The Nix configuration uses a modular architecture centered around `flake.nix`:
 
 ```
 .config/nix/flake.nix (entry point)
@@ -65,47 +65,59 @@ The Nix configuration uses a modular architecture centered around `flake.nix`:
     └── work   → darwin.lib.darwinSystem
 
 commonModules (shared across all hosts):
-├── modules/hostSpec.nix   - Custom host specification options
+├── modules/host-spec.nix  - Custom host specification options
 ├── darwin/                - nix-darwin system settings
-│   ├── homebrew.nix      - Homebrew basic settings and taps
-│   ├── system.nix        - macOS system preferences
-│   └── nix.nix          - Nix configuration
+│   ├── homebrew.nix       - Homebrew basic settings and taps
+│   ├── system.nix         - macOS system preferences
+│   └── nix.nix            - Nix configuration
 ├── home-manager/          - Home Manager modules (user-level)
+│   ├── packages.nix       - Nix packages
+│   ├── dotfiles.nix       - Symlink management
+│   ├── zsh.nix            - Zsh configuration
+│   ├── git.nix            - Git with GPG signing
+│   ├── gh.nix             - GitHub CLI
+│   ├── ghostty.nix        - Ghostty terminal
+│   └── mise.nix           - mise version manager
 └── hosts/common/          - Common host settings
-    └── homebrew.nix      - Homebrew package definitions
+    ├── homebrew.nix       - Homebrew package definitions
+    ├── homebrew-personal.nix
+    └── homebrew-work.nix
 ```
 
 ### Module System
 
-**hostSpec Module** (`.config/nix/modules/hostSpec.nix`):
+**host-spec Module** (`.config/nix/modules/host-spec.nix`):
 - Defines custom options: `hostName`, `username`, `isWork`
 - Used by host configurations to specify environment-specific settings
 - Accessible in all modules via `config.hostSpec.*`
 
 **Darwin Modules** (`.config/nix/darwin/`):
 - `default.nix` - Imports all darwin sub-modules
-- `homebrew.nix` - Homebrew basic settings (enable, autoUpdate, cleanup, taps)
-- `system.nix` - macOS system preferences (Dock, Finder, keyboard, trackpad, etc.)
+- `homebrew.nix` - Homebrew basic settings (enable, autoUpdate, cleanup)
+- `system.nix` - macOS system preferences, Touch ID for sudo, activation scripts
 - `nix.nix` - Nix configuration (experimental features, unfree packages)
 
 **Home Manager Modules** (`.config/nix/home-manager/`):
 - `default.nix` - Imports all sub-modules, sets username/homeDirectory from hostSpec
+- `packages.nix` - Declares Nix packages (git, gh, vim, jq, deno, bun, etc.)
 - `dotfiles.nix` - Manages symlinks via `xdg.configFile` and `home.file`
-- `packages.nix` - Declares Nix packages (user-level)
 - `zsh.nix` - Configures Zsh with history, aliases, environment variables
+- `git.nix` - Git configuration with GPG signing, aliases, global ignores
+- `gh.nix` - GitHub CLI configuration
+- `ghostty.nix` - Ghostty terminal settings (theme: Catppuccin Mocha)
+- `mise.nix` - mise version manager (Node.js, pnpm, npm tools)
 
 **Host Configurations** (`.config/nix/hosts/`):
 - Each host defines its `hostSpec` values, network hostname, and user configuration
-- `common/` contains settings shared by all hosts (system packages, Homebrew packages, GC settings)
-- `common/homebrew.nix` - Common Homebrew brews and casks
-- Host-specific overrides go in respective directories
+- `common/` contains settings shared by all hosts
+- Host-specific shell aliases (dr, drb, drc) point to their respective flake
 
 ### Configuration Flow
 
 1. `flake.nix` creates darwinConfiguration using `darwin.lib.darwinSystem`
 2. Each host module is combined with commonModules
 3. commonModules includes:
-   - `hostSpec.nix` - Provides `config.hostSpec.*` to all modules
+   - `host-spec.nix` - Provides `config.hostSpec.*` to all modules
    - `darwin/` - System-level macOS settings
    - `hosts/common/` - Shared system packages and Homebrew definitions
    - Home Manager integration - User-level settings
@@ -121,43 +133,35 @@ commonModules (shared across all hosts):
 
 1. Create `.config/nix/hosts/newhost/default.nix`:
 ```nix
-{ config, pkgs, ... }:
+{ config, pkgs, hostSpec, ... }:
 {
-  # hostSpec configuration
   hostSpec = {
     hostName = "hostname";
     username = "username";
     isWork = false;
   };
 
-  # Hostname configuration
   networking.hostName = config.hostSpec.hostName;
   system.primaryUser = config.hostSpec.username;
 
-  # User configuration
   users.users.${config.hostSpec.username} = {
     name = config.hostSpec.username;
     home = "/Users/${config.hostSpec.username}";
   };
 
-  # Host-specific system packages
-  environment.systemPackages = with pkgs; [
-    # Add host-specific packages here
-  ];
+  # Host-specific shell aliases
+  home-manager.users.${config.hostSpec.username}.programs.zsh.shellAliases = {
+    dr = "sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#newhost";
+    drb = "darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#newhost";
+    drc = "darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#newhost";
+  };
 }
 ```
 
 2. Add to `flake.nix`:
 ```nix
 darwinConfigurations = {
-  kkhys = darwin.lib.darwinSystem {
-    inherit system;
-    modules = [ ./hosts/kkhys ] ++ commonModules;
-  };
-  work = darwin.lib.darwinSystem {
-    inherit system;
-    modules = [ ./hosts/work ] ++ commonModules;
-  };
+  # ... existing hosts
   newhost = darwin.lib.darwinSystem {
     inherit system;
     modules = [ ./hosts/newhost ] ++ commonModules;
@@ -167,86 +171,98 @@ darwinConfigurations = {
 
 ### Adding Symlinks
 
-Uncomment/add in `.config/nix/home-manager/dotfiles.nix`:
+Add in `.config/nix/home-manager/dotfiles.nix`:
 ```nix
 xdg.configFile = {
-  "zed".source = mkLink ".config/zed";
+  "tool-name".source = mkLink ".config/tool-name";
+};
+
+# Or for home directory
+home.file = {
+  ".tool-config".source = mkLink ".tool-config";
 };
 ```
 
 The `mkLink` function creates out-of-store symlinks to `~/projects/dotfiles/`.
 
+### Adding Nix Packages
+
+Edit `.config/nix/home-manager/packages.nix`:
+```nix
+home.packages = with pkgs; [
+  ripgrep
+  fd
+];
+```
+
 ### Adding Homebrew Packages
 
 **For all hosts** - Edit `.config/nix/hosts/common/homebrew.nix`:
 ```nix
+homebrew = {
+  brews = [ "package-name" ];
+  casks = [ "application-name" ];
+};
+```
+
+**For personal hosts only** - Edit `.config/nix/hosts/common/homebrew-personal.nix`:
+```nix
+homebrew = lib.mkIf (!config.hostSpec.isWork) {
+  casks = [ "personal-app" ];
+};
+```
+
+**For work hosts only** - Edit `.config/nix/hosts/common/homebrew-work.nix`:
+```nix
+homebrew = lib.mkIf config.hostSpec.isWork {
+  casks = [ "slack" "zoom" ];
+};
+```
+
+### Adding Program Configuration
+
+For tools with Home Manager modules, create a new file in `.config/nix/home-manager/`:
+```nix
+# tool.nix
 { ... }:
 {
-  homebrew = {
-    brews = [
-      "package-name"
-    ];
-
-    casks = [
-      "application-name"
-    ];
+  programs.tool = {
+    enable = true;
+    settings = {
+      # configuration
+    };
   };
 }
 ```
 
-**For personal hosts only** (isWork = false) - Edit `.config/nix/hosts/common/homebrew-personal.nix`:
+Then import in `.config/nix/home-manager/default.nix`:
 ```nix
-{ config, lib, ... }:
-{
-  homebrew = lib.mkIf (!config.hostSpec.isWork) {
-    brews = [
-      "personal-tool"
-    ];
-
-    casks = [
-      "personal-app"
-    ];
-  };
-}
+imports = [
+  ./tool.nix
+  # ... other imports
+];
 ```
 
-**For work hosts only** (isWork = true) - Edit `.config/nix/hosts/common/homebrew-work.nix`:
-```nix
-{ config, lib, ... }:
-{
-  homebrew = lib.mkIf config.hostSpec.isWork {
-    brews = [
-      "work-tool"
-    ];
+## Host Configurations
 
-    casks = [
-      "slack"
-      "zoom"
-    ];
-  };
-}
-```
+### kkhys (Personal)
+- `hostName`: "mini"
+- `username`: "kkhys"
+- `isWork`: false
 
-**For custom taps** - Edit `.config/nix/darwin/homebrew.nix`:
-```nix
-{ ... }:
-{
-  homebrew = {
-    taps = [
-      "user/tap-name"
-    ];
-  };
-}
-```
-
-After editing, run `sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#kkhys` to apply changes.
+### work
+- `hostName`: "work"
+- `username`: "keisuke.hayashi"
+- `isWork`: true
+- Additional packages: Slack
 
 ## Nix Language Notes
 
 - This repository uses Nix Flakes (experimental feature)
 - Target system: `aarch64-darwin` (Apple Silicon)
 - Nix files use attribute sets, `let...in` bindings, and lambda functions
-- `config.hostSpec.*` is available in all modules via `modules/hostSpec.nix`
+- `config.hostSpec.*` is available in all modules via `modules/host-spec.nix`
+- `lib.mkIf` for conditional configuration
 
 ## Key Technologies
 
