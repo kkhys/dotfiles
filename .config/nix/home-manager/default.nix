@@ -8,6 +8,7 @@
     ./programs/gh.nix
     ./programs/ghostty.nix
     ./programs/git.nix
+    ./programs/gpg.nix
     ./programs/mise.nix
     ./programs/zsh.nix
   ];
