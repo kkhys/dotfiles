@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ./bun.nix
     ./dotfiles.nix
-    ./gh.nix
-    ./ghostty.nix
-    ./git.nix
-    ./mise.nix
     ./packages.nix
-    ./zsh.nix
+    ./programs/bun.nix
+    ./programs/gh.nix
+    ./programs/ghostty.nix
+    ./programs/git.nix
+    ./programs/mise.nix
+    ./programs/zsh.nix
   ];
 
   home.username = hostSpec.username;
