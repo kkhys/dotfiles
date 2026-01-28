@@ -10,6 +10,7 @@
     ./programs/git.nix
     ./programs/gpg.nix
     ./programs/mise.nix
+    ./programs/ssh.nix
     ./programs/zsh.nix
   ];
 
