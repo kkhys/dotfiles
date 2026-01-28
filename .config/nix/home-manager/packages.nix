@@ -24,6 +24,5 @@
 
     # JavaScript/TypeScript Runtime
     deno
-    bun
   ];
 }

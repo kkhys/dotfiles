@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./bun.nix
     ./dotfiles.nix
     ./gh.nix
     ./ghostty.nix
