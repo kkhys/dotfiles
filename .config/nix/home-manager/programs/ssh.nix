@@ -11,10 +11,9 @@
         serverAliveCountMax = 5;
       };
 
-      "github" = {
+      "github.com github" = {
         hostname = "github.com";
         user = "git";
-        port = 22;
         addKeysToAgent = "yes";
         identityFile = "~/.ssh/id_ed25519_github";
         identitiesOnly = true;
