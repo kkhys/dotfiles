@@ -60,6 +60,7 @@
       export LANG="''${LANGUAGE}"
       export LC_ALL="''${LANGUAGE}"
       export LC_CTYPE="''${LANGUAGE}"
+      export DO_NOT_TRACK=1
     '';
 
     # .zshrc content (full control)
