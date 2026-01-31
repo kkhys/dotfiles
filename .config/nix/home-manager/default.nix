@@ -5,6 +5,7 @@
     ./dotfiles.nix
     ./packages.nix
     ./programs/bun.nix
+    ./programs/fzf.nix
     ./programs/gh.nix
     ./programs/ghostty.nix
     ./programs/git.nix
