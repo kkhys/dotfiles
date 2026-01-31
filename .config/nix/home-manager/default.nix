@@ -11,6 +11,7 @@
     ./programs/gpg.nix
     ./programs/mise.nix
     ./programs/ssh.nix
+    ./programs/starship.nix
     ./programs/zsh.nix
   ];
 
