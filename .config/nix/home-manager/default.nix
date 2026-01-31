@@ -9,6 +9,7 @@
     ./programs/ghostty.nix
     ./programs/git.nix
     ./programs/gpg.nix
+    ./programs/lazygit.nix
     ./programs/mise.nix
     ./programs/sheldon.nix
     ./programs/ssh.nix
