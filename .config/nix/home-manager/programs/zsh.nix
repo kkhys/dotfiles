@@ -23,12 +23,17 @@
       "...." = "../../../";
       "....." = "../../../../";
 
-      # File operations
-      l = "less";
-      la = "ls -aF";
-      ll = "ls -l";
-      lla = "ls -alF";
-      "l." = "ls -d .[a-zA-Z]*";
+      # File viewing (bat)
+      cat = "bat";
+
+      # File listing (eza)
+      ls = "eza --group-directories-first";
+      l = "eza -l --group-directories-first";
+      la = "eza -a --group-directories-first";
+      ll = "eza -l --git --group-directories-first";
+      lla = "eza -la --git --group-directories-first";
+      lt = "eza -T --git-ignore";
+      "l." = "eza -d .*";
 
       # Tools
       v = "vim";

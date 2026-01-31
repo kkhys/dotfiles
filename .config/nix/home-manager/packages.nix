@@ -14,6 +14,8 @@
     vim
 
     # Terminal Tools
+    bat
+    eza
     zellij
 
     # Data Processing
