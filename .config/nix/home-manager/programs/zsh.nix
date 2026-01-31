@@ -52,6 +52,10 @@
 
       # Nix
       nfu = "nix flake update --flake ~/projects/dotfiles/.config/nix";
+
+      # ghq
+      gg = "ghq get";
+      gl = "ghq list";
     };
 
     # Environment variables (.zshenv)
@@ -71,6 +75,22 @@
       setopt INC_APPEND_HISTORY
       setopt HIST_REDUCE_BLANKS
       setopt AUTO_PARAM_KEYS
+
+      # ----------------------------------------------------
+      # ghq + fzf
+      # ----------------------------------------------------
+      # Navigate to repository with fzf
+      function repo() {
+        local selected=$(ghq list | fzf --preview "bat --color=always --style=plain $(ghq root)/{}/README.md 2>/dev/null || ls -la $(ghq root)/{}")
+        if [[ -n "$selected" ]]; then
+          cd "$(ghq root)/$selected"
+        fi
+      }
+
+      # Clone repository and cd into it
+      function get() {
+        ghq get "$1" && cd "$(ghq root)/$(ghq list | grep -E "$(echo $1 | sed 's/.*[:/]//')" | head -1)"
+      }
     '';
   };
 }

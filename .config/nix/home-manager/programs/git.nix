@@ -80,6 +80,10 @@
       github = {
         user = "kkhys";
       };
+
+      ghq = {
+        root = "~/projects";
+      };
     };
   };
 }
