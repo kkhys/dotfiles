@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     # Git Tools
+    ghq
     gibo
     lefthook
 
