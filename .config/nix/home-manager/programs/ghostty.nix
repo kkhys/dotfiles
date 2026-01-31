@@ -10,6 +10,8 @@
     settings = {
       theme = "Catppuccin Mocha";
 
+      macos-option-as-alt = true;
+
       cursor-style = "block";
       cursor-style-blink = false;
       cursor-opacity = 0.7;
