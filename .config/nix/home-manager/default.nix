@@ -14,6 +14,7 @@
     ./programs/sheldon.nix
     ./programs/ssh.nix
     ./programs/starship.nix
+    ./programs/yazi.nix
     ./programs/zsh.nix
   ];
 
