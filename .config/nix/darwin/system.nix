@@ -29,8 +29,9 @@
       ]) ++ [
         { app = "/Applications/Zed.app"; }
         { app = "/Applications/Ghostty.app"; }
+      ] ++ (lib.optionals (!config.hostSpec.isWork) [
         { app = "/Applications/Obsidian.app"; }
-      ];
+      ]);
       show-recents = false;
       tilesize = 40;
     };
