@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  dotfilesPath = "${config.home.homeDirectory}/projects/dotfiles";
+  dotfilesPath = "${config.home.homeDirectory}/projects/github.com/kkhys/dotfiles";
   mkLink = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${path}";
 
   # XDG config files (under .config/)
