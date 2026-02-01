@@ -9,7 +9,7 @@
     casks = [
       "microsoft-edge"
       "openvpn-connect"
-      "ovice"
+      # "ovice"
       "slack"
     ];
   };
