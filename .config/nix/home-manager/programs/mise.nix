@@ -1,4 +1,4 @@
-{ ... }:
+{ config, lib, pkgs, ... }:
 
 {
   programs.mise = {
@@ -18,4 +18,9 @@
       };
     };
   };
+
+  home.activation.miseInstall = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    PATH="${config.home.profileDirectory}/bin:$PATH"
+    ${pkgs.mise}/bin/mise install
+  '';
 }
