@@ -30,12 +30,12 @@
         /bin/mkdir -p /opt/homebrew
       fi
       echo "Fixing Homebrew directory permissions for $BREW_USER..."
-      /usr/sbin/chown -R "$BREW_USER":admin /opt/homebrew
+      /usr/sbin/chown -R "$BREW_USER":admin /opt/homebrew 2>/dev/null || true
 
       # Intel Homebrew (Rosetta)
       if [[ -d "/usr/local/Homebrew" ]]; then
         echo "Fixing Intel Homebrew directory permissions for $BREW_USER..."
-        /usr/sbin/chown -R "$BREW_USER":admin /usr/local/Homebrew
+        /usr/sbin/chown -R "$BREW_USER":admin /usr/local/Homebrew 2>/dev/null || true
         /usr/sbin/chown -R "$BREW_USER":admin /usr/local/bin 2>/dev/null || true
       fi
     else
