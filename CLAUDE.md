@@ -15,19 +15,19 @@ This is a Nix Flakes + nix-darwin + Home Manager based dotfiles repository for m
 sudo nix run \
   --extra-experimental-features nix-command \
   --extra-experimental-features flakes \
-  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
+  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 
 # After first setup (standard usage)
-sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 
 # For work environment
 sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#work
 
 # Build without activating (test configuration)
-sudo darwin-rebuild build --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild build --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 
 # Check configuration without building
-sudo darwin-rebuild check --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild check --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 ```
 
 ### Validation
@@ -61,8 +61,8 @@ No manual `brew bundle` commands are needed. Homebrew packages are installed/upd
 .config/nix/flake.nix (entry point)
 ├── inputs: nixpkgs, darwin, home-manager, nix-homebrew, homebrew-core, homebrew-cask
 └── outputs: darwinConfigurations
-    ├── kkhys  → darwin.lib.darwinSystem
-    └── work   → darwin.lib.darwinSystem
+    ├── personal  → darwin.lib.darwinSystem
+    └── work      → darwin.lib.darwinSystem
 
 commonModules (shared across all hosts):
 ├── modules/host-spec.nix  - Custom host specification options
@@ -266,8 +266,8 @@ imports = [
 
 ## Host Configurations
 
-### kkhys (Personal)
-- `hostName`: "mini"
+### personal
+- `hostName`: "personal"
 - `username`: "kkhys"
 - `isWork`: false
 - Additional packages: docker, Adobe Creative Cloud

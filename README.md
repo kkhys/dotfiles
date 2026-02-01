@@ -47,7 +47,7 @@ For personal environment:
 sudo nix run \
   --extra-experimental-features nix-command \
   --extra-experimental-features flakes \
-  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
+  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 ```
 
 For work environment:
@@ -73,7 +73,7 @@ exec zsh
 
 ```bash
 git add -A
-sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 
 # Or use alias
 dr
@@ -215,7 +215,7 @@ git add -A
     │   ├── homebrew.nix
     │   ├── homebrew-personal.nix
     │   └── homebrew-work.nix
-    ├── kkhys/             # Personal machine
+    ├── personal/          # Personal machine
     │   └── default.nix
     └── work/              # Work machine
         └── default.nix
