@@ -7,6 +7,7 @@
     ];
 
     casks = [
+      "adobe-creative-cloud"
     ];
   };
 }
