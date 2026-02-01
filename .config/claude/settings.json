@@ -18,6 +18,7 @@
       "Skill(base:*)"
     ],
     "deny": [
+      "Bash(git push:*)",
       "Bash(rm -rf:*)",
       "Bash(sudo:*)",
       "Bash(curl:*)",
@@ -63,7 +64,6 @@
       "Write(.env*)"
     ],
     "ask": [
-      "Bash(git push:*)",
       "Bash(git rebase:*)",
       "Bash(git reset:*)",
       "Bash(gh pr create:*)",
