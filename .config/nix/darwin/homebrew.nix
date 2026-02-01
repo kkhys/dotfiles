@@ -8,8 +8,9 @@
       cleanup = "uninstall";
     };
     taps = [
-      "homebrew/homebrew-core"
-      "homebrew/homebrew-cask"
+      "homebrew/core"
+      "homebrew/cask"
+      "protonpass/tap"
     ];
   };
 }
