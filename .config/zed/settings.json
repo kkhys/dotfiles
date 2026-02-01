@@ -7,6 +7,24 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "terminal": {
+    "toolbar": {
+      "breadcrumbs": false
+    }
+  },
+  "toolbar": {
+    "code_actions": false,
+    "agent_review": true,
+    "selections_menu": true,
+    "quick_actions": true,
+    "breadcrumbs": true
+  },
+  "cursor_shape": "bar",
+  "cursor_blink": false,
+  "auto_update": false,
+  "session": {
+    "trust_all_worktrees": false
+  },
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
@@ -35,7 +53,7 @@
   "buffer_font_size": 13.0,
   "theme": {
     "mode": "dark",
-    "light": "One Dark",
+    "light": "Catppuccin Mocha",
     "dark": "Catppuccin Mocha"
   }
 }
