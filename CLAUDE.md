@@ -24,10 +24,10 @@ sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#kkhys
 sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#work
 
 # Build without activating (test configuration)
-darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#kkhys
 
 # Check configuration without building
-darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#kkhys
 ```
 
 ### Validation
@@ -71,13 +71,22 @@ commonModules (shared across all hosts):
 │   ├── system.nix         - macOS system preferences
 │   └── nix.nix            - Nix configuration
 ├── home-manager/          - Home Manager modules (user-level)
-│   ├── packages.nix       - Nix packages
+│   ├── packages.nix       - Nix packages (bat, eza, vim, jq, deno, etc.)
 │   ├── dotfiles.nix       - Symlink management
-│   ├── zsh.nix            - Zsh configuration
-│   ├── git.nix            - Git with GPG signing
-│   ├── gh.nix             - GitHub CLI
-│   ├── ghostty.nix        - Ghostty terminal
-│   └── mise.nix           - mise version manager
+│   └── programs/          - Program-specific configurations
+│       ├── bun.nix        - Bun JavaScript runtime
+│       ├── fzf.nix        - Fuzzy finder integration
+│       ├── gh.nix         - GitHub CLI
+│       ├── ghostty.nix    - Ghostty terminal (Catppuccin Mocha)
+│       ├── git.nix        - Git with GPG signing
+│       ├── gpg.nix        - GnuPG and pinentry-mac
+│       ├── lazygit.nix    - Lazygit TUI
+│       ├── mise.nix       - mise version manager (Node.js, pnpm)
+│       ├── sheldon.nix    - Zsh plugin manager
+│       ├── ssh.nix        - SSH configuration
+│       ├── starship.nix   - Starship prompt
+│       ├── yazi.nix       - Yazi file manager
+│       └── zsh.nix        - Zsh with history, aliases, environment
 └── hosts/common/          - Common host settings
     ├── homebrew.nix       - Homebrew package definitions
     ├── homebrew-personal.nix
@@ -99,13 +108,22 @@ commonModules (shared across all hosts):
 
 **Home Manager Modules** (`.config/nix/home-manager/`):
 - `default.nix` - Imports all sub-modules, sets username/homeDirectory from hostSpec
-- `packages.nix` - Declares Nix packages (git, gh, vim, jq, deno, bun, etc.)
+- `packages.nix` - Declares Nix packages (ghq, gibo, lefthook, vim, uv, bat, eza, zellij, jq, deno)
 - `dotfiles.nix` - Manages symlinks via `xdg.configFile` and `home.file`
-- `zsh.nix` - Configures Zsh with history, aliases, environment variables
-- `git.nix` - Git configuration with GPG signing, aliases, global ignores
-- `gh.nix` - GitHub CLI configuration
-- `ghostty.nix` - Ghostty terminal settings (theme: Catppuccin Mocha)
-- `mise.nix` - mise version manager (Node.js, pnpm, npm tools)
+- `programs/` - Individual program configurations:
+  - `bun.nix` - Bun JavaScript runtime
+  - `fzf.nix` - Fuzzy finder with shell integration
+  - `gh.nix` - GitHub CLI configuration
+  - `ghostty.nix` - Ghostty terminal settings (theme: Catppuccin Mocha)
+  - `git.nix` - Git configuration with GPG signing, aliases, global ignores
+  - `gpg.nix` - GnuPG configuration with pinentry-mac
+  - `lazygit.nix` - Lazygit terminal UI for Git
+  - `mise.nix` - mise version manager (Node.js, pnpm, npm tools)
+  - `sheldon.nix` - Zsh plugin manager configuration
+  - `ssh.nix` - SSH configuration
+  - `starship.nix` - Starship cross-shell prompt
+  - `yazi.nix` - Yazi terminal file manager
+  - `zsh.nix` - Zsh with history, aliases, environment variables
 
 **Host Configurations** (`.config/nix/hosts/`):
 - Each host defines its `hostSpec` values, network hostname, and user configuration
@@ -133,7 +151,7 @@ commonModules (shared across all hosts):
 
 1. Create `.config/nix/hosts/newhost/default.nix`:
 ```nix
-{ config, pkgs, hostSpec, ... }:
+{ config, ... }:
 {
   hostSpec = {
     hostName = "hostname";
@@ -150,10 +168,12 @@ commonModules (shared across all hosts):
   };
 
   # Host-specific shell aliases
-  home-manager.users.${config.hostSpec.username}.programs.zsh.shellAliases = {
-    dr = "sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#newhost";
-    drb = "darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#newhost";
-    drc = "darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#newhost";
+  home-manager.users.${config.hostSpec.username} = {
+    programs.zsh.shellAliases = {
+      dr = "sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#newhost";
+      drb = "sudo darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#newhost";
+      drc = "sudo darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#newhost";
+    };
   };
 }
 ```
@@ -173,11 +193,12 @@ darwinConfigurations = {
 
 Add in `.config/nix/home-manager/dotfiles.nix`:
 ```nix
-xdg.configFile = {
-  "tool-name".source = mkLink ".config/tool-name";
-};
+# For XDG config files (.config/)
+configFiles = [
+  "tool-name/config.toml"
+];
 
-# Or for home directory
+# For home directory files
 home.file = {
   ".tool-config".source = mkLink ".tool-config";
 };
@@ -221,9 +242,9 @@ homebrew = lib.mkIf config.hostSpec.isWork {
 
 ### Adding Program Configuration
 
-For tools with Home Manager modules, create a new file in `.config/nix/home-manager/`:
+For tools with Home Manager modules, create a new file in `.config/nix/home-manager/programs/`:
 ```nix
-# tool.nix
+# programs/tool.nix
 { ... }:
 {
   programs.tool = {
@@ -238,7 +259,7 @@ For tools with Home Manager modules, create a new file in `.config/nix/home-mana
 Then import in `.config/nix/home-manager/default.nix`:
 ```nix
 imports = [
-  ./tool.nix
+  ./programs/tool.nix
   # ... other imports
 ];
 ```
@@ -249,12 +270,13 @@ imports = [
 - `hostName`: "mini"
 - `username`: "kkhys"
 - `isWork`: false
+- Additional packages: docker, Adobe Creative Cloud
 
 ### work
 - `hostName`: "work"
 - `username`: "keisuke.hayashi"
 - `isWork`: true
-- Additional packages: Slack
+- Additional packages: Colima, Microsoft Edge, OpenVPN Connect, oVice, Slack
 
 ## Nix Language Notes
 
