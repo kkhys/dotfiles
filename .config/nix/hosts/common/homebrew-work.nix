@@ -11,6 +11,7 @@
       "openvpn-connect"
       # "ovice"
       "slack"
+      # "zoom"
     ];
   };
 }
