@@ -74,9 +74,9 @@
     in
     {
       darwinConfigurations = {
-        kkhys = darwin.lib.darwinSystem {
+        personal = darwin.lib.darwinSystem {
           inherit system;
-          modules = [ ./hosts/kkhys ] ++ commonModules;
+          modules = [ ./hosts/personal ] ++ commonModules;
         };
 
         work = darwin.lib.darwinSystem {
