@@ -28,8 +28,8 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 ```bash
 mkdir -p ~/projects
-git clone https://github.com/kkhys/dotfiles.git ~/projects/dotfiles
-cd ~/projects/dotfiles
+git clone https://github.com/kkhys/dotfiles.git ~/projects/github.com/kkhys/dotfiles
+cd ~/projects/github.com/kkhys/dotfiles
 ```
 
 ### 3. Backup Existing Configuration Files
@@ -47,7 +47,7 @@ For personal environment:
 sudo nix run \
   --extra-experimental-features nix-command \
   --extra-experimental-features flakes \
-  nix-darwin -- switch --flake ~/projects/dotfiles/.config/nix#kkhys
+  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
 ```
 
 For work environment:
@@ -56,7 +56,7 @@ For work environment:
 sudo nix run \
   --extra-experimental-features nix-command \
   --extra-experimental-features flakes \
-  nix-darwin -- switch --flake ~/projects/dotfiles/.config/nix#work
+  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#work
 ```
 
 This takes 5-15 minutes on first run.
@@ -73,7 +73,7 @@ exec zsh
 
 ```bash
 git add -A
-sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#kkhys
+sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys
 
 # Or use alias
 dr

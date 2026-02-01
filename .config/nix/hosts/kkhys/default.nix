@@ -20,9 +20,9 @@
 
   home-manager.users.${config.hostSpec.username} = {
     programs.zsh.shellAliases = {
-      dr = "sudo darwin-rebuild switch --flake ~/projects/dotfiles/.config/nix#kkhys";
-      drb = "sudo darwin-rebuild build --flake ~/projects/dotfiles/.config/nix#kkhys";
-      drc = "sudo darwin-rebuild check --flake ~/projects/dotfiles/.config/nix#kkhys";
+      dr = "sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys";
+      drb = "sudo darwin-rebuild build --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys";
+      drc = "sudo darwin-rebuild check --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#kkhys";
     };
   };
 }

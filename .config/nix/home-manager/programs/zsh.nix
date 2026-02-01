@@ -56,7 +56,7 @@
       z = "zellij";
 
       # Nix
-      nfu = "nix flake update --flake ~/projects/dotfiles/.config/nix";
+      nfu = "nix flake update --flake ~/projects/github.com/kkhys/dotfiles/.config/nix";
 
       # ghq
       gg = "ghq get";
