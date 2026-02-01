@@ -7,6 +7,7 @@
 
     casks = [
       "aqua-voice"
+      "karabiner-elements"
       "obsidian"
       "ghostty"
       "zed"
