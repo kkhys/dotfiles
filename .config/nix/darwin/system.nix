@@ -11,7 +11,70 @@
     interactiveShellInit = lib.mkForce "";
   };
 
+  # see: https://nix-darwin.github.io/nix-darwin/manual/index.html
+
   security.pam.services.sudo_local.touchIdAuth = true;
+
+  system.defaults = {
+    ".GlobalPreferences" = {
+      "com.apple.mouse.scaling" = -1.0;
+    };
+    
+    dock = {
+      autohide = true;
+      persistent-apps = [
+        { app = "/Applications/Google Chrome.app"; }
+        { app = "/Applications/Zed.app"; }
+        { app = "/Applications/Ghostty.app"; }
+        { app = "/Applications/Obsidian.app"; }
+      ];
+      show-recents = false;
+      tilesize = 40;
+    };
+
+    finder = {
+      AppleShowAllExtensions = true;
+      AppleShowAllFiles = true;
+      FXDefaultSearchScope = "SCev";
+      FXPreferredViewStyle = "Nlsv";
+      NewWindowTarget = "Home";
+      ShowExternalHardDrivesOnDesktop = false;
+      ShowPathbar = true;
+      ShowStatusBar = true;
+    };
+
+    NSGlobalDomain = {
+      AppleICUForce24HourTime = false;
+      AppleInterfaceStyle = "Dark";
+      AppleMeasurementUnits = "Centimeters";
+      AppleMetricUnits = 1;
+      AppleShowScrollBars = "Always";
+      AppleTemperatureUnit = "Celsius";
+      InitialKeyRepeat = 10;
+      KeyRepeat = 1;
+      NSDocumentSaveNewDocumentsToCloud = false;
+      NSNavPanelExpandedStateForSaveMode = true;
+      NSNavPanelExpandedStateForSaveMode2 = true;
+      PMPrintingExpandedStateForPrint = true;
+      PMPrintingExpandedStateForPrint2 = true;
+    };
+    
+    screencapture = {
+      location = "~/Desktop/screenshots";
+      show-thumbnail = false;
+    };
+    
+    menuExtraClock = {
+      FlashDateSeparators = false;
+      IsAnalog = false;
+      Show24Hour = true;
+      ShowAMPM = false;
+      ShowDate = 0;
+      ShowDayOfMonth = true;
+      ShowDayOfWeek = true;
+      ShowSeconds = true;
+    };
+  };
 
   # ============================================================================
   # Activation Scripts
