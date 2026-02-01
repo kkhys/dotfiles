@@ -195,11 +195,20 @@ git add -A
 │   ├── default.nix
 │   ├── packages.nix       # Nix packages
 │   ├── dotfiles.nix       # Symlink management
-│   ├── zsh.nix            # Zsh configuration
-│   ├── git.nix            # Git configuration with GPG signing
-│   ├── gh.nix             # GitHub CLI configuration
-│   ├── ghostty.nix        # Ghostty terminal settings
-│   └── mise.nix           # mise version manager settings
+│   └── programs/          # Program-specific configurations
+│       ├── bun.nix        # Bun JavaScript runtime
+│       ├── fzf.nix        # Fuzzy finder
+│       ├── gh.nix         # GitHub CLI
+│       ├── ghostty.nix    # Ghostty terminal
+│       ├── git.nix        # Git with GPG signing
+│       ├── gpg.nix        # GnuPG configuration
+│       ├── lazygit.nix    # Lazygit TUI
+│       ├── mise.nix       # mise version manager
+│       ├── sheldon.nix    # Zsh plugin manager
+│       ├── ssh.nix        # SSH configuration
+│       ├── starship.nix   # Starship prompt
+│       ├── yazi.nix       # Yazi file manager
+│       └── zsh.nix        # Zsh configuration
 └── hosts/
     ├── common/            # Shared configuration
     │   ├── default.nix
@@ -223,15 +232,22 @@ git add -A
 
 ### User Level (Home Manager)
 
-- Shell (Zsh with aliases, history, environment)
+- Shell (Zsh with Sheldon plugin manager, Starship prompt)
 - Git (config, GPG signing, global ignores)
 - GitHub CLI
 - Ghostty terminal
+- Lazygit TUI
 - mise (Node.js, pnpm, npm tools)
+- Bun JavaScript runtime
+- fzf fuzzy finder
+- Yazi file manager
+- SSH configuration
+- GnuPG (gpg, pinentry-mac)
 - Symlinks for Karabiner, Zellij, Zed, Claude
 
 ### Nix Packages
 
-- Development: git, gh, vim, uv, deno, bun
-- Utilities: jq, zellij, gibo, lefthook
-- Security: gnupg, pinentry_mac
+- Git Tools: ghq, gibo, lefthook
+- Development: vim, uv, deno
+- Terminal: bat, eza, zellij
+- Data Processing: jq
