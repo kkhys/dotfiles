@@ -54,7 +54,7 @@
       AppleMetricUnits = 1;
       AppleShowScrollBars = "Always";
       AppleTemperatureUnit = "Celsius";
-      InitialKeyRepeat = 20;
+      InitialKeyRepeat = 18;
       KeyRepeat = 1;
       NSDocumentSaveNewDocumentsToCloud = false;
       NSNavPanelExpandedStateForSaveMode = true;
