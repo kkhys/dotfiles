@@ -24,6 +24,9 @@
       autohide = true;
       persistent-apps = [
         { app = "/Applications/Google Chrome.app"; }
+      ] ++ (lib.optionals config.hostSpec.isWork [
+        { app = "/Applications/Slack.app"; }
+      ]) ++ [
         { app = "/Applications/Zed.app"; }
         { app = "/Applications/Ghostty.app"; }
         { app = "/Applications/Obsidian.app"; }
