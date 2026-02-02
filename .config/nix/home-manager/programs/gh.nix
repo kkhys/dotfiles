@@ -16,6 +16,7 @@
 
       aliases = {
         co = "pr checkout";
+        op = "repo view --web";
       };
     };
 

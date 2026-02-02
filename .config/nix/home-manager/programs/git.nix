@@ -35,7 +35,6 @@
         ba = "branch -a";
         bm = "branch --merged";
         bn = "branch --no-merged";
-        op = "!gh repo view --web";
         us = "reset --soft HEAD^";
       };
 
