@@ -25,5 +25,8 @@ in
   home.file = builtins.listToAttrs (map (file: {
     name = ".claude/${file}";
     value = { source = mkLink ".config/claude/${file}"; };
-  }) claudeFiles);
+  }) claudeFiles) // {
+    # SSH public key
+    ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
+  };
 }

@@ -20,6 +20,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -29,6 +33,7 @@
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
+      agenix,
       ...
     }:
     let
@@ -38,6 +43,9 @@
         ./modules/host-spec.nix
         ./hosts/common
         ./darwin
+        agenix.darwinModules.default
+        # Add agenix CLI to system packages
+        { environment.systemPackages = [ agenix.packages.${system}.default ]; }
         home-manager.darwinModules.home-manager
         (
           { config, ... }:
