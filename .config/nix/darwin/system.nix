@@ -127,6 +127,14 @@
       /usr/sbin/softwareupdate --install-rosetta --agree-to-license
     fi
 
+    # Import GPG secret key (managed by agenix)
+    GPG_KEY="/Users/${config.hostSpec.username}/.gnupg/agenix-key.asc"
+    if [[ -f "$GPG_KEY" || -L "$GPG_KEY" ]]; then
+      echo "Importing GPG secret key..."
+      sudo -u "${config.hostSpec.username}" /usr/local/bin/gpg --import "$GPG_KEY" 2>/dev/null || \
+      sudo -u "${config.hostSpec.username}" /opt/homebrew/bin/gpg --import "$GPG_KEY" 2>/dev/null || true
+    fi
+
     echo "=== extraActivation: Done ==="
   '';
 }
