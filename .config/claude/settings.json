@@ -14,7 +14,7 @@
       "mcp__chrome-devtools",
       "mcp__serena",
       "mcp__playwright",
-      "mcp__plugin_base_*",
+      "mcp__plugin_base_serena__*",
       "Skill(base:*)"
     ],
     "deny": [
@@ -81,9 +81,11 @@
       "Bash(aws cloudformation update-stack:*)"
     ]
   },
+  "model": "opus",
   "statusLine": {
     "type": "command",
-    "command": "npx ccusage@latest statusline"
+    "command": "bun x ccusage statusline",
+    "padding": 0
   },
   "enabledPlugins": {
     "base@my-marketplace": true
