@@ -13,13 +13,16 @@
 
   # see: https://nix-darwin.github.io/nix-darwin/manual/index.html
 
-  security.pam.services.sudo_local.touchIdAuth = true;
+  security.pam.services.sudo_local = {
+    touchIdAuth = true;
+    # watchIdAuth = true;
+  };
 
   system.defaults = {
     ".GlobalPreferences" = {
       "com.apple.mouse.scaling" = -1.0;
     };
-    
+
     dock = {
       autohide = true;
       persistent-apps = [
@@ -62,12 +65,12 @@
       PMPrintingExpandedStateForPrint = true;
       PMPrintingExpandedStateForPrint2 = true;
     };
-    
+
     screencapture = {
       location = "~/Desktop/screenshots";
       show-thumbnail = false;
     };
-    
+
     menuExtraClock = {
       FlashDateSeparators = false;
       IsAnalog = false;
