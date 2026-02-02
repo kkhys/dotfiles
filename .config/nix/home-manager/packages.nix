@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, hostSpec, ... }:
 
 {
   home.packages = with pkgs; [
@@ -23,5 +23,8 @@
 
     # JavaScript/TypeScript Runtime
     deno
+  ] ++ lib.optionals hostSpec.isWork [
+    # Work-only Tools
+    colima
   ];
 }
