@@ -8,6 +8,7 @@ Personal macOS development environment configuration managed with Nix Flakes, ni
 - Git (pre-installed on macOS)
 - Admin access (sudo privileges)
 - Stable internet connection
+- Age private key backup (for new machine setup)
 
 ## Installation
 
@@ -26,8 +27,10 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 
 ### 2. Clone Repository
 
+Clone via HTTPS first (SSH keys are not yet available):
+
 ```bash
-mkdir -p ~/projects
+mkdir -p ~/projects/github.com/kkhys
 git clone https://github.com/kkhys/dotfiles.git ~/projects/github.com/kkhys/dotfiles
 cd ~/projects/github.com/kkhys/dotfiles
 ```
@@ -39,7 +42,22 @@ sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
 sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
 ```
 
-### 4. Apply Configuration
+### 4. Restore Age Private Key
+
+Restore the age private key from your backup (1Password, etc.):
+
+```bash
+mkdir -p ~/.config/age
+# Create the key file and paste your age private key
+vim ~/.config/age/keys.txt
+chmod 600 ~/.config/age/keys.txt
+```
+
+The key looks like: `AGE-SECRET-KEY-1XXXXXX...`
+
+This key is required to decrypt SSH and GPG keys during setup.
+
+### 5. Apply Configuration
 
 For personal environment:
 
@@ -61,7 +79,19 @@ sudo nix run \
 
 This takes 5-15 minutes on first run.
 
-### 5. Restart Shell
+### 6. Switch Remote to SSH
+
+After setup, SSH keys are available. Switch the remote URL to SSH:
+
+```bash
+cd ~/projects/github.com/kkhys/dotfiles
+git remote set-url origin git@github.com:kkhys/dotfiles.git
+
+# Verify
+git remote -v
+```
+
+### 7. Restart Shell
 
 ```bash
 exec zsh
@@ -179,6 +209,31 @@ Solution:
 git add -A
 ```
 
+### Secrets Decryption Failed
+
+```
+error: Failed to decrypt ...
+```
+
+Solution: Ensure the age private key is correctly placed:
+
+```bash
+cat ~/.config/age/keys.txt
+# Should start with AGE-SECRET-KEY-
+chmod 600 ~/.config/age/keys.txt
+```
+
+## Important: Backup Your Age Private Key
+
+The file `~/.config/age/keys.txt` is the **only key** that can decrypt your secrets. If lost, you cannot recover your SSH/GPG keys from the encrypted `.age` files.
+
+**Backup locations (choose at least 2):**
+- Password manager (1Password, Bitwarden)
+- Encrypted USB drive
+- Printed paper in secure location
+
+The key is a single line starting with `AGE-SECRET-KEY-`.
+
 ## Structure
 
 ```
@@ -190,7 +245,13 @@ git add -A
 │   ├── default.nix
 │   ├── homebrew.nix       # Homebrew settings and taps
 │   ├── system.nix         # macOS preferences (Dock, Finder, etc.)
-│   └── nix.nix            # Nix configuration
+│   ├── nix.nix            # Nix configuration
+│   └── secrets.nix        # agenix decryption settings
+├── secrets/               # Encrypted secrets (agenix)
+│   ├── secrets.nix        # Age public keys
+│   ├── ssh-key-github.age # Encrypted SSH private key
+│   ├── gpg-key.age        # Encrypted GPG private key
+│   └── id_ed25519_github.pub # SSH public key
 ├── home-manager/          # User-level configuration
 │   ├── default.nix
 │   ├── packages.nix       # Nix packages
@@ -229,6 +290,13 @@ git add -A
 - Homebrew packages (brews, casks)
 - Touch ID for sudo
 - Nix garbage collection
+- Encrypted secrets decryption (agenix)
+
+### Secrets (agenix)
+
+- SSH private key (GitHub)
+- GPG private key
+- SSH public key
 
 ### User Level (Home Manager)
 
