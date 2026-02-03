@@ -16,6 +16,11 @@ let
     "CLAUDE.md"
     "settings.json"
   ];
+
+  # Gemini config files (stored in .config/gemini/, linked to ~/.gemini/)
+  geminiFiles = [
+    "settings.json"
+  ];
 in
 {
   xdg.configFile = lib.genAttrs configFiles (file: {
@@ -25,7 +30,10 @@ in
   home.file = builtins.listToAttrs (map (file: {
     name = ".claude/${file}";
     value = { source = mkLink ".config/claude/${file}"; };
-  }) claudeFiles) // {
+  }) claudeFiles) // builtins.listToAttrs (map (file: {
+    name = ".gemini/${file}";
+    value = { source = mkLink ".config/gemini/${file}"; };
+  }) geminiFiles) // {
     # SSH public key
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
