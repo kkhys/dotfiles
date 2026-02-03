@@ -36,6 +36,7 @@
         bm = "branch --merged";
         bn = "branch --no-merged";
         us = "reset --soft HEAD^";
+        c1 = "commit --allow-empty -m 'chore: initialize feature branch'";
       };
 
       core = {
