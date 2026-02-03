@@ -313,7 +313,7 @@ The key is a single line starting with `AGE-SECRET-KEY-`.
 - Yazi file manager
 - SSH configuration
 - GnuPG (gpg, pinentry-mac)
-- Symlinks for Karabiner, Zellij, Zed, Claude
+- Symlinks for Karabiner, Zellij, Zed, Claude, Gemini CLI, Codex
 
 ### Nix Packages
 
