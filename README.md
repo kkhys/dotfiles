@@ -251,6 +251,7 @@ The key is a single line starting with `AGE-SECRET-KEY-`.
 │   ├── secrets.nix        # Age public keys
 │   ├── ssh-key-github.age # Encrypted SSH private key
 │   ├── gpg-key.age        # Encrypted GPG private key
+│   ├── npm-token.age      # Encrypted NPM token (work only)
 │   └── id_ed25519_github.pub # SSH public key
 ├── home-manager/          # User-level configuration
 │   ├── default.nix
@@ -297,6 +298,7 @@ The key is a single line starting with `AGE-SECRET-KEY-`.
 - SSH private key (GitHub)
 - GPG private key
 - SSH public key
+- NPM token (work environment only)
 
 ### User Level (Home Manager)
 
