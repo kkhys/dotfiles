@@ -21,6 +21,11 @@ let
   geminiFiles = [
     "settings.json"
   ];
+
+  # Codex config files (stored in .config/codex/, linked to ~/.codex/)
+  codexFiles = [
+    "config.toml"
+  ];
 in
 {
   xdg.configFile = lib.genAttrs configFiles (file: {
@@ -33,7 +38,10 @@ in
   }) claudeFiles) // builtins.listToAttrs (map (file: {
     name = ".gemini/${file}";
     value = { source = mkLink ".config/gemini/${file}"; };
-  }) geminiFiles) // {
+  }) geminiFiles) // builtins.listToAttrs (map (file: {
+    name = ".codex/${file}";
+    value = { source = mkLink ".config/codex/${file}"; };
+  }) codexFiles) // {
     # SSH public key
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
