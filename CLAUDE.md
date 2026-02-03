@@ -75,6 +75,7 @@ commonModules (shared across all hosts):
 │   ├── secrets.nix        - Age public keys and secret file definitions
 │   ├── ssh-key-github.age - Encrypted SSH private key
 │   ├── gpg-key.age        - Encrypted GPG private key
+│   ├── npm-token.age      - Encrypted NPM token (work environment only)
 │   └── id_ed25519_github.pub - SSH public key (not encrypted)
 ├── home-manager/          - Home Manager modules (user-level)
 │   ├── packages.nix       - Nix packages (bat, eza, vim, jq, deno, etc.)
@@ -316,6 +317,7 @@ SSH and GPG private keys are encrypted with age and stored in the repository. Th
 | `secrets/secrets.nix` | Age public key definitions |
 | `secrets/ssh-key-github.age` | Encrypted SSH private key |
 | `secrets/gpg-key.age` | Encrypted GPG private key |
+| `secrets/npm-token.age` | Encrypted NPM token (work environment only) |
 | `secrets/id_ed25519_github.pub` | SSH public key (not encrypted) |
 | `darwin/secrets.nix` | Decryption configuration |
 
@@ -371,6 +373,31 @@ cd ~/projects/github.com/kkhys/dotfiles/.config/nix
 # Decrypt and re-encrypt SSH key
 nix-shell -p age --run "age -d -i ~/.config/age/keys.txt secrets/ssh-key-github.age | age -r <new-age-public-key> -o secrets/ssh-key-github.age.new"
 mv secrets/ssh-key-github.age.new secrets/ssh-key-github.age
+```
+
+### Environment-Specific Secrets
+
+Some secrets are only decrypted on specific environments using `config.hostSpec.isWork`:
+
+```nix
+# darwin/secrets.nix
+(lib.mkIf (npmTokenExists && config.hostSpec.isWork) {
+  npm-token = {
+    file = "${secretsPath}/npm-token.age";
+    path = "/Users/${username}/.config/secrets/npm-token";
+    owner = username;
+    mode = "600";
+  };
+})
+```
+
+The decrypted secret is loaded as an environment variable in `zsh.nix`:
+
+```nix
+# Load NPM_TOKEN from agenix-decrypted secret (work environment only)
+if [[ -f "$HOME/.config/secrets/npm-token" ]]; then
+  export NPM_TOKEN="$(cat $HOME/.config/secrets/npm-token)"
+fi
 ```
 
 ## Differences from Home Manager-only Setup
