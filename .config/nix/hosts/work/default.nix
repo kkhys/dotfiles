@@ -17,12 +17,4 @@
 
   # environment.systemPackages = with pkgs; [
   # ];
-
-  home-manager.users.${config.hostSpec.username} = {
-    programs.zsh.shellAliases = {
-      dr = "sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#work";
-      drb = "sudo darwin-rebuild build --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#work";
-      drc = "sudo darwin-rebuild check --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#work";
-    };
-  };
 }
