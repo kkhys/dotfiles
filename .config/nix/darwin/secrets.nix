@@ -6,6 +6,7 @@ let
   # Check if encrypted files exist
   sshKeyExists = builtins.pathExists "${secretsPath}/ssh-key-github.age";
   gpgKeyExists = builtins.pathExists "${secretsPath}/gpg-key.age";
+  npmTokenExists = builtins.pathExists "${secretsPath}/npm-token.age";
 in
 {
   # Path to the age private key used for decryption
@@ -27,6 +28,14 @@ in
       gpg-key = {
         file = "${secretsPath}/gpg-key.age";
         path = "/Users/${username}/.gnupg/agenix-key.asc";
+        owner = username;
+        mode = "600";
+      };
+    })
+    (lib.mkIf (npmTokenExists && config.hostSpec.isWork) {
+      npm-token = {
+        file = "${secretsPath}/npm-token.age";
+        path = "/Users/${username}/.config/secrets/npm-token";
         owner = username;
         mode = "600";
       };
