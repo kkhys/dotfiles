@@ -116,8 +116,8 @@ commonModules (shared across all hosts):
 
 **Home Manager Modules** (`.config/nix/home-manager/`):
 - `default.nix` - Imports all sub-modules, sets username/homeDirectory from hostSpec
-- `packages.nix` - Declares Nix packages (ghq, gibo, lefthook, vim, uv, bat, eza, zellij, jq, deno)
-- `dotfiles.nix` - Manages symlinks via `xdg.configFile` and `home.file`
+- `packages.nix` - Declares Nix packages (ghq, gibo, lefthook, vim, uv, bat, eza, zellij, jq, deno; colima for work-only)
+- `dotfiles.nix` - Manages symlinks via `xdg.configFile` and `home.file` (Karabiner, Zed, Zellij, Claude, Gemini CLI, Codex)
 - `programs/` - Individual program configurations:
   - `bun.nix` - Bun JavaScript runtime
   - `fzf.nix` - Fuzzy finder with shell integration
@@ -279,13 +279,14 @@ imports = [
 - `hostName`: "personal"
 - `username`: "kkhys"
 - `isWork`: false
-- Additional packages: docker, Adobe Creative Cloud
+- Additional Homebrew packages: docker, Adobe Creative Cloud
 
 ### work
 - `hostName`: "work"
 - `username`: "keisuke.hayashi"
 - `isWork`: true
-- Additional packages: Colima, Microsoft Edge, OpenVPN Connect, oVice, Slack
+- Additional Nix packages: colima
+- Additional Homebrew packages: Microsoft Edge, OpenVPN Connect, Slack
 
 ## Nix Language Notes
 
