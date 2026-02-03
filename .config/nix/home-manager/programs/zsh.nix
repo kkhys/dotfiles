@@ -1,5 +1,8 @@
-{ config, ... }:
+{ config, hostSpec, ... }:
 
+let
+  flakePath = "~/projects/github.com/kkhys/dotfiles/.config/nix";
+in
 {
   programs.zsh = {
     enable = true;
@@ -17,6 +20,10 @@
 
     # Shell aliases (auto-expanded by Home Manager)
     shellAliases = {
+      # Nix darwin-rebuild
+      dr = "sudo darwin-rebuild switch --flake ${flakePath}#${hostSpec.hostName}";
+      drb = "sudo darwin-rebuild build --flake ${flakePath}#${hostSpec.hostName}";
+      drc = "sudo darwin-rebuild check --flake ${flakePath}#${hostSpec.hostName}";
       # Directory navigation
       ".." = "cd ..";
       "..." = "../../";
