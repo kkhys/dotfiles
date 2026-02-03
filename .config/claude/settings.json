@@ -89,5 +89,9 @@
   },
   "enabledPlugins": {
     "base@my-marketplace": true
+  },
+  "attribution": {
+    "commit": "Co-Authored-By: Claude <noreply@anthropic.com>",
+    "pr": ""
   }
 }
