@@ -13,4 +13,7 @@ in
 
   # GPG private key (exported with: gpg --export-secret-keys --armor KEY_ID)
   "gpg-key.age".publicKeys = allKeys;
+
+  # NPM token for GitHub Packages
+  "npm-token.age".publicKeys = allKeys;
 }
