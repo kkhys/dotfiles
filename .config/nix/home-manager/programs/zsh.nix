@@ -70,6 +70,11 @@
       export LC_ALL="''${LANGUAGE}"
       export LC_CTYPE="''${LANGUAGE}"
       export DO_NOT_TRACK=1
+
+      # Load NPM_TOKEN from agenix-decrypted secret (work environment only)
+      if [[ -f "$HOME/.config/secrets/npm-token" ]]; then
+        export NPM_TOKEN="$(cat $HOME/.config/secrets/npm-token)"
+      fi
     '';
 
     # .zshrc content (full control)
