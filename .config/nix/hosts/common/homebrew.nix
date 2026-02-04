@@ -7,7 +7,6 @@
     ];
 
     casks = [
-      "aqua-voice"
       "google-chrome"
       "karabiner-elements"
       "logi-options+"
