@@ -82,6 +82,11 @@ in
       if [[ -f "$HOME/.config/secrets/npm-token" ]]; then
         export NPM_TOKEN="$(cat $HOME/.config/secrets/npm-token)"
       fi
+
+      # Load GITHUB_ACCESS_TOKEN from agenix-decrypted secret
+      if [[ -f "$HOME/.config/secrets/github-token" ]]; then
+        export GITHUB_ACCESS_TOKEN="$(cat $HOME/.config/secrets/github-token)"
+      fi
     '';
 
     # .zshrc content (full control)

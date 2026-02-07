@@ -16,4 +16,7 @@ in
 
   # NPM token for GitHub Packages
   "npm-token.age".publicKeys = allKeys;
+
+  # GitHub personal access token
+  "github-token.age".publicKeys = allKeys;
 }
