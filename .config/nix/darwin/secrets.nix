@@ -7,6 +7,7 @@ let
   sshKeyExists = builtins.pathExists "${secretsPath}/ssh-key-github.age";
   gpgKeyExists = builtins.pathExists "${secretsPath}/gpg-key.age";
   npmTokenExists = builtins.pathExists "${secretsPath}/npm-token.age";
+  githubTokenExists = builtins.pathExists "${secretsPath}/github-token.age";
 in
 {
   # Path to the age private key used for decryption
@@ -36,6 +37,14 @@ in
       npm-token = {
         file = "${secretsPath}/npm-token.age";
         path = "/Users/${username}/.config/secrets/npm-token";
+        owner = username;
+        mode = "600";
+      };
+    })
+    (lib.mkIf githubTokenExists {
+      github-token = {
+        file = "${secretsPath}/github-token.age";
+        path = "/Users/${username}/.config/secrets/github-token";
         owner = username;
         mode = "600";
       };
