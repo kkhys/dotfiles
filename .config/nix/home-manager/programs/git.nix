@@ -15,6 +15,7 @@
       ".DS_Store"
       "**/.claude/settings.local.json"
       ".serena"
+      ".playwright-mcp"
     ];
 
     settings = {
