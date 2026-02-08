@@ -13,6 +13,7 @@
         "npm:@fission-ai/openspec" = "latest";
         "npm:@google/gemini-cli" = "latest";
         "npm:@openai/codex" = "latest";
+        "npm:vercel" = "latest";
       };
 
       settings = {
