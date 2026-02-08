@@ -3,6 +3,10 @@
   "env": {
     "CLAUDE_CODE_ENABLE_TELEMETRY": "0"
   },
+  "attribution": {
+    "commit": "Co-Authored-By: Claude <noreply@anthropic.com>",
+    "pr": ""
+  },
   "permissions": {
     "allow": [
       "Bash",
@@ -90,8 +94,5 @@
   "enabledPlugins": {
     "base@my-marketplace": true
   },
-  "attribution": {
-    "commit": "Co-Authored-By: Claude <noreply@anthropic.com>",
-    "pr": ""
-  }
+  "promptSuggestionEnabled": false
 }
