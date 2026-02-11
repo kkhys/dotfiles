@@ -55,5 +55,10 @@
     "mode": "dark",
     "light": "Catppuccin Mocha",
     "dark": "Catppuccin Mocha"
+  },
+  "languages": {
+    "Markdown": {
+      "show_edit_predictions": false
+    }
   }
 }
