@@ -8,6 +8,7 @@ let
   gpgKeyExists = builtins.pathExists "${secretsPath}/gpg-key.age";
   npmTokenExists = builtins.pathExists "${secretsPath}/npm-token.age";
   githubTokenExists = builtins.pathExists "${secretsPath}/github-token.age";
+  qaseApiTokenExists = builtins.pathExists "${secretsPath}/qase-api-token.age";
 in
 {
   # Path to the age private key used for decryption
@@ -45,6 +46,14 @@ in
       github-token = {
         file = "${secretsPath}/github-token.age";
         path = "/Users/${username}/.config/secrets/github-token";
+        owner = username;
+        mode = "600";
+      };
+    })
+    (lib.mkIf (qaseApiTokenExists && config.hostSpec.isWork) {
+      qase-api-token = {
+        file = "${secretsPath}/qase-api-token.age";
+        path = "/Users/${username}/.config/secrets/qase-api-token";
         owner = username;
         mode = "600";
       };

@@ -19,4 +19,7 @@ in
 
   # GitHub personal access token
   "github-token.age".publicKeys = allKeys;
+
+  # Qase API token
+  "qase-api-token.age".publicKeys = allKeys;
 }
