@@ -87,6 +87,11 @@ in
       if [[ -f "$HOME/.config/secrets/github-token" ]]; then
         export GITHUB_ACCESS_TOKEN="$(cat $HOME/.config/secrets/github-token)"
       fi
+
+      # Load QASE_API_TOKEN from agenix-decrypted secret (work environment only)
+      if [[ -f "$HOME/.config/secrets/qase-api-token" ]]; then
+        export QASE_API_TOKEN="$(cat $HOME/.config/secrets/qase-api-token)"
+      fi
     '';
 
     # .zshrc content (full control)
