@@ -22,4 +22,7 @@ in
 
   # Qase API token
   "qase-api-token.age".publicKeys = allKeys;
+
+  # SonarQube token
+  "sonarqube-token.age".publicKeys = allKeys;
 }

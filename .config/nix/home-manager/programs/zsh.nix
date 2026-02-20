@@ -92,6 +92,11 @@ in
       if [[ -f "$HOME/.config/secrets/qase-api-token" ]]; then
         export QASE_API_TOKEN="$(cat $HOME/.config/secrets/qase-api-token)"
       fi
+
+      # Load SONARQUBE_TOKEN from agenix-decrypted secret (work environment only)
+      if [[ -f "$HOME/.config/secrets/sonarqube-token" ]]; then
+        export SONARQUBE_TOKEN="$(cat $HOME/.config/secrets/sonarqube-token)"
+      fi
     '';
 
     # .zshrc content (full control)
