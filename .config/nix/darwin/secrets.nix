@@ -9,6 +9,7 @@ let
   npmTokenExists = builtins.pathExists "${secretsPath}/npm-token.age";
   githubTokenExists = builtins.pathExists "${secretsPath}/github-token.age";
   qaseApiTokenExists = builtins.pathExists "${secretsPath}/qase-api-token.age";
+  sonarqubeTokenExists = builtins.pathExists "${secretsPath}/sonarqube-token.age";
 in
 {
   # Path to the age private key used for decryption
@@ -54,6 +55,14 @@ in
       qase-api-token = {
         file = "${secretsPath}/qase-api-token.age";
         path = "/Users/${username}/.config/secrets/qase-api-token";
+        owner = username;
+        mode = "600";
+      };
+    })
+    (lib.mkIf (sonarqubeTokenExists && config.hostSpec.isWork) {
+      sonarqube-token = {
+        file = "${secretsPath}/sonarqube-token.age";
+        path = "/Users/${username}/.config/secrets/sonarqube-token";
         owner = username;
         mode = "600";
       };
