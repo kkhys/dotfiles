@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, hostSpec, ... }:
 
 let
   dotfilesPath = "${config.home.homeDirectory}/projects/github.com/kkhys/dotfiles";
@@ -44,5 +44,19 @@ in
   }) codexFiles) // {
     # SSH public key
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
+  };
+
+  # Docker CLI plugins symlinks (work environment only)
+  # Uses activation script because Homebrew binaries may not exist at build time
+  home.activation = lib.mkIf hostSpec.isWork {
+    dockerCliPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      mkdir -p "$HOME/.docker/cli-plugins"
+      if [ -f "/opt/homebrew/opt/docker-compose/bin/docker-compose" ]; then
+        ln -sfn "/opt/homebrew/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
+      fi
+      if [ -f "/opt/homebrew/opt/docker-buildx/bin/docker-buildx" ]; then
+        ln -sfn "/opt/homebrew/opt/docker-buildx/bin/docker-buildx" "$HOME/.docker/cli-plugins/docker-buildx"
+      fi
+    '';
   };
 }
