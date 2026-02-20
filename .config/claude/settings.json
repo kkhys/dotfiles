@@ -86,7 +86,7 @@
       "Bash(aws cloudformation update-stack:*)"
     ]
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "statusLine": {
     "type": "command",
     "command": "bun x ccusage statusline",
