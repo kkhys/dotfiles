@@ -8,6 +8,7 @@
     lefthook
 
     # Development Tools
+    rustup
     uv
 
     # Editor
