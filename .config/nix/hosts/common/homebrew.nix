@@ -13,6 +13,7 @@
       "obsidian"
       "ghostty"
       "zed"
+      "entireio/tap/entire"
     ];
   };
 }
