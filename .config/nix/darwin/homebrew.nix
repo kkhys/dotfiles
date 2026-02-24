@@ -11,6 +11,7 @@
       "homebrew/core"
       "homebrew/cask"
       "protonpass/tap"
+      "entireio/tap"
     ];
   };
 }
