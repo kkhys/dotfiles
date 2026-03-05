@@ -12,6 +12,7 @@
       "homebrew/cask"
       "protonpass/tap"
       "entireio/tap"
+      "datadog-labs/pack"
     ];
   };
 }
