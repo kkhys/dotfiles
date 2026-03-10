@@ -95,5 +95,6 @@
   "enabledPlugins": {
     "base@my-marketplace": true
   },
-  "promptSuggestionEnabled": false
+  "promptSuggestionEnabled": false,
+  "effortLevel": "high"
 }
