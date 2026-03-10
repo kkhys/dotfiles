@@ -3,6 +3,7 @@
 ## Communication
 - Always communicate in Japanese
 - Code comments in English
+- Do not use emojis unless explicitly instructed
 
 ## Security
 
