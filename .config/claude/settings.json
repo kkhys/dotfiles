@@ -93,8 +93,9 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "base@my-marketplace": true
+    "base@my-marketplace": true,
+    "slack@claude-plugins-official": true
   },
-  "promptSuggestionEnabled": false,
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "promptSuggestionEnabled": false
 }
