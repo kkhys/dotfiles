@@ -14,7 +14,9 @@ let
   # Claude config files (stored in .config/claude/, linked to ~/.claude/)
   claudeFiles = [
     "CLAUDE.md"
+    "RTK.md"
     "settings.json"
+    "hooks/rtk-rewrite.sh"
   ];
 
   # Gemini config files (stored in .config/gemini/, linked to ~/.gemini/)
