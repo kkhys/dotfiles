@@ -13,6 +13,7 @@
       "protonpass/tap"
       "entireio/tap"
       "datadog-labs/pack"
+      "manaflow-ai/cmux"
     ];
   };
 }
