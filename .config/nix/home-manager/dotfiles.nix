@@ -14,8 +14,9 @@ let
   # Claude config files (stored in .config/claude/, linked to ~/.claude/)
   claudeFiles = [
     "CLAUDE.md"
-    "settings.json"
   ];
+
+  claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
 
   # Gemini config files (stored in .config/gemini/, linked to ~/.gemini/)
   geminiFiles = [
@@ -42,6 +43,8 @@ in
     name = ".codex/${file}";
     value = { source = mkLink ".config/codex/${file}"; };
   }) codexFiles) // {
+    # Claude settings (host-specific: personal uses settings.json, work uses settings-work.json)
+    ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
     # SSH public key
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
