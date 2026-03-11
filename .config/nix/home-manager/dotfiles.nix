@@ -14,6 +14,8 @@ let
   # Claude config files (stored in .config/claude/, linked to ~/.claude/)
   claudeFiles = [
     "CLAUDE.md"
+    "RTK.md"
+    "hooks/rtk-rewrite.sh"
   ];
 
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
