@@ -10,6 +10,10 @@
     # Development Tools
     rustup
     uv
+    pipx
+
+    # Cloud Tools
+    google-cloud-sdk
 
     # Editor
     vim

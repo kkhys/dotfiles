@@ -94,28 +94,18 @@
   },
   "enabledPlugins": {
     "base@my-marketplace": true,
-    "writing@my-marketplace": true,
+    "slack@claude-plugins-official": true,
     "ralph-loop@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "claude-md-management@claude-plugins-official": true
+    "claude-md-management@claude-plugins-official": true,
+    "design-review@revcomm": true,
+    "miitel-softphone@revcomm": true,
+    "miitel-analytics-frontend@revcomm": true
   },
   "effortLevel": "high",
-  "promptSuggestionEnabled": false,
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/rtk-rewrite.sh"
-          }
-        ]
-      }
-    ]
-  }
+  "promptSuggestionEnabled": false
 }
