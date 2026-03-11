@@ -107,5 +107,18 @@
     "miitel-analytics-frontend@revcomm": true
   },
   "effortLevel": "high",
-  "promptSuggestionEnabled": false
+  "promptSuggestionEnabled": false,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/rtk-rewrite.sh"
+          }
+        ]
+      }
+    ]
+  }
 }
