@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code statusLine script
-# Output format: Sonnet 4.6 | 10.2K tkns. (20%)
+# Output format: Sonnet 4.6 | main | 10.2K (20%)
 
 input=$(cat)
 
