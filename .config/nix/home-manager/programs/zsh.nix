@@ -45,6 +45,7 @@ in
       # Tools
       v = "vim";
       g = "git";
+      "z." = "zed .";
 
       # Docker
       dc = "docker compose";
