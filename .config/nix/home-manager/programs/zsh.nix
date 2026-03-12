@@ -133,6 +133,38 @@ in
       function get() {
         ghq get "$1" && cd "$(ghq root)/$(ghq list | grep -E "$(echo $1 | sed 's/.*[:/]//')" | head -1)"
       }
+
+      # ----------------------------------------------------
+      # cmux - project setup scripts
+      # ----------------------------------------------------
+      # Open a dev session for any repo selected via fzf
+      function dive() {
+        if ! command -v cmux &>/dev/null; then
+          echo "cmux not found" >&2
+          return 1
+        fi
+
+        local selected
+        selected=$(ghq list | fzf --preview "bat --color=always --style=plain $(ghq root)/{}/README.md 2>/dev/null || ls -la $(ghq root)/{}")
+        [[ -z "$selected" ]] && return 0
+
+        local repo_path="$(ghq root)/$selected"
+        local repo_name="''${selected##*/}"
+        local surface_a="$CMUX_SURFACE_ID"
+
+        cmux rename-workspace "$repo_name" > /dev/null
+
+        local surface_b surface_c
+        surface_b=$(cmux new-split right | awk '{print $2}')
+        surface_c=$(cmux new-split down --surface "$surface_a" | awk '{print $2}')
+
+        cmux send --surface "$surface_a" "cd '$repo_path'\n" > /dev/null
+        cmux send --surface "$surface_b" "cd '$repo_path'\n" > /dev/null
+        cmux send --surface "$surface_c" "cd '$repo_path'\n" > /dev/null
+
+        sleep 0.2
+        cmux send --surface "$surface_b" "cl\n" > /dev/null
+      }
     '';
   };
 }
