@@ -16,6 +16,7 @@ let
     "CLAUDE.md"
     "RTK.md"
     "hooks/rtk-rewrite.sh"
+    "statusline-command.sh"
   ];
 
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
