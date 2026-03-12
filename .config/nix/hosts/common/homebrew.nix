@@ -4,7 +4,7 @@
   homebrew = {
     brews = [
       "protonpass/tap/pass-cli"
-      "rtk"
+      "rtk-ai/tap/rtk"
     ];
 
     casks = [
