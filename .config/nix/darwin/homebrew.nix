@@ -14,6 +14,7 @@
       "entireio/tap"
       "datadog-labs/pack"
       "manaflow-ai/cmux"
+      "rtk-ai/tap"
     ];
   };
 }
