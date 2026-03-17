@@ -86,6 +86,7 @@
       "Bash(aws cloudformation update-stack:*)"
     ]
   },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
