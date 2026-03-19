@@ -98,6 +98,11 @@ in
       if [[ -f "$HOME/.config/secrets/sonarqube-token" ]]; then
         export SONARQUBE_TOKEN="$(cat $HOME/.config/secrets/sonarqube-token)"
       fi
+
+      # Load DEVIN_API_KEY from agenix-decrypted secret (work environment only)
+      if [[ -f "$HOME/.config/secrets/devin-api-key" ]]; then
+        export DEVIN_API_KEY="$(cat $HOME/.config/secrets/devin-api-key)"
+      fi
     '';
 
     # .zshrc content (full control)
