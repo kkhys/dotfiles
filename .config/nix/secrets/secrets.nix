@@ -25,4 +25,7 @@ in
 
   # SonarQube token
   "sonarqube-token.age".publicKeys = allKeys;
+
+  # Devin API key
+  "devin-api-key.age".publicKeys = allKeys;
 }
