@@ -9,6 +9,7 @@
 
     # Development Tools
     rustup
+    python3
     uv
     pipx
 
