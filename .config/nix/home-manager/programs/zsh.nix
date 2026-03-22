@@ -18,57 +18,61 @@ in
       share = true;
     };
 
-    # Shell aliases (auto-expanded by Home Manager)
-    shellAliases = {
-      # Nix darwin-rebuild
-      dr = "sudo darwin-rebuild switch --flake ${flakePath}#${hostSpec.hostName}";
-      drb = "sudo darwin-rebuild build --flake ${flakePath}#${hostSpec.hostName}";
-      drc = "sudo darwin-rebuild check --flake ${flakePath}#${hostSpec.hostName}";
-      # Directory navigation
-      ".." = "cd ..";
-      "..." = "../../";
-      "...." = "../../../";
-      "....." = "../../../../";
+    # Abbreviations (auto-expand on space/enter, visible in history)
+    zsh-abbr = {
+      enable = true;
+      abbreviations = {
+        # Directory navigation
+        ".." = "cd ..";
+        "..." = "cd ../..";
+        "...." = "cd ../../..";
+        "....." = "cd ../../../..";
 
-      # File viewing (bat)
-      cat = "bat";
+        # Nix darwin-rebuild
+        dr = "sudo darwin-rebuild switch --flake ${flakePath}#${hostSpec.hostName}";
+        drb = "sudo darwin-rebuild build --flake ${flakePath}#${hostSpec.hostName}";
+        drc = "sudo darwin-rebuild check --flake ${flakePath}#${hostSpec.hostName}";
 
-      # File listing (eza)
-      ls = "eza --group-directories-first";
-      l = "eza -l --group-directories-first";
-      la = "eza -a --group-directories-first";
-      ll = "eza -l --git --group-directories-first";
-      lla = "eza -la --git --group-directories-first";
-      lt = "eza -T --git-ignore";
-      "l." = "eza -d .*";
+        # File viewing (bat)
+        cat = "bat";
 
-      # Tools
-      v = "vim";
-      g = "git";
-      "z." = "zed .";
+        # File listing (eza)
+        ls = "eza --group-directories-first";
+        l = "eza -l --group-directories-first";
+        la = "eza -a --group-directories-first";
+        ll = "eza -l --git --group-directories-first";
+        lla = "eza -la --git --group-directories-first";
+        lt = "eza -T --git-ignore";
+        "l." = "eza -d .*";
 
-      # Docker
-      dc = "docker compose";
-      de = "docker exec";
+        # Tools
+        v = "vim";
+        g = "git";
+        "z." = "zed .";
 
-      # Package managers
-      np = "npm";
-      pn = "pnpm";
-      b = "bun";
+        # Docker
+        dc = "docker compose";
+        de = "docker exec";
 
-      # Claude
-      cl = "claude";
-      yolo = "claude --dangerously-skip-permissions";
+        # Package managers
+        np = "npm";
+        pn = "pnpm";
+        b = "bun";
 
-      # Terminal
-      z = "zellij";
+        # Claude
+        cl = "claude";
+        yolo = "claude --dangerously-skip-permissions";
 
-      # Nix
-      nfu = "nix flake update --flake ~/projects/github.com/kkhys/dotfiles/.config/nix";
+        # Terminal
+        z = "zellij";
 
-      # ghq
-      gg = "ghq get";
-      gl = "ghq list";
+        # Nix
+        nfu = "nix flake update --flake ~/projects/github.com/kkhys/dotfiles/.config/nix";
+
+        # ghq
+        gg = "ghq get";
+        gl = "ghq list";
+      };
     };
 
     # Environment variables (.zshenv)
