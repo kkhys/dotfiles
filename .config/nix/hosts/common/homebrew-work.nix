@@ -10,6 +10,7 @@
     ];
 
     casks = [
+      "blackhole-2ch"
       "microsoft-edge"
       "openvpn-connect"
       # "ovice"
