@@ -20,7 +20,10 @@
       "mcp__serena",
       "mcp__playwright",
       "mcp__plugin_base_serena__*",
-      "Skill(base:*)"
+      "Skill(creating-branch-name)",
+      "Skill(splitting-commit)",
+      "Skill(formatting-commit)",
+      "Skill(creating-pr)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
