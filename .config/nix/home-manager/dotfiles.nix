@@ -26,6 +26,11 @@ let
     "settings.json"
   ];
 
+  # Copilot config files (stored in .config/copilot/, linked to ~/.copilot/)
+  copilotFiles = [
+    "copilot-instructions.md"
+  ];
+
   # Codex config files (stored in .config/codex/, linked to ~/.codex/)
   # Note: config.toml is excluded from symlinks because Codex writes runtime
   # state (project trust levels) to it. It is bootstrapped via activation script.
@@ -47,7 +52,10 @@ in
   }) geminiFiles) // builtins.listToAttrs (map (file: {
     name = ".codex/${file}";
     value = { source = mkLink ".config/codex/${file}"; };
-  }) codexFiles) // {
+  }) codexFiles) // builtins.listToAttrs (map (file: {
+    name = ".copilot/${file}";
+    value = { source = mkLink ".config/copilot/${file}"; };
+  }) copilotFiles) // {
     # Claude settings (host-specific: personal uses settings.json, work uses settings-work.json)
     ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
     # SSH public key
