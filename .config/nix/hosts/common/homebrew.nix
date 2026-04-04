@@ -8,6 +8,7 @@
     ];
 
     casks = [
+      "copilot-cli"
       "google-chrome"
       "karabiner-elements"
       "logi-options+"
