@@ -27,8 +27,10 @@ let
   ];
 
   # Codex config files (stored in .config/codex/, linked to ~/.codex/)
+  # Note: config.toml is excluded from symlinks because Codex writes runtime
+  # state (project trust levels) to it. It is bootstrapped via activation script.
   codexFiles = [
-    "config.toml"
+    "AGENTS.md"
   ];
 in
 {
@@ -52,9 +54,18 @@ in
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
 
-  # Docker CLI plugins symlinks (work environment only)
-  # Uses activation script because Homebrew binaries may not exist at build time
-  home.activation = lib.mkIf hostSpec.isWork {
+  home.activation = {
+    # Bootstrap Codex config.toml if it doesn't exist yet.
+    # Codex writes runtime state (project trust) to this file, so it must not be a symlink.
+    codexConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      if [ ! -f "$HOME/.codex/config.toml" ]; then
+        mkdir -p "$HOME/.codex"
+        cp "${dotfilesPath}/.config/codex/config.toml" "$HOME/.codex/config.toml"
+      fi
+    '';
+  } // lib.optionalAttrs hostSpec.isWork {
+    # Docker CLI plugins symlinks (work environment only)
+    # Uses activation script because Homebrew binaries may not exist at build time
     dockerCliPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p "$HOME/.docker/cli-plugins"
       if [ -f "/opt/homebrew/opt/docker-compose/bin/docker-compose" ]; then
