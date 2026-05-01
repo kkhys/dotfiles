@@ -49,6 +49,7 @@ in
         v = "vim";
         g = "git";
         "z." = "zed .";
+        cf = "caffeinate -id";
 
         # Docker
         dc = "docker compose";
