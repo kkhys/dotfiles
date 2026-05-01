@@ -1,16 +1,14 @@
 # dotfiles
 
-Personal macOS development environment configuration managed with Nix Flakes, nix-darwin, and Home Manager.
+Personal macOS (Apple Silicon) environment, fully declarative via Nix Flakes + nix-darwin + Home Manager. System settings, user packages, Homebrew, and secrets all live under `.config/nix/`. Two host outputs are defined: `personal` and `work`.
 
-## Prerequisites
+## Requirements
 
-- macOS (Apple Silicon - aarch64-darwin)
-- Git (pre-installed on macOS)
-- Admin access (sudo privileges)
-- Stable internet connection
-- Age private key backup (for new machine setup)
+- macOS on Apple Silicon (`aarch64-darwin`)
+- Admin (sudo) access
+- Age private key backup (1Password / encrypted USB / paper) — required to decrypt SSH and GPG keys on a new machine
 
-## Installation
+## Bootstrap a new machine
 
 ### 1. Install Nix
 
@@ -18,16 +16,16 @@ Personal macOS development environment configuration managed with Nix Flakes, ni
 sh <(curl -L https://nixos.org/nix/install)
 ```
 
-Close and reopen your terminal, then enable flakes:
+Reopen the terminal, then enable flakes:
 
 ```bash
 mkdir -p ~/.config/nix
 echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
-### 2. Clone Repository
+### 2. Clone over HTTPS
 
-Clone via HTTPS first (SSH keys are not yet available):
+SSH keys aren't decrypted yet, so clone via HTTPS for now:
 
 ```bash
 mkdir -p ~/projects/github.com/kkhys
@@ -35,289 +33,140 @@ git clone https://github.com/kkhys/dotfiles.git ~/projects/github.com/kkhys/dotf
 cd ~/projects/github.com/kkhys/dotfiles
 ```
 
-### 3. Backup Existing Configuration Files
+### 3. Move pre-existing shell rc files aside
+
+nix-darwin refuses to activate if it finds these files:
 
 ```bash
 sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
-sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
+sudo mv /etc/zshrc  /etc/zshrc.before-nix-darwin
 ```
 
-### 4. Restore Age Private Key
-
-Restore the age private key from your backup (1Password, etc.):
+### 4. Restore the age private key
 
 ```bash
 mkdir -p ~/.config/age
-# Create the key file and paste your age private key
-vim ~/.config/age/keys.txt
+$EDITOR ~/.config/age/keys.txt    # paste the AGE-SECRET-KEY-... line
 chmod 600 ~/.config/age/keys.txt
 ```
 
-The key looks like: `AGE-SECRET-KEY-1XXXXXX...`
+Without this, agenix can't decrypt SSH/GPG/API tokens during activation. See [agent_docs/secrets.md](agent_docs/secrets.md) for the full secrets workflow.
 
-This key is required to decrypt SSH and GPG keys during setup.
-
-### 5. Apply Configuration
-
-For personal environment:
+### 5. First activation
 
 ```bash
 sudo nix run \
-  --extra-experimental-features nix-command \
-  --extra-experimental-features flakes \
+  --extra-experimental-features 'nix-command flakes' \
   nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
 ```
 
-For work environment:
+Use `#work` on the work host. Initial run takes 5–15 minutes.
+
+### 6. Switch the remote to SSH and reload the shell
 
 ```bash
-sudo nix run \
-  --extra-experimental-features nix-command \
-  --extra-experimental-features flakes \
-  nix-darwin -- switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#work
-```
-
-This takes 5-15 minutes on first run.
-
-### 6. Switch Remote to SSH
-
-After setup, SSH keys are available. Switch the remote URL to SSH:
-
-```bash
-cd ~/projects/github.com/kkhys/dotfiles
 git remote set-url origin git@github.com:kkhys/dotfiles.git
-
-# Verify
-git remote -v
-```
-
-### 7. Restart Shell
-
-```bash
 exec zsh
 ```
 
-## Usage
+## Daily use
 
-### Apply Configuration Changes
+After the first activation, the active host exposes shell aliases that wrap `darwin-rebuild`:
 
 ```bash
-git add -A
-sudo darwin-rebuild switch --flake ~/projects/github.com/kkhys/dotfiles/.config/nix#personal
+dr     # switch  — apply (sudo darwin-rebuild switch  ...)
+drb    # build   — build only, no activation
+drc    # check   — eval/syntax check
+nfu    # nix flake update
+```
 
-# Or use alias
+Typical change loop:
+
+```bash
+# edit any file under .config/nix/
+git add -A          # untracked files must be staged for the flake to see them
 dr
 ```
 
-### Add Packages
-
-#### Homebrew Packages
-
-Edit `.config/nix/hosts/common/homebrew.nix` (all hosts):
-
-```nix
-homebrew = {
-  brews = [ "ripgrep" ];
-  casks = [ "visual-studio-code" ];
-};
-```
-
-Edit `.config/nix/hosts/common/homebrew-personal.nix` (personal only):
-
-```nix
-homebrew = lib.mkIf (!config.hostSpec.isWork) {
-  casks = [ "discord" ];
-};
-```
-
-Edit `.config/nix/hosts/common/homebrew-work.nix` (work only):
-
-```nix
-homebrew = lib.mkIf config.hostSpec.isWork {
-  casks = [ "slack" "zoom" ];
-};
-```
-
-#### Nix Packages
-
-Edit `.config/nix/home-manager/packages.nix`:
-
-```nix
-home.packages = with pkgs; [
-  ripgrep
-  fd
-];
-```
-
-Then apply:
+Other useful commands:
 
 ```bash
-git add -A
-dr
+sudo darwin-rebuild switch --rollback              # revert to previous generation
+sudo nix-collect-garbage --delete-older-than 30d   # prune old generations
 ```
 
-### Update Dependencies
-
-```bash
-nfu  # nix flake update
-dr
-```
-
-## Commands
-
-```bash
-# Apply configuration
-dr
-
-# Build without activating
-drb
-
-# Check syntax
-drc
-
-# Rollback
-sudo darwin-rebuild switch --rollback
-
-# Clean up old generations
-sudo nix-collect-garbage --delete-older-than 30d
-```
-
-## Troubleshooting
-
-### Unexpected files in /etc
-
-```
-error: Unexpected files in /etc, aborting activation
-```
-
-Solution:
-
-```bash
-sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
-sudo mv /etc/zshrc /etc/zshrc.before-nix-darwin
-```
-
-### Path not tracked by Git
-
-```
-error: Path '.config/nix/...' is not tracked by Git
-```
-
-Solution:
-
-```bash
-git add -A
-```
-
-### Secrets Decryption Failed
-
-```
-error: Failed to decrypt ...
-```
-
-Solution: Ensure the age private key is correctly placed:
-
-```bash
-cat ~/.config/age/keys.txt
-# Should start with AGE-SECRET-KEY-
-chmod 600 ~/.config/age/keys.txt
-```
-
-## Important: Backup Your Age Private Key
-
-The file `~/.config/age/keys.txt` is the **only key** that can decrypt your secrets. If lost, you cannot recover your SSH/GPG keys from the encrypted `.age` files.
-
-**Backup locations (choose at least 2):**
-- Password manager (1Password, Bitwarden)
-- Encrypted USB drive
-- Printed paper in secure location
-
-The key is a single line starting with `AGE-SECRET-KEY-`.
-
-## Structure
+## Where things live
 
 ```
 .config/nix/
-├── flake.nix              # Entry point
-├── modules/
-│   └── host-spec.nix      # Custom host options (hostName, username, isWork)
-├── darwin/                # nix-darwin system settings
-│   ├── default.nix
-│   ├── homebrew.nix       # Homebrew settings and taps
-│   ├── system.nix         # macOS preferences (Dock, Finder, etc.)
-│   ├── nix.nix            # Nix configuration
-│   └── secrets.nix        # agenix decryption settings
-├── secrets/               # Encrypted secrets (agenix)
-│   ├── secrets.nix        # Age public keys
-│   ├── ssh-key-github.age # Encrypted SSH private key
-│   ├── gpg-key.age        # Encrypted GPG private key
-│   ├── npm-token.age      # Encrypted NPM token (work only)
-│   └── id_ed25519_github.pub # SSH public key
-├── home-manager/          # User-level configuration
-│   ├── default.nix
-│   ├── packages.nix       # Nix packages
-│   ├── dotfiles.nix       # Symlink management
-│   └── programs/          # Program-specific configurations
-│       ├── bun.nix        # Bun JavaScript runtime
-│       ├── fzf.nix        # Fuzzy finder
-│       ├── gh.nix         # GitHub CLI
-│       ├── ghostty.nix    # Ghostty terminal
-│       ├── git.nix        # Git with GPG signing
-│       ├── gpg.nix        # GnuPG configuration
-│       ├── lazygit.nix    # Lazygit TUI
-│       ├── mise.nix       # mise version manager
-│       ├── sheldon.nix    # Zsh plugin manager
-│       ├── ssh.nix        # SSH configuration
-│       ├── starship.nix   # Starship prompt
-│       ├── yazi.nix       # Yazi file manager
-│       └── zsh.nix        # Zsh configuration
-└── hosts/
-    ├── common/            # Shared configuration
-    │   ├── default.nix
-    │   ├── homebrew.nix
-    │   ├── homebrew-personal.nix
-    │   └── homebrew-work.nix
-    ├── personal/          # Personal machine
-    │   └── default.nix
-    └── work/              # Work machine
-        └── default.nix
+├── flake.nix              entry point — defines darwinConfigurations.{personal,work}
+├── modules/host-spec.nix  declares config.hostSpec.{hostName,username,isWork}
+├── darwin/                system: macOS prefs, Nix, Homebrew, agenix
+├── home-manager/
+│   ├── packages.nix       user-level Nix packages
+│   ├── dotfiles.nix       symlinks back into this repo
+│   └── programs/          one file per tool (zsh, git, gh, ghostty, ...)
+├── hosts/
+│   ├── common/            shared system + Homebrew package lists
+│   ├── personal/          personal host overrides
+│   └── work/              work host overrides
+└── secrets/               agenix-encrypted secrets + recipient list
 ```
 
-## What's Managed
+For task-specific deep dives:
 
-### System Level (nix-darwin)
+- [agent_docs/architecture.md](agent_docs/architecture.md) — module composition, `hostSpec` flow, activation order
+- [agent_docs/extending.md](agent_docs/extending.md) — adding a host, package, dotfile, or program module
+- [agent_docs/secrets.md](agent_docs/secrets.md) — agenix workflow: new machine, new secret, key rotation
 
-- macOS preferences (Dock, Finder, keyboard, trackpad)
-- Homebrew packages (brews, casks)
-- Touch ID for sudo
+For new program modules under `home-manager/programs/`, the closest existing module in that directory is the best reference — match its structure rather than improvising.
+
+Homebrew is fully declarative via nix-homebrew. Never run `brew bundle` or `brew install` manually — packages added that way will be removed on the next activation.
+
+## What's managed
+
+System (nix-darwin):
+- macOS preferences (Dock, Finder, keyboard, trackpad, Touch ID for sudo)
+- Homebrew formulae and casks (per-host scoped via `hostSpec.isWork`)
 - Nix garbage collection
-- Encrypted secrets decryption (agenix)
+- agenix secret decryption
 
-### Secrets (agenix)
+User (Home Manager):
+- Shell — zsh, sheldon (plugin manager), starship (prompt)
+- Git stack — git (with GPG signing), gh, lazygit
+- Terminal — ghostty, zellij, bat, eza
+- Editors / runtimes — vim, mise, bun, deno, rustup, python3 + uv + pipx
+- Workflow — fzf, yazi, direnv, ssh, gpg + pinentry-mac
+- Cloud — google-cloud-sdk; (work) colima
+- Symlinks — Karabiner, Zellij, Zed, Claude, Gemini CLI, Codex
 
-- SSH private key (GitHub)
-- GPG private key
-- SSH public key
-- NPM token (work environment only)
+Secrets (agenix, see `secrets/secrets.nix` for the full list):
+- SSH and GPG private keys
+- GitHub token, NPM token (work)
+- Qase, SonarQube, Devin API tokens
 
-### User Level (Home Manager)
+## Troubleshooting
 
-- Shell (Zsh with Sheldon plugin manager, Starship prompt)
-- Git (config, GPG signing, global ignores)
-- GitHub CLI
-- Ghostty terminal
-- Lazygit TUI
-- mise (Node.js, pnpm, npm tools)
-- Bun JavaScript runtime
-- fzf fuzzy finder
-- Yazi file manager
-- SSH configuration
-- GnuPG (gpg, pinentry-mac)
-- Symlinks for Karabiner, Zellij, Zed, Claude, Gemini CLI, Codex
+`Unexpected files in /etc, aborting activation`
 
-### Nix Packages
+```bash
+sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin
+sudo mv /etc/zshrc  /etc/zshrc.before-nix-darwin
+```
 
-- Git Tools: ghq, gibo, lefthook
-- Development: vim, uv, deno
-- Terminal: bat, eza, zellij
-- Data Processing: jq
+`Path '.config/nix/...' is not tracked by Git` — flakes ignore untracked files. Stage them:
+
+```bash
+git add -A
+```
+
+`Failed to decrypt ...` — the age private key is missing or has wrong permissions:
+
+```bash
+ls -l ~/.config/age/keys.txt   # must exist, mode 600, start with AGE-SECRET-KEY-
+chmod 600 ~/.config/age/keys.txt
+```
+
+## Back up the age private key
+
+`~/.config/age/keys.txt` is the only key that decrypts every `*.age` file in this repo. If lost, all secrets are unrecoverable. Keep at least two backups (password manager + offline copy).
