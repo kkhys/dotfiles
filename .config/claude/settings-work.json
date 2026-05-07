@@ -129,7 +129,8 @@
     "sentry@claude-plugins-official": true,
     "notion@claude-plugins-official": true
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "teammateMode": "auto"
 }
