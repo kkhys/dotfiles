@@ -8,7 +8,7 @@
     globalConfig = {
       tools = {
         node = "latest";
-        pnpm = "latest";
+        "npm:pnpm" = "latest";
         "npm:yarn" = "latest";
         "npm:@fission-ai/openspec" = "latest";
         "npm:@google/gemini-cli" = "latest";
