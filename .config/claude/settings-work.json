@@ -89,7 +89,6 @@
       "Bash(aws cloudformation update-stack:*)"
     ]
   },
-  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -127,10 +126,12 @@
     "serena@claude-plugins-official": true,
     "hookify@claude-plugins-official": true,
     "sentry@claude-plugins-official": true,
-    "notion@claude-plugins-official": true
+    "notion@claude-plugins-official": true,
+    "softphone-team@revcomm": true
   },
   "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
-  "voiceEnabled": true,
-  "teammateMode": "auto"
+  "autoMemoryEnabled": true,
+  "teammateMode": "auto",
+  "voiceEnabled": true
 }
