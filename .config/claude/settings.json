@@ -15,15 +15,12 @@
       "Edit",
       "Write",
       "WebFetch",
-      "mcp__context7",
-      "mcp__chrome-devtools",
-      "mcp__serena",
-      "mcp__playwright",
+      "mcp__plugin_context7_context7__*",
       "mcp__plugin_base_serena__*",
-      "Skill(creating-branch-name)",
-      "Skill(splitting-commit)",
-      "Skill(formatting-commit)",
-      "Skill(creating-pr)"
+      "mcp__plugin_base_chrome-devtools__*",
+      "mcp__plugin_base_playwright__*",
+      "mcp__plugin_base_astro-docs__*",
+      "Skill(base:*)"
     ],
     "deny": [
       "Bash(rm -rf:*)",
@@ -127,5 +124,6 @@
   },
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "opus[1m]"
 }
