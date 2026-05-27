@@ -121,7 +121,16 @@
     "context7@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
     "serena@claude-plugins-official": true,
-    "hookify@claude-plugins-official": true
+    "hookify@claude-plugins-official": true,
+    "modern-web-guidance@googlechrome": true
+  },
+  "extraKnownMarketplaces": {
+    "googlechrome": {
+      "source": {
+        "source": "github",
+        "repo": "GoogleChrome/modern-web-guidance"
+      }
+    }
   },
   "effortLevel": "high",
   "promptSuggestionEnabled": false,

@@ -125,7 +125,16 @@
     "hookify@claude-plugins-official": true,
     "sentry@claude-plugins-official": true,
     "notion@claude-plugins-official": true,
-    "softphone-team@revcomm": true
+    "softphone-team@revcomm": true,
+    "modern-web-guidance@googlechrome": true
+  },
+  "extraKnownMarketplaces": {
+    "googlechrome": {
+      "source": {
+        "source": "github",
+        "repo": "GoogleChrome/modern-web-guidance"
+      }
+    }
   },
   "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
