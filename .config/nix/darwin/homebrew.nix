@@ -4,7 +4,10 @@
   homebrew = {
     enable = true;
     onActivation = {
-      autoUpdate = true;
+      # All taps are pinned as flake inputs (read-only nix store), so `brew update`
+      # cannot fetch them and fails on the read-only tap .git. Updates flow through
+      # `nix flake update` instead, so auto-update is disabled here.
+      autoUpdate = false;
       upgrade = true;
       cleanup = "uninstall";
     };
