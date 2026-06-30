@@ -20,6 +20,26 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-rtk = {
+      url = "github:rtk-ai/homebrew-tap";
+      flake = false;
+    };
+    homebrew-protonpass = {
+      url = "github:protonpass/homebrew-tap";
+      flake = false;
+    };
+    homebrew-entire = {
+      url = "github:entireio/homebrew-tap";
+      flake = false;
+    };
+    homebrew-datadog = {
+      url = "github:datadog-labs/homebrew-pack";
+      flake = false;
+    };
+    homebrew-cmux = {
+      url = "github:manaflow-ai/homebrew-cmux";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,6 +53,11 @@
       nix-homebrew,
       homebrew-core,
       homebrew-cask,
+      homebrew-rtk,
+      homebrew-protonpass,
+      homebrew-entire,
+      homebrew-datadog,
+      homebrew-cmux,
       agenix,
       ...
     }:
@@ -73,6 +98,11 @@
               taps = {
                 "homebrew/homebrew-core" = homebrew-core;
                 "homebrew/homebrew-cask" = homebrew-cask;
+                "rtk-ai/homebrew-tap" = homebrew-rtk;
+                "protonpass/homebrew-tap" = homebrew-protonpass;
+                "entireio/homebrew-tap" = homebrew-entire;
+                "datadog-labs/homebrew-pack" = homebrew-datadog;
+                "manaflow-ai/homebrew-cmux" = homebrew-cmux;
               };
               mutableTaps = true;
             };
