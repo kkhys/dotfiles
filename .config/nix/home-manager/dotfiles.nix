@@ -15,7 +15,6 @@ let
   claudeFiles = [
     "CLAUDE.md"
     "RTK.md"
-    "hooks/rtk-rewrite.sh"
     "statusline-command.sh"
   ];
 
