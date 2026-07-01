@@ -5,6 +5,7 @@
     brews = [
       "protonpass/tap/pass-cli"
       "rtk-ai/tap/rtk"
+      "xcodes"
     ];
 
     casks = [
