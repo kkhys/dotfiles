@@ -10,7 +10,6 @@
         node = "latest";
         "npm:pnpm" = "latest";
         "npm:yarn" = "latest";
-        "npm:@fission-ai/openspec" = "latest";
         "npm:@google/gemini-cli" = "latest";
         "npm:@openai/codex" = "latest";
         "npm:vercel" = "latest";
