@@ -14,7 +14,6 @@
     taps = [
       "homebrew/core"
       "homebrew/cask"
-      "protonpass/tap"
       "datadog-labs/pack"
       "manaflow-ai/cmux"
       "rtk-ai/tap"

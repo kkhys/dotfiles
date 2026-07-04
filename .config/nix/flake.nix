@@ -24,10 +24,6 @@
       url = "github:rtk-ai/homebrew-tap";
       flake = false;
     };
-    homebrew-protonpass = {
-      url = "github:protonpass/homebrew-tap";
-      flake = false;
-    };
     homebrew-datadog = {
       url = "github:datadog-labs/homebrew-pack";
       flake = false;
@@ -50,7 +46,6 @@
       homebrew-core,
       homebrew-cask,
       homebrew-rtk,
-      homebrew-protonpass,
       homebrew-datadog,
       homebrew-cmux,
       agenix,
@@ -94,7 +89,6 @@
                 "homebrew/homebrew-core" = homebrew-core;
                 "homebrew/homebrew-cask" = homebrew-cask;
                 "rtk-ai/homebrew-tap" = homebrew-rtk;
-                "protonpass/homebrew-tap" = homebrew-protonpass;
                 "datadog-labs/homebrew-pack" = homebrew-datadog;
                 "manaflow-ai/homebrew-cmux" = homebrew-cmux;
               };
