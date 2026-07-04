@@ -16,7 +16,6 @@
       "obsidian"
       "ghostty"
       "zed"
-      "entireio/tap/entire"
       "manaflow-ai/cmux/cmux"
       "cleanshot"
     ];

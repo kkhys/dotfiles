@@ -187,22 +187,6 @@
         "type": "github"
       }
     },
-    "homebrew-entire": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782804950,
-        "narHash": "sha256-Ztp3hD58tl2fBtxD8fdB/7OtBvstLXH9QBV1Cuz4pF4=",
-        "owner": "entireio",
-        "repo": "homebrew-tap",
-        "rev": "37df929bb8dfff855c49784302fe800c9a2996ac",
-        "type": "github"
-      },
-      "original": {
-        "owner": "entireio",
-        "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
     "homebrew-protonpass": {
       "flake": false,
       "locked": {
@@ -278,7 +262,6 @@
         "homebrew-cmux": "homebrew-cmux",
         "homebrew-core": "homebrew-core",
         "homebrew-datadog": "homebrew-datadog",
-        "homebrew-entire": "homebrew-entire",
         "homebrew-protonpass": "homebrew-protonpass",
         "homebrew-rtk": "homebrew-rtk",
         "nix-homebrew": "nix-homebrew",
