@@ -187,22 +187,6 @@
         "type": "github"
       }
     },
-    "homebrew-protonpass": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782716354,
-        "narHash": "sha256-gnn4QjK+bMhcVdaIIhyp1RMMZcVNMK7iNLezV8JfnBY=",
-        "owner": "protonpass",
-        "repo": "homebrew-tap",
-        "rev": "2873dc21e1c380873344e19d118ae1551d71b148",
-        "type": "github"
-      },
-      "original": {
-        "owner": "protonpass",
-        "repo": "homebrew-tap",
-        "type": "github"
-      }
-    },
     "homebrew-rtk": {
       "flake": false,
       "locked": {
@@ -262,7 +246,6 @@
         "homebrew-cmux": "homebrew-cmux",
         "homebrew-core": "homebrew-core",
         "homebrew-datadog": "homebrew-datadog",
-        "homebrew-protonpass": "homebrew-protonpass",
         "homebrew-rtk": "homebrew-rtk",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs"
