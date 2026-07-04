@@ -15,7 +15,6 @@
       "homebrew/core"
       "homebrew/cask"
       "protonpass/tap"
-      "entireio/tap"
       "datadog-labs/pack"
       "manaflow-ai/cmux"
       "rtk-ai/tap"

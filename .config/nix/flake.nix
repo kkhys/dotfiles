@@ -28,10 +28,6 @@
       url = "github:protonpass/homebrew-tap";
       flake = false;
     };
-    homebrew-entire = {
-      url = "github:entireio/homebrew-tap";
-      flake = false;
-    };
     homebrew-datadog = {
       url = "github:datadog-labs/homebrew-pack";
       flake = false;
@@ -55,7 +51,6 @@
       homebrew-cask,
       homebrew-rtk,
       homebrew-protonpass,
-      homebrew-entire,
       homebrew-datadog,
       homebrew-cmux,
       agenix,
@@ -100,7 +95,6 @@
                 "homebrew/homebrew-cask" = homebrew-cask;
                 "rtk-ai/homebrew-tap" = homebrew-rtk;
                 "protonpass/homebrew-tap" = homebrew-protonpass;
-                "entireio/homebrew-tap" = homebrew-entire;
                 "datadog-labs/homebrew-pack" = homebrew-datadog;
                 "manaflow-ai/homebrew-cmux" = homebrew-cmux;
               };
