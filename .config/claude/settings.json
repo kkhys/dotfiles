@@ -62,11 +62,9 @@
       "Read(./secrets/**)",
       "Read(**/credentials.json)",
       "Read(**/*token*)",
-      "Edit(.env)",
-      "Edit(.env.*)",
+      "Edit(.env*)",
       "Edit(~/.ssh/**)",
-      "Edit(~/.aws/**)",
-      "Write(.env*)"
+      "Edit(~/.aws/**)"
     ],
     "ask": [
       "Bash(git push:*)",
