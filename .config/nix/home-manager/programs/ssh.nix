@@ -5,21 +5,19 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks = {
+    settings = {
       "*" = {
-        serverAliveInterval = 60;
-        serverAliveCountMax = 5;
+        ServerAliveInterval = 60;
+        ServerAliveCountMax = 5;
       };
 
       "github.com github" = {
-        hostname = "github.com";
-        user = "git";
-        addKeysToAgent = "yes";
-        identityFile = "~/.ssh/id_ed25519_github";
-        identitiesOnly = true;
-        extraOptions = {
-          UseKeychain = "yes";
-        };
+        HostName = "github.com";
+        User = "git";
+        AddKeysToAgent = "yes";
+        IdentityFile = "~/.ssh/id_ed25519_github";
+        IdentitiesOnly = true;
+        UseKeychain = "yes";
       };
     };
   };
