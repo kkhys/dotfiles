@@ -11,7 +11,7 @@
       "--border"
     ];
 
-    historyWidgetOptions = [
+    historyWidget.options = [
       "--sort"
       "--exact"
     ];
