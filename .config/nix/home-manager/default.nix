@@ -4,6 +4,7 @@
   imports = [
     ./dotfiles.nix
     ./packages.nix
+    ./skills.nix
     ./programs/bun.nix
     ./programs/direnv.nix
     ./programs/fzf.nix
