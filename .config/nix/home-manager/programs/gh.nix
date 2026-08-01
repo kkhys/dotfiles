@@ -33,7 +33,7 @@
   };
 
   # Keep the gh-stack (GitHub Stacked PRs) extension up to date on every
-  # rebuild, mirroring how mise tools and cmux skills are refreshed. gh-stack
+  # rebuild, mirroring how mise tools are refreshed. gh-stack
   # is not in nixpkgs (private preview), so install it via the gh CLI rather
   # than programs.gh.extensions.
   home.activation.ghStackExtension = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

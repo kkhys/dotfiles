@@ -139,22 +139,6 @@
         "type": "github"
       }
     },
-    "homebrew-cmux": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1784457657,
-        "narHash": "sha256-1uYcW6lQ1osg+A/6qs5vBnwRBgxs/ktpI8kOAzW01S8=",
-        "owner": "manaflow-ai",
-        "repo": "homebrew-cmux",
-        "rev": "e8c60101576ff93d0db07d6963ab17f75e815b5f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "manaflow-ai",
-        "repo": "homebrew-cmux",
-        "type": "github"
-      }
-    },
     "homebrew-core": {
       "flake": false,
       "locked": {
@@ -243,7 +227,6 @@
         "darwin": "darwin_2",
         "home-manager": "home-manager_2",
         "homebrew-cask": "homebrew-cask",
-        "homebrew-cmux": "homebrew-cmux",
         "homebrew-core": "homebrew-core",
         "homebrew-datadog": "homebrew-datadog",
         "homebrew-rtk": "homebrew-rtk",
