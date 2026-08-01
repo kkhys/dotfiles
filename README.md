@@ -134,11 +134,11 @@ System (nix-darwin):
 User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
 - Git stack — git (with GPG signing), gh, lazygit
-- Terminal — ghostty, zellij, bat, eza
+- Terminal — ghostty (auto-launches herdr), herdr, bat, eza
 - Editors / runtimes — vim, mise, bun, deno, rustup, python3 + uv + pipx
 - Workflow — fzf, yazi, direnv, ssh, gpg + pinentry-mac
 - Cloud — google-cloud-sdk; (work) colima
-- Symlinks — Karabiner, Zellij, Zed, Claude, Gemini CLI, Codex
+- Symlinks — Karabiner, Zed, Claude, Gemini CLI, Codex
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys
