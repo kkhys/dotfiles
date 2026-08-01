@@ -7,10 +7,6 @@ let
   # mirror them into ~/.codex/skills).
   agentSkills = [
     {
-      pkg = "manaflow-ai/cmux";
-      glob = "cmux*";
-    }
-    {
       pkg = "github/gh-stack";
       glob = "gh-stack*";
     }

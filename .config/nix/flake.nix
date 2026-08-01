@@ -28,10 +28,6 @@
       url = "github:datadog-labs/homebrew-pack";
       flake = false;
     };
-    homebrew-cmux = {
-      url = "github:manaflow-ai/homebrew-cmux";
-      flake = false;
-    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -47,7 +43,6 @@
       homebrew-cask,
       homebrew-rtk,
       homebrew-datadog,
-      homebrew-cmux,
       agenix,
       ...
     }:
@@ -90,7 +85,6 @@
                 "homebrew/homebrew-cask" = homebrew-cask;
                 "rtk-ai/homebrew-tap" = homebrew-rtk;
                 "datadog-labs/homebrew-pack" = homebrew-datadog;
-                "manaflow-ai/homebrew-cmux" = homebrew-cmux;
               };
               mutableTaps = true;
             };

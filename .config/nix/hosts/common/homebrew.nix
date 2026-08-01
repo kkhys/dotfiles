@@ -14,7 +14,6 @@
       "logi-options+"
       "ghostty"
       "zed"
-      "manaflow-ai/cmux/cmux"
       "cleanshot"
     ];
   };
