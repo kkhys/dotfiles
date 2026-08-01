@@ -127,5 +127,6 @@
   },
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "sonnet"
 }

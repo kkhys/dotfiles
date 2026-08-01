@@ -8,7 +8,6 @@ let
   configFiles = [
     "karabiner/karabiner.json"
     "zed/settings.json"
-    "zellij/config.kdl"
   ];
 
   # Claude config files (stored in .config/claude/, linked to ~/.claude/)

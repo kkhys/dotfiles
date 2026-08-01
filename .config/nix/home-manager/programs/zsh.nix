@@ -65,7 +65,7 @@ in
         yolo = "claude --dangerously-skip-permissions";
 
         # Terminal
-        z = "zellij";
+        h = "herdr";
 
         # Nix
         nfu = "nix flake update --flake ~/projects/github.com/kkhys/dotfiles/.config/nix";
