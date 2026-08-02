@@ -1,4 +1,4 @@
-{ pkgs, lib, hostSpec, ... }:
+{ pkgs, lib, hostSpec, ax, ... }:
 
 {
   home.packages = with pkgs; [
@@ -29,6 +29,9 @@
 
     # JavaScript/TypeScript Runtime
     deno
+  ] ++ [
+    # Agent-oriented HTTP client; not in nixpkgs, so it comes from its own flake
+    ax.packages.${pkgs.system}.default
   ] ++ lib.optionals hostSpec.isWork [
     # Work-only Tools
     colima

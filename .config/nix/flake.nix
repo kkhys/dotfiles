@@ -32,6 +32,10 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ax = {
+      url = "github:yusukebe/ax";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -44,6 +48,7 @@
       homebrew-rtk,
       homebrew-datadog,
       agenix,
+      ax,
       ...
     }:
     let
@@ -66,6 +71,7 @@
               backupFileExtension = "backup";
               extraSpecialArgs = {
                 hostSpec = config.hostSpec;
+                inherit ax;
               };
               users.${config.hostSpec.username} = import ./home-manager;
             };

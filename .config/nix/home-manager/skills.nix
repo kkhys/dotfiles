@@ -19,6 +19,12 @@ let
       skill = "herdr";
       glob = "herdr";
     }
+    {
+      # Teaches the ax CLI installed in packages.nix. The glob is exact: `ax*`
+      # would also sweep unrelated skills into ~/.codex/skills.
+      pkg = "yusukebe/ax";
+      glob = "ax";
+    }
   ];
 
   skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
