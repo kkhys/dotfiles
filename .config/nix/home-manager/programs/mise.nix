@@ -21,8 +21,12 @@
     };
   };
 
+  # `mise install` only installs missing tools, so tools pinned to "latest"
+  # stay frozen at whatever version was current on first install. Upgrade
+  # afterwards so "latest" actually tracks latest.
   home.activation.miseInstall = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     PATH="${config.home.profileDirectory}/bin:$PATH"
     ${pkgs.mise}/bin/mise install
+    ${pkgs.mise}/bin/mise upgrade
   '';
 }
