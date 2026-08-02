@@ -110,6 +110,7 @@
       "Bash(cargo* publish*)"
     ]
   },
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -182,7 +183,10 @@
   },
   "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
-  "autoMemoryEnabled": true,
-  "teammateMode": "auto",
-  "voiceEnabled": true
+  "emojiCompletionEnabled": false,
+  "voiceEnabled": true,
+  "language": "japanese",
+  "autoMemoryEnabled": false,
+  "disableClaudeAiConnectors": true,
+  "cleanupPeriodDays": 180
 }

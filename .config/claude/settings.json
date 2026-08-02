@@ -111,6 +111,7 @@
     ]
   },
   "model": "sonnet",
+  "fallbackModel": ["sonnet"],
   "hooks": {
     "PreToolUse": [
       {
@@ -126,7 +127,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/statusline-command.sh",
+    "command": "bash ~/.claude/statusline-command.sh",
     "padding": 0
   },
   "enabledPlugins": {
@@ -171,7 +172,12 @@
       "autoUpdate": true
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
-  "voiceEnabled": true
+  "emojiCompletionEnabled": false,
+  "voiceEnabled": true,
+  "language": "japanese",
+  "autoMemoryEnabled": false,
+  "disableClaudeAiConnectors": true,
+  "cleanupPeriodDays": 180
 }
