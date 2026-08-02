@@ -4,13 +4,24 @@ let
   # Agent skills kept latest on every rebuild the same way mise tools are:
   # fetch the latest via the skills CLI. Each entry is the skills registry
   # identifier plus the glob its installed skill directories match (used to
-  # mirror them into ~/.codex/skills).
+  # mirror them into ~/.codex/skills). Optional `skill` narrows a multi-skill
+  # source down to a single skill.
   agentSkills = [
     {
       pkg = "github/gh-stack";
       glob = "gh-stack*";
     }
+    {
+      # Lets an agent drive the herdr CLI from inside its own pane: inspect
+      # workspaces, run commands in siblings, wait on other agents. The skill
+      # no-ops unless HERDR_ENV=1, so it stays inert outside herdr.
+      pkg = "herdrdev/herdr";
+      skill = "herdr";
+      glob = "herdr";
+    }
   ];
+
+  skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
 in
 {
   # Runs after miseInstall so node/npx (managed by mise) are available.
@@ -18,7 +29,7 @@ in
     export PATH="${config.home.profileDirectory}/bin:$PATH"
     ${lib.concatMapStringsSep "\n" (s: ''
       echo "Installing ${s.pkg} skills..."
-      ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${s.pkg} -g -y \
+      ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${s.pkg} ${skillFlag s}-g -y \
         || echo "warning: ${s.pkg} skills install skipped (offline?)" >&2
     '') agentSkills}
     # The skills CLI installs to ~/.agents/skills and links into ~/.claude/skills,
