@@ -85,6 +85,7 @@
       "Bash(aws cloudformation update-stack:*)"
     ]
   },
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -127,6 +128,5 @@
   },
   "effortLevel": "high",
   "promptSuggestionEnabled": false,
-  "voiceEnabled": true,
-  "model": "sonnet"
+  "voiceEnabled": true
 }
