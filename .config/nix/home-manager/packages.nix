@@ -12,6 +12,7 @@
     python3
     uv
     pipx
+    shellcheck
 
     # Cloud Tools
     google-cloud-sdk
