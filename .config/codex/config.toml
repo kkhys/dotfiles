@@ -1,7 +1,68 @@
-model = "gpt-5.4"
+# Codex system-layer configuration, installed to /etc/codex/config.toml by
+# darwin/codex.nix.
+#
+# This is Codex's LOWEST-precedence layer, below ~/.codex/config.toml. That is
+# deliberate: Codex rewrites the user config at runtime (project trust levels,
+# `codex features enable`, TUI toggles), so it cannot be a symlink into this
+# repo. Keeping the managed settings here instead means `darwin-rebuild switch`
+# always delivers them, while interactive changes still win locally.
+#
+# Corollary: any key set here must NOT also appear in ~/.codex/config.toml, or
+# the stale user-level copy silently shadows this file.
+
+model = "gpt-5.6-sol"
 model_reasoning_effort = "medium"
 personality = "pragmatic"
+
+# Pin the current defaults rather than inherit them, so an upstream default
+# change cannot quietly alter how much the agent is allowed to do.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+# Always fetch fresh results instead of the cached index.
+web_search = "live"
+
+# Codex only supports vscode/vscode-insiders/windsurf/cursor here, none of
+# which are installed on this machine (Zed is the editor), so suppress the
+# file hyperlinks rather than emit links that cannot be opened.
+file_opener = "none"
+
+[sandbox_workspace_write]
+network_access = false
+
+[features]
+# The CLI is installed through mise, so the in-app updater would rewrite a
+# different npm prefix than the one actually on PATH. Upgrade with
+# `mise upgrade npm:@openai/codex` instead.
+in_app_updates = false
+memories = true
+multi_agent_v2 = true
+
+[agents]
+# Includes the root thread, so this allows four concurrent subagents.
+# Cannot be combined with the v1 `agents.max_threads` setting.
+max_concurrent_threads_per_session = 5
 
 [tui]
 status_line = ["model-with-reasoning", "git-branch", "context-used", "five-hour-limit", "weekly-limit"]
 theme = "catppuccin-mocha"
+notifications = true
+notification_condition = "unfocused"
+
+# Mirrors the MCP servers Claude Code gets through its plugins, so both agents
+# have the same capabilities.
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+
+[mcp_servers.serena]
+command = "uvx"
+args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"]
+
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]
