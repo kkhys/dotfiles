@@ -181,7 +181,7 @@
       "autoUpdate": true
     }
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
   "voiceEnabled": true,
