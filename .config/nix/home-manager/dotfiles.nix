@@ -1,4 +1,4 @@
-{ config, lib, hostSpec, ... }:
+{ config, lib, pkgs, hostSpec, ... }:
 
 let
   dotfilesPath = "${config.home.homeDirectory}/projects/github.com/kkhys/dotfiles";
@@ -30,8 +30,10 @@ let
   ];
 
   # Codex config files (stored in .config/codex/, linked to ~/.codex/)
-  # Note: config.toml is excluded from symlinks because Codex writes runtime
-  # state (project trust levels) to it. It is bootstrapped via activation script.
+  # Note: config.toml is not listed here. Codex rewrites ~/.codex/config.toml in
+  # place (project trust levels, feature toggles, TUI state), so it cannot be a
+  # symlink into this repo. The managed settings ship through Codex's system
+  # config layer instead; see darwin/codex.nix.
   codexFiles = [
     "AGENTS.md"
   ];
@@ -61,12 +63,35 @@ in
   };
 
   home.activation = {
-    # Bootstrap Codex config.toml if it doesn't exist yet.
-    # Codex writes runtime state (project trust) to this file, so it must not be a symlink.
-    codexConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      if [ ! -f "$HOME/.codex/config.toml" ]; then
-        mkdir -p "$HOME/.codex"
-        cp "${dotfilesPath}/.config/codex/config.toml" "$HOME/.codex/config.toml"
+    # The managed Codex settings live in /etc/codex/config.toml, which is the
+    # LOWEST-precedence layer. A key left over in ~/.codex/config.toml silently
+    # shadows it, so warn instead of letting the two drift apart unnoticed.
+    # Codex's own runtime keys ([projects], [notice], tui.model_availability_nux)
+    # are expected there and are not managed by this repo.
+    codexConfigShadowCheck = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      userConfig="$HOME/.codex/config.toml"
+      systemConfig="/etc/codex/config.toml"
+      if [ -f "$userConfig" ] && [ -f "$systemConfig" ]; then
+        # Flatten a TOML file to one sorted "section.key" line per assignment,
+        # so [tui] holding only Codex's own model_availability_nux does not read
+        # as a conflict with the tui.theme we manage.
+        flattenToml() {
+          ${pkgs.gawk}/bin/awk '
+            /^[[:space:]]*#/ { next }
+            /^[[:space:]]*\[/ { section = $0; gsub(/^[[:space:]]*\[+|\]+[[:space:]]*$/, "", section); next }
+            /^[[:space:]]*[A-Za-z_][A-Za-z0-9_-]*[[:space:]]*=/ {
+              key = $1
+              print (section == "" ? key : section "." key)
+            }
+          ' "$1" | ${pkgs.coreutils}/bin/sort -u
+        }
+        shadowed=$(${pkgs.coreutils}/bin/comm -12 \
+          <(flattenToml "$userConfig") <(flattenToml "$systemConfig"))
+        if [ -n "$shadowed" ]; then
+          echo "warning: $userConfig shadows settings managed in $systemConfig:" >&2
+          echo "$shadowed" | ${pkgs.gnused}/bin/sed 's/^/  /' >&2
+          echo "  The user layer wins. Remove those keys to let the managed values apply." >&2
+        fi
       fi
     '';
   } // lib.optionalAttrs hostSpec.isWork {

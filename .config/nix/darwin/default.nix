@@ -6,5 +6,6 @@
     ./homebrew.nix
     ./nix.nix
     ./secrets.nix
+    ./codex.nix
   ];
 }
