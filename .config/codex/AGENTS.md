@@ -3,6 +3,9 @@
 ## Communication
 - Always communicate in Japanese
 - Code comments in English
+- Do not use emojis unless explicitly instructed
+- Do not use bold text (**text**) in responses
+- When asking for permission to run a command, provide a brief description in Japanese
 
 ## Security
 
