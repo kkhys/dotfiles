@@ -133,7 +133,6 @@
     "base@my-marketplace": true,
     "writing@my-marketplace": true,
     "codex@openai-codex": true,
-    "code-simplifier@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
@@ -143,11 +142,33 @@
     "modern-web-guidance@googlechrome": true
   },
   "extraKnownMarketplaces": {
+    "my-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "kkhys/claude-code-marketplace"
+      },
+      "autoUpdate": true
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      },
+      "autoUpdate": true
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      },
+      "autoUpdate": true
+    },
     "googlechrome": {
       "source": {
         "source": "github",
         "repo": "GoogleChrome/modern-web-guidance"
-      }
+      },
+      "autoUpdate": true
     }
   },
   "effortLevel": "high",
