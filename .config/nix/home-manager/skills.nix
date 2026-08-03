@@ -34,14 +34,6 @@ let
       skill = "hunk-review";
       glob = "hunk-review";
     }
-    {
-      # Runs a relentless interview (/grilling) to pressure-test a plan or
-      # design before committing to it. Narrowed to this one skill since the
-      # source repo bundles many unrelated skills.
-      pkg = "mattpocock/skills";
-      skill = "grill-me";
-      glob = "grill-me";
-    }
   ];
 
   skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
