@@ -25,6 +25,15 @@ let
       pkg = "yusukebe/ax";
       glob = "ax";
     }
+    {
+      # Drives the hunk TUI installed in programs/hunk.nix over `hunk session`,
+      # so review notes land on the diff itself instead of in the chat log. The
+      # skill asks the user to open hunk when no session is running, so it stays
+      # harmless if it fires without one.
+      pkg = "modem-dev/hunk";
+      skill = "hunk-review";
+      glob = "hunk-review";
+    }
   ];
 
   skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
