@@ -15,6 +15,7 @@
       "ghostty"
       "zed"
       "cleanshot"
+      "cursor"
     ];
   };
 }
