@@ -3,6 +3,7 @@
 {
   homebrew = {
     brews = [
+      "ffmpeg"
       "rtk-ai/tap/rtk"
       "xcodes"
     ];
