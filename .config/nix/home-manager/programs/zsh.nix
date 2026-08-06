@@ -72,6 +72,7 @@ in
         # AI coding agents
         ca = "cursor agent";
         cx = "codex";
+        dv = "devin";
         ge = "gemini";
 
         # Terminal
