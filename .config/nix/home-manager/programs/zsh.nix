@@ -69,6 +69,11 @@ in
         cl = "claude";
         yolo = "claude --dangerously-skip-permissions";
 
+        # AI coding agents
+        ca = "cursor agent";
+        cx = "codex";
+        ge = "gemini";
+
         # Terminal
         h = "herdr";
 
