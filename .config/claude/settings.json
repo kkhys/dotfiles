@@ -111,7 +111,7 @@
       "Bash(cargo* publish*)"
     ]
   },
-  "model": "sonnet",
+  "model": "opus[1m]",
   "disableClaudeAiConnectors": true,
   "hooks": {
     "PreToolUse": [
@@ -178,5 +178,6 @@
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
   "autoMemoryEnabled": false,
+  "theme": "dark",
   "voiceEnabled": true
 }
