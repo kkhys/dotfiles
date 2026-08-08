@@ -1,7 +1,22 @@
-{ config, hostSpec, ... }:
+{
+  config,
+  lib,
+  hostSpec,
+  ...
+}:
 
 let
   flakePath = "~/projects/github.com/kkhys/dotfiles/.config/nix";
+
+  # Env vars backed by agenix-decrypted files (declared in darwin/secrets.nix).
+  # The runtime -f guard keeps work-only secrets inert on personal hosts.
+  secretEnvVars = {
+    NPM_TOKEN = "npm-token";
+    GITHUB_ACCESS_TOKEN = "github-token";
+    QASE_API_TOKEN = "qase-api-token";
+    SONARQUBE_TOKEN = "sonarqube-token";
+    DEVIN_API_KEY = "devin-api-key";
+  };
 in
 {
   programs.zsh = {
@@ -79,7 +94,7 @@ in
         h = "herdr";
 
         # Nix
-        nfu = "nix flake update --flake ~/projects/github.com/kkhys/dotfiles/.config/nix";
+        nfu = "nix flake update --flake ${flakePath}";
 
         # ghq
         gg = "ghq get";
@@ -94,32 +109,14 @@ in
       export LC_ALL="''${LANGUAGE}"
       export LC_CTYPE="''${LANGUAGE}"
       export DO_NOT_TRACK=1
-
-      # Load NPM_TOKEN from agenix-decrypted secret (work environment only)
-      if [[ -f "$HOME/.config/secrets/npm-token" ]]; then
-        export NPM_TOKEN="$(cat $HOME/.config/secrets/npm-token)"
-      fi
-
-      # Load GITHUB_ACCESS_TOKEN from agenix-decrypted secret
-      if [[ -f "$HOME/.config/secrets/github-token" ]]; then
-        export GITHUB_ACCESS_TOKEN="$(cat $HOME/.config/secrets/github-token)"
-      fi
-
-      # Load QASE_API_TOKEN from agenix-decrypted secret (work environment only)
-      if [[ -f "$HOME/.config/secrets/qase-api-token" ]]; then
-        export QASE_API_TOKEN="$(cat $HOME/.config/secrets/qase-api-token)"
-      fi
-
-      # Load SONARQUBE_TOKEN from agenix-decrypted secret (work environment only)
-      if [[ -f "$HOME/.config/secrets/sonarqube-token" ]]; then
-        export SONARQUBE_TOKEN="$(cat $HOME/.config/secrets/sonarqube-token)"
-      fi
-
-      # Load DEVIN_API_KEY from agenix-decrypted secret (work environment only)
-      if [[ -f "$HOME/.config/secrets/devin-api-key" ]]; then
-        export DEVIN_API_KEY="$(cat $HOME/.config/secrets/devin-api-key)"
-      fi
-    '';
+    ''
+    + lib.concatStrings (
+      lib.mapAttrsToList (var: file: ''
+        if [[ -f "$HOME/.config/secrets/${file}" ]]; then
+          export ${var}="$(cat "$HOME/.config/secrets/${file}")"
+        fi
+      '') secretEnvVars
+    );
 
     # .zshrc content (full control)
     initContent = ''
