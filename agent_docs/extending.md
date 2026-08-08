@@ -11,10 +11,10 @@ Edit `.config/nix/home-manager/packages.nix` and add to `home.packages`. Work-on
 Three files, choose by scope:
 
 - All hosts → `.config/nix/hosts/common/homebrew.nix`
-- Personal only → `.config/nix/hosts/common/homebrew-personal.nix` (already wrapped in `lib.mkIf (!config.hostSpec.isWork)`)
-- Work only → `.config/nix/hosts/common/homebrew-work.nix` (already wrapped in `lib.mkIf config.hostSpec.isWork`)
+- Personal only → `.config/nix/hosts/personal/homebrew.nix`
+- Work only → `.config/nix/hosts/work/homebrew.nix`
 
-Use `homebrew.brews` for formulae and `homebrew.casks` for GUI apps.
+Host scoping comes from which host imports the file — no `lib.mkIf` needed. Use `homebrew.brews` for formulae and `homebrew.casks` for GUI apps.
 
 ## Add a Home Manager program module
 
@@ -34,11 +34,8 @@ Edit `.config/nix/home-manager/dotfiles.nix`:
 
 ## Add a new host
 
-1. Create `.config/nix/hosts/<host>/default.nix` modeled on `hosts/personal/default.nix` or `hosts/work/default.nix`. It must:
-   - Set `hostSpec.{hostName,username,isWork}`
-   - Set `networking.hostName`, `system.primaryUser`, and `users.users.<username>`
-   - Define host-specific `dr` / `drb` / `drc` shell aliases pointing at `--flake ...#<host>`
-2. Add `<host> = darwin.lib.darwinSystem { inherit system; modules = [ ./hosts/<host> ] ++ commonModules; };` to `darwinConfigurations` in `.config/nix/flake.nix`
+1. Create `.config/nix/hosts/<host>/default.nix` modeled on `hosts/personal/default.nix`. It only sets `hostSpec.{hostName,username,isWork}` and imports a sibling `homebrew.nix` for host-only packages — hostname, primary user, and the `dr` / `drb` / `drc` aliases all derive from `hostSpec` automatically
+2. Add `<host> = mkHost "<host>";` to `darwinConfigurations` in `.config/nix/flake.nix`
 3. Apply with `sudo darwin-rebuild switch --flake .config/nix#<host>`
 
 ## Verify
@@ -48,6 +45,7 @@ Before committing:
 ```bash
 sudo darwin-rebuild build --flake .config/nix#personal   # build only, no activation
 nix flake check .config/nix
+(cd .config/nix && nix fmt)                              # nixfmt-tree, from the flake's formatter output
 ```
 
 Build on the host you actually use; for cross-host changes, build both `personal` and `work` if possible.
