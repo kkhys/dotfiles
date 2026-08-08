@@ -1,4 +1,10 @@
-{ config, lib, pkgs, hostSpec, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  hostSpec,
+  ...
+}:
 
 let
   dotfilesPath = "${config.home.homeDirectory}/projects/github.com/kkhys/dotfiles";
@@ -10,57 +16,45 @@ let
     "zed/settings.json"
   ];
 
-  # Claude config files (stored in .config/claude/, linked to ~/.claude/)
-  claudeFiles = [
-    "CLAUDE.md"
-    "RTK.md"
-    "statusline-command.sh"
-  ];
+  # AI agent configs: .config/<tool>/<file> in this repo -> ~/.<tool>/<file>.
+  # Codex's config.toml is deliberately absent: Codex rewrites ~/.codex/config.toml
+  # in place (project trust levels, feature toggles, TUI state), so it cannot be
+  # a symlink into this repo. The managed settings ship through Codex's system
+  # config layer instead; see darwin/codex.nix.
+  agentFiles = {
+    claude = [
+      "CLAUDE.md"
+      "RTK.md"
+      "statusline-command.sh"
+    ];
+    codex = [ "AGENTS.md" ];
+    copilot = [ "copilot-instructions.md" ];
+    gemini = [ "settings.json" ];
+  };
 
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
-
-  # Gemini config files (stored in .config/gemini/, linked to ~/.gemini/)
-  geminiFiles = [
-    "settings.json"
-  ];
-
-  # Copilot config files (stored in .config/copilot/, linked to ~/.copilot/)
-  copilotFiles = [
-    "copilot-instructions.md"
-  ];
-
-  # Codex config files (stored in .config/codex/, linked to ~/.codex/)
-  # Note: config.toml is not listed here. Codex rewrites ~/.codex/config.toml in
-  # place (project trust levels, feature toggles, TUI state), so it cannot be a
-  # symlink into this repo. The managed settings ship through Codex's system
-  # config layer instead; see darwin/codex.nix.
-  codexFiles = [
-    "AGENTS.md"
-  ];
 in
 {
   xdg.configFile = lib.genAttrs configFiles (file: {
     source = mkLink ".config/${file}";
   });
 
-  home.file = builtins.listToAttrs (map (file: {
-    name = ".claude/${file}";
-    value = { source = mkLink ".config/claude/${file}"; };
-  }) claudeFiles) // builtins.listToAttrs (map (file: {
-    name = ".gemini/${file}";
-    value = { source = mkLink ".config/gemini/${file}"; };
-  }) geminiFiles) // builtins.listToAttrs (map (file: {
-    name = ".codex/${file}";
-    value = { source = mkLink ".config/codex/${file}"; };
-  }) codexFiles) // builtins.listToAttrs (map (file: {
-    name = ".copilot/${file}";
-    value = { source = mkLink ".config/copilot/${file}"; };
-  }) copilotFiles) // {
-    # Claude settings (host-specific: personal uses settings.json, work uses settings-work.json)
-    ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
-    # SSH public key
-    ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
-  };
+  home.file =
+    lib.concatMapAttrs (
+      tool: files:
+      lib.listToAttrs (
+        map (file: {
+          name = ".${tool}/${file}";
+          value.source = mkLink ".config/${tool}/${file}";
+        }) files
+      )
+    ) agentFiles
+    // {
+      # Claude settings (host-specific: personal uses settings.json, work uses settings-work.json)
+      ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
+      # SSH public key
+      ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
+    };
 
   home.activation = {
     # The managed Codex settings live in /etc/codex/config.toml, which is the
@@ -94,7 +88,8 @@ in
         fi
       fi
     '';
-  } // lib.optionalAttrs hostSpec.isWork {
+  }
+  // lib.optionalAttrs hostSpec.isWork {
     # Docker CLI plugins symlinks (work environment only)
     # Uses activation script because Homebrew binaries may not exist at build time
     dockerCliPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''

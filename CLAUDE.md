@@ -16,11 +16,11 @@ The active host also exposes shell aliases `dr` / `drb` / `drc` for the same thr
 
 ## Layout
 
-- `.config/nix/flake.nix` — entry point; composes `commonModules` with each host
-- `.config/nix/modules/host-spec.nix` — defines `config.hostSpec.{hostName,username,isWork}`, available in every module
-- `.config/nix/darwin/` — system-level: macOS prefs, nix settings, Homebrew settings, agenix decryption
+- `.config/nix/flake.nix` — entry point; `mkHost` composes the shared module trees per host, inputs flow to modules via `specialArgs.inputs`
+- `.config/nix/modules/host-spec.nix` — defines `config.hostSpec.{hostName,username,isWork}` and derives hostname / primary user / user account from it
+- `.config/nix/darwin/` — system-level: macOS prefs, nix settings, Homebrew, agenix, Home Manager wiring (each file imports the upstream module it configures)
 - `.config/nix/home-manager/` — user-level: Nix packages, dotfile symlinks, per-program config under `programs/`
-- `.config/nix/hosts/{personal,work}/` — per-host overrides; `hosts/common/` holds shared system + Homebrew package lists
+- `.config/nix/hosts/{personal,work}/` — per-host `hostSpec` values + host-only Homebrew lists; `hosts/common/` holds the shared system + Homebrew package lists
 - `.config/nix/secrets/` — agenix-encrypted SSH/GPG keys and API tokens
 
 Homebrew is fully declarative via nix-homebrew — never run `brew bundle` or `brew install` manually.

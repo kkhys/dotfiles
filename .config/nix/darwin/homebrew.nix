@@ -1,6 +1,8 @@
-{ ... }:
+{ config, inputs, ... }:
 
 {
+  imports = [ inputs.nix-homebrew.darwinModules.nix-homebrew ];
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -17,5 +19,19 @@
       "datadog-labs/pack"
       "rtk-ai/tap"
     ];
+  };
+
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    user = config.hostSpec.username;
+    autoMigrate = true;
+    taps = {
+      "homebrew/homebrew-core" = inputs.homebrew-core;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      "rtk-ai/homebrew-tap" = inputs.homebrew-rtk;
+      "datadog-labs/homebrew-pack" = inputs.homebrew-datadog;
+    };
+    mutableTaps = true;
   };
 }

@@ -99,17 +99,18 @@ sudo nix-collect-garbage --delete-older-than 30d   # prune old generations
 
 ```
 .config/nix/
-├── flake.nix              entry point — defines darwinConfigurations.{personal,work}
-├── modules/host-spec.nix  declares config.hostSpec.{hostName,username,isWork}
-├── darwin/                system: macOS prefs, Nix, Homebrew, agenix
+├── flake.nix              entry point — mkHost builds darwinConfigurations.{personal,work}
+├── modules/host-spec.nix  declares config.hostSpec.{hostName,username,isWork} and derives
+│                          hostname / primary user / user account from it
+├── darwin/                system: macOS prefs, Nix, Homebrew, agenix, Home Manager wiring
 ├── home-manager/
 │   ├── packages.nix       user-level Nix packages
 │   ├── dotfiles.nix       symlinks back into this repo
 │   └── programs/          one file per tool (zsh, git, gh, ghostty, ...)
 ├── hosts/
-│   ├── common/            shared system + Homebrew package lists
-│   ├── personal/          personal host overrides
-│   └── work/              work host overrides
+│   ├── common/            shared system packages + shared Homebrew list
+│   ├── personal/          personal hostSpec values + personal-only Homebrew list
+│   └── work/              work hostSpec values + work-only Homebrew list
 └── secrets/               agenix-encrypted secrets + recipient list
 ```
 
@@ -126,19 +127,19 @@ Homebrew is fully declarative via nix-homebrew. Never run `brew bundle` or `brew
 ## What's managed
 
 System (nix-darwin):
-- macOS preferences (Dock, Finder, keyboard, trackpad, Touch ID for sudo)
-- Homebrew formulae and casks (per-host scoped via `hostSpec.isWork`)
+- macOS preferences (Finder, key repeat, screenshots, Touch ID for sudo)
+- Homebrew formulae and casks (shared list + per-host lists)
 - Nix garbage collection
 - agenix secret decryption
 
 User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
-- Git stack — git (with GPG signing), gh, lazygit
+- Git stack — git (with GPG signing), gh, hunk
 - Terminal — ghostty (auto-launches herdr), herdr, bat, eza
 - Editors / runtimes — vim, mise, bun, deno, rustup, python3 + uv + pipx
-- Workflow — fzf, yazi, direnv, ssh, gpg + pinentry-mac
+- Workflow — fzf, direnv, ssh, gpg + pinentry-mac
 - Cloud — google-cloud-sdk; (work) colima
-- Symlinks — Karabiner, Zed, Claude, Gemini CLI, Codex
+- Symlinks — Karabiner, Zed, Claude, Gemini CLI, Codex, Copilot
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys
