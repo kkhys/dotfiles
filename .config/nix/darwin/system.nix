@@ -37,33 +37,26 @@
     };
   };
 
-  # ============================================================================
-  # Activation Scripts
-  # ============================================================================
   system.activationScripts.extraActivation.text = ''
-    echo "=== extraActivation: Starting ==="
+    USERNAME="${config.hostSpec.username}"
 
-    # Homebrew directory creation and permission fix
-    BREW_USER="${config.hostSpec.username}"
-    echo "BREW_USER=$BREW_USER"
+    # nix-homebrew expects /opt/homebrew to exist and be owned by its user.
+    # Only chown when the root dir owner is wrong: -R over the whole prefix
+    # takes minutes on a large install, and wholesale wrong ownership (fresh
+    # machine, OS reinstall) is the only case this needs to repair.
+    if [[ ! -d /opt/homebrew ]]; then
+      /bin/mkdir -p /opt/homebrew
+    fi
+    if [[ "$(/usr/bin/stat -f %Su /opt/homebrew)" != "$USERNAME" ]]; then
+      echo "Fixing Homebrew directory permissions for $USERNAME..."
+      /usr/sbin/chown -R "$USERNAME":admin /opt/homebrew 2>/dev/null || true
+    fi
 
-    if [[ -n "$BREW_USER" ]]; then
-      # ARM Homebrew
-      if [[ ! -d "/opt/homebrew" ]]; then
-        echo "Creating Homebrew directory for $BREW_USER..."
-        /bin/mkdir -p /opt/homebrew
-      fi
-      echo "Fixing Homebrew directory permissions for $BREW_USER..."
-      /usr/sbin/chown -R "$BREW_USER":admin /opt/homebrew 2>/dev/null || true
-
-      # Intel Homebrew (Rosetta)
-      if [[ -d "/usr/local/Homebrew" ]]; then
-        echo "Fixing Intel Homebrew directory permissions for $BREW_USER..."
-        /usr/sbin/chown -R "$BREW_USER":admin /usr/local/Homebrew 2>/dev/null || true
-        /usr/sbin/chown -R "$BREW_USER":admin /usr/local/bin 2>/dev/null || true
-      fi
-    else
-      echo "WARNING: BREW_USER is not set (config.hostSpec.username is empty)"
+    # Intel Homebrew (Rosetta)
+    if [[ -d /usr/local/Homebrew && "$(/usr/bin/stat -f %Su /usr/local/Homebrew)" != "$USERNAME" ]]; then
+      echo "Fixing Intel Homebrew directory permissions for $USERNAME..."
+      /usr/sbin/chown -R "$USERNAME":admin /usr/local/Homebrew 2>/dev/null || true
+      /usr/sbin/chown -R "$USERNAME":admin /usr/local/bin 2>/dev/null || true
     fi
 
     # Xcode Command Line Tools check and installation
@@ -81,14 +74,14 @@
       /usr/sbin/softwareupdate --install-rosetta --agree-to-license
     fi
 
-    # Import GPG secret key (managed by agenix)
-    GPG_KEY="/Users/${config.hostSpec.username}/.gnupg/agenix-key.asc"
-    if [[ -f "$GPG_KEY" || -L "$GPG_KEY" ]]; then
+    # Import the agenix-decrypted GPG key. gpg comes from the per-user Home
+    # Manager profile, not Homebrew; the -x guard covers the very first
+    # activation, when that profile does not exist yet.
+    GPG="/etc/profiles/per-user/$USERNAME/bin/gpg"
+    GPG_KEY="/Users/$USERNAME/.gnupg/agenix-key.asc"
+    if [[ -x "$GPG" && ( -f "$GPG_KEY" || -L "$GPG_KEY" ) ]]; then
       echo "Importing GPG secret key..."
-      sudo -u "${config.hostSpec.username}" /usr/local/bin/gpg --import "$GPG_KEY" 2>/dev/null || \
-      sudo -u "${config.hostSpec.username}" /opt/homebrew/bin/gpg --import "$GPG_KEY" 2>/dev/null || true
+      sudo -u "$USERNAME" "$GPG" --import "$GPG_KEY" 2>/dev/null || true
     fi
-
-    echo "=== extraActivation: Done ==="
   '';
 }
