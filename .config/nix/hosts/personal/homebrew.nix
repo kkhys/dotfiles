@@ -1,7 +1,7 @@
-{ config, lib, ... }:
+{ ... }:
 
 {
-  homebrew = lib.mkIf (!config.hostSpec.isWork) {
+  homebrew = {
     brews = [
       "docker"
     ];
