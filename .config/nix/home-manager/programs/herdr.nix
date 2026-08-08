@@ -73,7 +73,11 @@
 
         # Show what Claude is currently doing, taken from the reported pane title
         sidebar.agents.rows_by_agent.claude = [
-          [ "state_icon" "workspace" "tab" ]
+          [
+            "state_icon"
+            "workspace"
+            "tab"
+          ]
           [ "terminal_title_stripped" ]
           [ "agent" ]
         ];
