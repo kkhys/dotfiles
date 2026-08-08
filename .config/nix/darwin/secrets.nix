@@ -1,80 +1,46 @@
-{ config, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   secretsPath = ../secrets;
   username = config.hostSpec.username;
-  # Check if encrypted files exist
-  sshKeyExists = builtins.pathExists "${secretsPath}/ssh-key-github.age";
-  gpgKeyExists = builtins.pathExists "${secretsPath}/gpg-key.age";
-  npmTokenExists = builtins.pathExists "${secretsPath}/npm-token.age";
-  githubTokenExists = builtins.pathExists "${secretsPath}/github-token.age";
-  qaseApiTokenExists = builtins.pathExists "${secretsPath}/qase-api-token.age";
-  sonarqubeTokenExists = builtins.pathExists "${secretsPath}/sonarqube-token.age";
-  devinApiKeyExists = builtins.pathExists "${secretsPath}/devin-api-key.age";
+  home = "/Users/${username}";
+
+  # One entry per *.age file. `dest` is relative to $HOME and defaults to
+  # .config/secrets/<name>; `workOnly` secrets decrypt only when
+  # hostSpec.isWork. Env-var wiring lives in home-manager/programs/zsh.nix.
+  secrets = {
+    ssh-key-github.dest = ".ssh/id_ed25519_github";
+    gpg-key.dest = ".gnupg/agenix-key.asc";
+    github-token = { };
+    npm-token.workOnly = true;
+    qase-api-token.workOnly = true;
+    sonarqube-token.workOnly = true;
+    devin-api-key.workOnly = true;
+  };
+
+  wanted = lib.filterAttrs (
+    name: secret:
+    builtins.pathExists "${secretsPath}/${name}.age"
+    && (config.hostSpec.isWork || !(secret.workOnly or false))
+  ) secrets;
 in
 {
-  # Path to the age private key used for decryption
-  age.identityPaths = [
-    "/Users/${username}/.config/age/keys.txt"
-  ];
+  imports = [ inputs.agenix.darwinModules.default ];
 
-  # Secrets to decrypt (only if encrypted files exist)
-  age.secrets = lib.mkMerge [
-    (lib.mkIf sshKeyExists {
-      ssh-key-github = {
-        file = "${secretsPath}/ssh-key-github.age";
-        path = "/Users/${username}/.ssh/id_ed25519_github";
-        owner = username;
-        mode = "600";
-      };
-    })
-    (lib.mkIf gpgKeyExists {
-      gpg-key = {
-        file = "${secretsPath}/gpg-key.age";
-        path = "/Users/${username}/.gnupg/agenix-key.asc";
-        owner = username;
-        mode = "600";
-      };
-    })
-    (lib.mkIf (npmTokenExists && config.hostSpec.isWork) {
-      npm-token = {
-        file = "${secretsPath}/npm-token.age";
-        path = "/Users/${username}/.config/secrets/npm-token";
-        owner = username;
-        mode = "600";
-      };
-    })
-    (lib.mkIf githubTokenExists {
-      github-token = {
-        file = "${secretsPath}/github-token.age";
-        path = "/Users/${username}/.config/secrets/github-token";
-        owner = username;
-        mode = "600";
-      };
-    })
-    (lib.mkIf (qaseApiTokenExists && config.hostSpec.isWork) {
-      qase-api-token = {
-        file = "${secretsPath}/qase-api-token.age";
-        path = "/Users/${username}/.config/secrets/qase-api-token";
-        owner = username;
-        mode = "600";
-      };
-    })
-    (lib.mkIf (sonarqubeTokenExists && config.hostSpec.isWork) {
-      sonarqube-token = {
-        file = "${secretsPath}/sonarqube-token.age";
-        path = "/Users/${username}/.config/secrets/sonarqube-token";
-        owner = username;
-        mode = "600";
-      };
-    })
-    (lib.mkIf (devinApiKeyExists && config.hostSpec.isWork) {
-      devin-api-key = {
-        file = "${secretsPath}/devin-api-key.age";
-        path = "/Users/${username}/.config/secrets/devin-api-key";
-        owner = username;
-        mode = "600";
-      };
-    })
-  ];
+  environment.systemPackages = [ inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default ];
+
+  age.identityPaths = [ "${home}/.config/age/keys.txt" ];
+
+  age.secrets = lib.mapAttrs (name: secret: {
+    file = "${secretsPath}/${name}.age";
+    path = "${home}/${secret.dest or ".config/secrets/${name}"}";
+    owner = username;
+    mode = "600";
+  }) wanted;
 }

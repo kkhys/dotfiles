@@ -39,76 +39,34 @@
   };
 
   outputs =
-    {
-      darwin,
-      home-manager,
-      nix-homebrew,
-      homebrew-core,
-      homebrew-cask,
-      homebrew-rtk,
-      homebrew-datadog,
-      agenix,
-      ax,
-      ...
-    }:
+    { nixpkgs, darwin, ... }@inputs:
     let
       system = "aarch64-darwin";
 
-      commonModules = [
-        ./modules/host-spec.nix
-        ./hosts/common
-        ./darwin
-        agenix.darwinModules.default
-        # Add agenix CLI to system packages
-        { environment.systemPackages = [ agenix.packages.${system}.default ]; }
-        home-manager.darwinModules.home-manager
-        (
-          { config, ... }:
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "backup";
-              extraSpecialArgs = {
-                hostSpec = config.hostSpec;
-                inherit ax;
-              };
-              users.${config.hostSpec.username} = import ./home-manager;
-            };
-          }
-        )
-        nix-homebrew.darwinModules.nix-homebrew
-        (
-          { config, ... }:
-          {
-            nix-homebrew = {
-              enable = true;
-              enableRosetta = true;
-              user = config.hostSpec.username;
-              autoMigrate = true;
-              taps = {
-                "homebrew/homebrew-core" = homebrew-core;
-                "homebrew/homebrew-cask" = homebrew-cask;
-                "rtk-ai/homebrew-tap" = homebrew-rtk;
-                "datadog-labs/homebrew-pack" = homebrew-datadog;
-              };
-              mutableTaps = true;
-            };
-          }
-        )
-      ];
+      # Wiring of upstream modules (home-manager, nix-homebrew, agenix) lives
+      # next to their configuration under ./darwin, reached through
+      # `specialArgs.inputs`, so adding a host stays a one-liner here.
+      mkHost =
+        host:
+        darwin.lib.darwinSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./modules/host-spec.nix
+            ./hosts/${host}
+            ./hosts/common
+            ./darwin
+          ];
+        };
     in
     {
       darwinConfigurations = {
-        personal = darwin.lib.darwinSystem {
-          inherit system;
-          modules = [ ./hosts/personal ] ++ commonModules;
-        };
-
-        work = darwin.lib.darwinSystem {
-          inherit system;
-          modules = [ ./hosts/work ] ++ commonModules;
-        };
+        personal = mkHost "personal";
+        work = mkHost "work";
       };
+
+      formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
 }
