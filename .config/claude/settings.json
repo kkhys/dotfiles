@@ -24,7 +24,6 @@
       "mcp__plugin_base_astro-docs__*",
       "mcp__plugin_base_analytics-mcp__*",
       "Skill(base:*)",
-      "Skill(writing:*)",
       "Skill(pr-review-toolkit:*)",
       "Skill(codex:*)",
       "Skill(code-simplifier:*)",
@@ -133,7 +132,6 @@
   },
   "enabledPlugins": {
     "base@my-marketplace": true,
-    "writing@my-marketplace": true,
     "codex@openai-codex": true,
     "security-guidance@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,

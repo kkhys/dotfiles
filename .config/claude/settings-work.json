@@ -24,7 +24,6 @@
       "mcp__plugin_base_astro-docs__*",
       "mcp__plugin_base_analytics-mcp__*",
       "Skill(base:*)",
-      "Skill(writing:*)",
       "Skill(pr-review-toolkit:*)",
       "Skill(codex:*)",
       "Skill(code-simplifier:*)",
