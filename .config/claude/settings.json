@@ -111,7 +111,7 @@
       "Bash(cargo* publish*)"
     ]
   },
-  "model": "opus[1m]",
+  "model": "claude-fable-5[1m]",
   "disableClaudeAiConnectors": true,
   "hooks": {
     "PreToolUse": [
@@ -177,6 +177,7 @@
   "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
+  "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "theme": "dark",
   "voiceEnabled": true
