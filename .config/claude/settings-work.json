@@ -183,6 +183,7 @@
     }
   },
   "language": "japanese",
+  "outputStyle": "base:terse-japanese",
   "effortLevel": "xhigh",
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
