@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hostSpec,
   ...
 }:
 
@@ -12,9 +13,12 @@
 #   Claude Code  enabledPlugins in ~/.claude/settings.json (dotfiles.nix)
 #   Codex        codex plugin add mcp@my-marketplace (git marketplace, auto-upgrades at startup)
 #   Copilot CLI  copilot plugin install + update mcp@my-marketplace
-#   Devin CLI    devin plugins install <checkout>/plugins/mcp --local (live link)
 #   Gemini CLI   ~/.gemini/extensions/mcp/gemini-extension.json generated below
-#   Cursor       ~/.cursor/mcp.json generated below
+#   Devin CLI    devin plugins install <checkout>/plugins/mcp --local (live link)   work host only
+#   Cursor       ~/.cursor/mcp.json generated below                                 work host only
+#
+# Devin and Cursor are used for work only, so their steps are gated on
+# hostSpec.isWork even though the casks are installed on both hosts.
 #
 # Gemini and Cursor have no plugin path for a Claude-format .mcp.json, so their
 # files are rendered from it with jq. Gemini gets an extension rather than
@@ -63,20 +67,8 @@ in
     fi
 
     if [ ! -f "${mcpJson}" ]; then
-      echo "warning: ${mcpJson} missing; Devin, Gemini and Cursor MCP config not updated" >&2
+      echo "warning: ${mcpJson} missing; Gemini${lib.optionalString hostSpec.isWork ", Devin and Cursor"} MCP config not updated" >&2
     else
-      # Devin CLI. --local links the checkout on this machine only; without it
-      # Devin would add a local path to the account-wide plugin list, which
-      # cloud sessions cannot reach. Needs `devin auth login`; the CLI has
-      # hung without a TTY before, hence stdin closed and a timeout.
-      if [ -x "${devin}" ]; then
-        if ${timeout} 60 "${devin}" plugins install "${marketplace}/plugins/mcp" --local -y </dev/null >/dev/null 2>&1; then
-          echo "Devin: mcp plugin linked"
-        else
-          echo "warning: Devin mcp plugin install skipped (run \`devin auth login\`?)" >&2
-        fi
-      fi
-
       # Gemini CLI extension. Streamable HTTP servers are keyed httpUrl there;
       # stdio entries carry over as they are. The version tracks the plugin
       # manifest so `gemini extensions list` shows what was rendered.
@@ -91,13 +83,28 @@ in
             del(.type)
           end))
       }' "${mcpJson}" > "$HOME/.gemini/extensions/mcp/gemini-extension.json"
+      echo "Gemini: extension rendered from ${mcpJson}"
+    ${lib.optionalString hostSpec.isWork ''
+
+      # Devin CLI. --local links the checkout on this machine only; without it
+      # Devin would add a local path to the account-wide plugin list, which
+      # cloud sessions cannot reach. Needs `devin auth login`; the CLI has
+      # hung without a TTY before, hence stdin closed and a timeout.
+      if [ -x "${devin}" ]; then
+        if ${timeout} 60 "${devin}" plugins install "${marketplace}/plugins/mcp" --local -y </dev/null >/dev/null 2>&1; then
+          echo "Devin: mcp plugin linked"
+        else
+          echo "warning: Devin mcp plugin install skipped (run \`devin auth login\`?)" >&2
+        fi
+      fi
 
       # Cursor. Same shape as Claude Code minus the type key; url is enough
       # for a remote server. The file is owned by this activation: servers
       # added from Cursor's own UI are replaced on the next rebuild.
       mkdir -p "$HOME/.cursor"
       ${jq} '{mcpServers: (.mcpServers | map_values(del(.type)))}' "${mcpJson}" > "$HOME/.cursor/mcp.json"
-      echo "Gemini and Cursor MCP config rendered from ${mcpJson}"
+      echo "Cursor: mcp.json rendered from ${mcpJson}"
+    ''}
     fi
   '';
 }
