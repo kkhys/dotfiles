@@ -30,7 +30,7 @@ The same module derives `networking.hostName`, `system.primaryUser`, and `users.
 ## Module trees
 
 - `darwin/default.nix` imports the rest of `darwin/`
-- `home-manager/default.nix` imports `packages.nix`, `dotfiles.nix`, `skills.nix`, and everything under `programs/`
+- `home-manager/default.nix` imports `packages.nix`, `dotfiles.nix`, `skills.nix`, `mcp.nix`, and everything under `programs/`
 - `hosts/common/default.nix` imports `homebrew.nix` (the shared package list)
 - `hosts/<host>/default.nix` imports its own `homebrew.nix` (host-only packages)
 

@@ -106,6 +106,8 @@ sudo nix-collect-garbage --delete-older-than 30d   # prune old generations
 ├── home-manager/
 │   ├── packages.nix       user-level Nix packages
 │   ├── dotfiles.nix       symlinks back into this repo
+│   ├── skills.nix         agent skills: skills CLI installs + claude-code-marketplace links into ~/.agents/skills
+│   ├── mcp.nix            one MCP server list (marketplace mcp plugin) delivered to every agent
 │   └── programs/          one file per tool (zsh, git, gh, ghostty, ...)
 ├── hosts/
 │   ├── common/            shared system packages + shared Homebrew list
