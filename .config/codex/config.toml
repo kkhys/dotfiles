@@ -49,20 +49,6 @@ theme = "catppuccin-mocha"
 notifications = true
 notification_condition = "unfocused"
 
-# Mirrors the MCP servers Claude Code gets through its plugins, so both agents
-# have the same capabilities.
-[mcp_servers.context7]
-command = "npx"
-args = ["-y", "@upstash/context7-mcp"]
-
-[mcp_servers.serena]
-command = "uvx"
-args = ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"]
-
-[mcp_servers.chrome-devtools]
-command = "npx"
-args = ["-y", "chrome-devtools-mcp@latest"]
-
-[mcp_servers.playwright]
-command = "npx"
-args = ["@playwright/mcp@latest"]
+# No [mcp_servers.*] here on purpose. The servers come from the mcp plugin of
+# kkhys/claude-code-marketplace, installed by home-manager/mcp.nix; a server
+# defined in this file under the same name would shadow the plugin's copy.
