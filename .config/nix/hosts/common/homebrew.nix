@@ -10,14 +10,12 @@
 
     casks = [
       "copilot-cli"
-      "devin-cli"
       "google-chrome"
       "karabiner-elements"
       "logi-options+"
       "ghostty"
       "zed"
       "cleanshot"
-      "cursor"
     ];
   };
 }

@@ -17,8 +17,8 @@
 #   Devin CLI    devin plugins install <checkout>/plugins/mcp --local (live link)   work host only
 #   Cursor       ~/.cursor/mcp.json generated below                                 work host only
 #
-# Devin and Cursor are used for work only, so their steps are gated on
-# hostSpec.isWork even though the casks are installed on both hosts.
+# Devin and Cursor are work tools (hosts/work/homebrew.nix), so their steps
+# are gated on hostSpec.isWork.
 #
 # Gemini and Cursor have no plugin path for a Claude-format .mcp.json, so their
 # files are rendered from it with jq. Gemini gets an extension rather than
