@@ -1,0 +1,145 @@
+# Execution-policy rules for Codex, mirroring the Claude Code permission tiers
+# in .config/claude/settings.json (permissions.allow / ask / deny):
+#
+#   Claude allow -> decision = "allow"      run outside the sandbox, no prompt
+#   Claude ask   -> decision = "prompt"     confirm each invocation
+#   Claude deny  -> decision = "forbidden"  block without prompting
+#
+# Codex applies the most restrictive matching rule (forbidden > prompt >
+# allow), same precedence as Claude's deny > ask > allow, so the broad allow
+# rules below are safely narrowed by the prompt/forbidden overrides.
+#
+# What this file cannot mirror:
+# - Rules only govern commands escalated OUT of the sandbox. Inside the
+#   workspace-write sandbox commands run unprompted, so an in-workspace
+#   `git reset` or `rm -rf` never reaches these rules.
+# - Claude's Read()/Edit() denies (.env, ~/.ssh, ~/.aws, tokens) have no
+#   execpolicy equivalent; Codex sandbox reads are unrestricted.
+# - Patterns are argv prefixes, not globs: `rm -rf` variants are enumerated,
+#   flags appearing after the target path are not caught.
+#
+# Delivered by the dotfiles repo (home-manager/dotfiles.nix); Codex's own TUI
+# additions go to default.rules in this directory, not here.
+# Test: codex execpolicy check --pretty --rules <this file> -- <command>
+
+# --- allow tier -------------------------------------------------------------
+# Claude allows all of Bash. The sandbox already runs workspace commands
+# unprompted, so only the commands that routinely need to escape it (network,
+# package managers, infra CLIs) are auto-approved here. Interpreters (python,
+# node, bash -c ...) are deliberately absent: they stay sandboxed and their
+# rare escalations keep prompting.
+
+prefix_rule(
+    pattern = ["git"],
+    decision = "allow",
+    match = ["git fetch origin", "git pull --rebase"],
+)
+prefix_rule(pattern = ["gh"], decision = "allow")
+prefix_rule(pattern = ["ghq"], decision = "allow")
+prefix_rule(pattern = ["npm"], decision = "allow")
+prefix_rule(pattern = ["pnpm"], decision = "allow")
+prefix_rule(pattern = ["bun"], decision = "allow")
+prefix_rule(pattern = ["npx"], decision = "allow")
+prefix_rule(pattern = ["uvx"], decision = "allow")
+prefix_rule(pattern = ["uv"], decision = "allow")
+prefix_rule(pattern = [["pip", "pip3"]], decision = "allow")
+prefix_rule(pattern = ["cargo"], decision = "allow")
+prefix_rule(pattern = ["curl"], decision = "allow")
+prefix_rule(pattern = ["wget"], decision = "allow")
+prefix_rule(pattern = ["mise"], decision = "allow")
+prefix_rule(pattern = ["nix"], decision = "allow")
+prefix_rule(pattern = ["docker"], decision = "allow")
+prefix_rule(pattern = ["kubectl"], decision = "allow")
+prefix_rule(pattern = ["aws"], decision = "allow")
+prefix_rule(pattern = ["terraform"], decision = "allow")
+prefix_rule(pattern = ["terragrunt"], decision = "allow")
+prefix_rule(pattern = ["just"], decision = "allow")
+prefix_rule(pattern = ["brew"], decision = "allow")
+
+# --- ask tier ---------------------------------------------------------------
+
+prefix_rule(
+    pattern = ["git", ["push", "rebase", "reset", "clean"]],
+    decision = "prompt",
+    justification = "Rewrites history or publishes; mirrors Claude's ask tier",
+    match = ["git push origin main", "git reset --hard HEAD~1"],
+    not_match = ["git status", "git fetch origin"],
+)
+prefix_rule(pattern = ["gh", "pr", ["create", "merge"]], decision = "prompt")
+prefix_rule(pattern = ["gh", ["issue", "release", "gist"], "create"], decision = "prompt")
+prefix_rule(pattern = ["gh", "workflow", "run"], decision = "prompt")
+prefix_rule(pattern = ["sudo"], decision = "prompt")
+prefix_rule(pattern = ["npm", ["uninstall", "remove", "publish"]], decision = "prompt")
+prefix_rule(pattern = ["pnpm", "publish"], decision = "prompt")
+prefix_rule(pattern = ["cargo", "publish"], decision = "prompt")
+prefix_rule(pattern = ["docker", "system", "prune"], decision = "prompt")
+prefix_rule(pattern = ["kubectl", "delete"], decision = "prompt")
+prefix_rule(pattern = ["aws", "s3", ["cp", "sync", "mv"]], decision = "prompt")
+prefix_rule(
+    pattern = ["aws", "ec2", ["run-instances", "start-instances", "stop-instances"]],
+    decision = "prompt",
+)
+prefix_rule(
+    pattern = ["aws", "lambda", ["create-function", "update-function-code"]],
+    decision = "prompt",
+)
+prefix_rule(
+    pattern = ["aws", "cloudformation", ["create-stack", "update-stack"]],
+    decision = "prompt",
+)
+
+# --- deny tier --------------------------------------------------------------
+
+prefix_rule(
+    pattern = ["rm", ["-rf", "-fr", "--recursive"]],
+    decision = "forbidden",
+    justification = "Recursive force delete; remove files individually instead",
+    match = ["rm -rf node_modules"],
+    not_match = ["rm stale.log"],
+)
+prefix_rule(pattern = ["rm", "-r", "-f"], decision = "forbidden")
+prefix_rule(pattern = ["rm", "-f", "-r"], decision = "forbidden")
+prefix_rule(pattern = ["chmod", "777"], decision = "forbidden")
+prefix_rule(pattern = ["chmod", "-R", "777"], decision = "forbidden")
+prefix_rule(pattern = ["dd"], decision = "forbidden")
+prefix_rule(pattern = ["gh", "repo", "delete"], decision = "forbidden")
+prefix_rule(pattern = ["gh", "auth", "logout"], decision = "forbidden")
+prefix_rule(pattern = ["gh", ["secret", "variable"], "delete"], decision = "forbidden")
+prefix_rule(pattern = ["aws", "s3", ["rm", "rb"]], decision = "forbidden")
+prefix_rule(pattern = ["aws", "ec2", "terminate-instances"], decision = "forbidden")
+prefix_rule(
+    pattern = ["aws", "rds", ["delete-db-instance", "delete-db-cluster"]],
+    decision = "forbidden",
+)
+prefix_rule(pattern = ["aws", "lambda", "delete-function"], decision = "forbidden")
+# Claude's `aws* iam delete-*` glob has no prefix equivalent; enumerate the
+# common destructive subcommands instead.
+prefix_rule(
+    pattern = ["aws", "iam", [
+        "delete-user",
+        "delete-role",
+        "delete-policy",
+        "delete-group",
+        "delete-access-key",
+        "delete-login-profile",
+        "delete-instance-profile",
+        "delete-user-policy",
+        "delete-role-policy",
+        "delete-group-policy",
+        "delete-server-certificate",
+    ]],
+    decision = "forbidden",
+)
+prefix_rule(pattern = ["aws", "cloudformation", "delete-stack"], decision = "forbidden")
+prefix_rule(pattern = ["aws", "dynamodb", "delete-table"], decision = "forbidden")
+prefix_rule(pattern = ["aws", "sns", "delete-topic"], decision = "forbidden")
+prefix_rule(pattern = ["aws", "sqs", "delete-queue"], decision = "forbidden")
+prefix_rule(pattern = ["terraform", ["apply", "destroy"]], decision = "forbidden")
+prefix_rule(pattern = ["terraform", "state", ["push", "rm"]], decision = "forbidden")
+prefix_rule(pattern = ["terragrunt", ["apply", "destroy"]], decision = "forbidden")
+prefix_rule(pattern = ["just", "apply"], decision = "forbidden")
+prefix_rule(
+    pattern = ["brew", ["install", "uninstall", "bundle"]],
+    decision = "forbidden",
+    justification = "Homebrew is declarative via nix-homebrew; edit the dotfiles instead",
+)

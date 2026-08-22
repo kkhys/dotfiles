@@ -16,6 +16,9 @@ personality = "pragmatic"
 
 # Pin the current defaults rather than inherit them, so an upstream default
 # change cannot quietly alter how much the agent is allowed to do.
+# Command-level allow/prompt/forbidden tiers (mirroring the Claude Code
+# permission lists) live in ~/.codex/rules/managed.rules, delivered by
+# home-manager/dotfiles.nix from .config/codex/rules/managed.rules.
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
