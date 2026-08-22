@@ -9,6 +9,7 @@
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
-    }
+    },
+    "enablePermanentToolApproval": true
   }
 }

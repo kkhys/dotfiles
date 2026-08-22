@@ -34,7 +34,13 @@ let
       "rules/managed.rules"
     ];
     copilot = [ "copilot-instructions.md" ];
-    gemini = [ "settings.json" ];
+    gemini = [
+      "settings.json"
+      # Policy-engine mirror of the Claude permission tiers. Approvals saved
+      # from Gemini's own confirmation dialog go to a generated file in the
+      # same directory, so the two never collide.
+      "policies/managed.toml"
+    ];
   };
 
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
