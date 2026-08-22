@@ -25,6 +25,16 @@ The active host also exposes shell aliases `dr` / `drb` / `drc` for the same thr
 
 Homebrew is fully declarative via nix-homebrew — never run `brew bundle` or `brew install` manually.
 
+## Agent permission mirrors
+
+The Claude Code permission tiers in `.config/claude/settings.json` (`permissions.allow` / `ask` / `deny`) are mirrored into each coding agent's native format. Whenever a permission entry changes there, update all three mirrors in the same change:
+
+- Codex — `.config/codex/rules/managed.rules` (execpolicy `prefix_rule`; allow / prompt / forbidden ≙ allow / ask / deny). Verify with `codex execpolicy check --rules <file> -- <command>`
+- Gemini — `.config/gemini/policies/managed.toml` (Policy Engine; allow priority 100 / ask_user 500 / deny 900)
+- Copilot — the `copilot()` function in `.config/nix/home-manager/programs/zsh.nix` (`--allow-tool` / `--deny-tool` flags; Copilot has no ask tier, so ask-tier commands are simply left out of the allow list and prompt)
+
+Known fidelity gaps, accepted deliberately: Codex rules only govern commands escalated out of the sandbox and cannot express `Read()`/`Edit()` denies; Copilot cannot express read denies and its allow list is an enumeration, so unlisted safe commands still prompt.
+
 ## Where to look for task-specific context
 
 Decide if any of these are relevant to the current task and read them first; otherwise skip:
