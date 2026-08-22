@@ -24,7 +24,6 @@ let
   agentFiles = {
     claude = [
       "CLAUDE.md"
-      "RTK.md"
       "statusline-command.sh"
     ];
     codex = [ "AGENTS.md" ];

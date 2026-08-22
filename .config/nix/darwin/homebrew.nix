@@ -17,7 +17,6 @@
       "homebrew/core"
       "homebrew/cask"
       "datadog-labs/pack"
-      "rtk-ai/tap"
     ];
   };
 
@@ -29,7 +28,6 @@
     taps = {
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
-      "rtk-ai/homebrew-tap" = inputs.homebrew-rtk;
       "datadog-labs/homebrew-pack" = inputs.homebrew-datadog;
     };
     mutableTaps = true;

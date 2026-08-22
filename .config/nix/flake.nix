@@ -20,10 +20,6 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
-    homebrew-rtk = {
-      url = "github:rtk-ai/homebrew-tap";
-      flake = false;
-    };
     homebrew-datadog = {
       url = "github:datadog-labs/homebrew-pack";
       flake = false;
