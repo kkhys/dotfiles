@@ -31,6 +31,10 @@
       # Terminal Tools
       bat
       eza
+      # Installed here rather than via sheldon so its completions sit on fpath
+      # (through NIX_PROFILES) before compinit runs; sheldon sources plugins
+      # after compinit, where zsh-completions never registered anything.
+      zsh-completions
 
       # Data Processing
       jq
