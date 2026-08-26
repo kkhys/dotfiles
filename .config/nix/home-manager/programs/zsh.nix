@@ -22,6 +22,14 @@ in
   programs.zsh = {
     enable = true;
 
+    # One dump per zsh version: the Nix zsh (5.9.2) and /bin/zsh (5.9) would
+    # otherwise take turns invalidating a shared ~/.zcompdump.
+    completionInit = ''
+      autoload -Uz compinit
+      mkdir -p "${config.xdg.cacheHome}/zsh"
+      compinit -d "${config.xdg.cacheHome}/zsh/zcompdump-$ZSH_VERSION"
+    '';
+
     # History settings
     history = {
       path = "${config.home.homeDirectory}/.config/zsh/.zsh_history";
@@ -118,16 +126,29 @@ in
     );
 
     # .zshrc content (full control)
-    initContent = ''
+    initContent = lib.mkMerge [
+      # Runs before compinit (Home Manager emits compinit at order 570).
+      # Everything that contributes to fpath must land here; anything added
+      # later is invisible to compinit in a fresh login shell but inherited by
+      # nested shells, and that mismatch made compinit rewrite the dump on
+      # every alternation between the two (about 1s, several when cold).
+      (lib.mkOrder 550 ''
+        # ----------------------------------------------------
+        # Homebrew
+        # ----------------------------------------------------
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        # brew shellenv exports FPATH; keep fpath per-shell so child shells
+        # rebuild it from scratch and see the same set compinit saw here.
+        typeset +x FPATH
+
+        # zsh-abbr is sourced after compinit, so register its completions early.
+        fpath+=("${config.programs.zsh.zsh-abbr.package}/share/zsh/zsh-abbr/completions")
+      '')
+      ''
       # ----------------------------------------------------
       # Claude Code
       # ----------------------------------------------------
       export PATH="$HOME/.local/bin:$PATH"
-
-      # ----------------------------------------------------
-      # Homebrew
-      # ----------------------------------------------------
-      eval "$(/opt/homebrew/bin/brew shellenv)"
 
       # ----------------------------------------------------
       # Options
@@ -283,6 +304,7 @@ in
       function get() {
         ghq get "$1" && cd "$(ghq root)/$(ghq list | grep -E "$(echo $1 | sed 's/.*[:/]//')" | head -1)"
       }
-    '';
+      ''
+    ];
   };
 }
