@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Claude Code statusLine script
-# Output format: Fable 5 xhigh | main | 10.2K (20%) | cache hit 94% | ttl 1h warm 43m | 5h 42% | 7d 86%
-# (" · N miss" appears after the hit ratio only when the session has cache misses)
+# Output format: Fable 5 xhigh | main | 10.2K (20%) | cache hit 94% | ttl 1h warm 43m | 5h 42% | 7d 86% | $19.13
+# (" · N miss" appears after the hit ratio only when the session has cache misses;
+#  trailing "$N.NN" is the session's estimated cost at API list prices)
 
 input=$(cat)
 
@@ -38,6 +39,7 @@ pc_expires=$(echo "$input" | jq -r '.prompt_cache.expires_at // empty')
 
 five_hour_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 seven_day_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+cost_usd=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
 
 branch=$(git branch --show-current 2>/dev/null)
 branch_part=${branch:+" | $branch"}
@@ -105,4 +107,8 @@ fi
 if [[ -n "$seven_day_pct" ]]; then
   pct7=$(printf "%.0f" "$seven_day_pct")
   printf " | 7d (%b%s%%\033[0m)" "$(pct_color "$pct7")" "$pct7"
+fi
+
+if awk "BEGIN {exit !($cost_usd > 0)}"; then
+  printf " | \$%.2f" "$cost_usd"
 fi
