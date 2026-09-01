@@ -169,11 +169,24 @@
       "autoUpdate": true
     }
   },
-  "language": "japanese",
   "outputStyle": "base:terse-japanese",
+  "language": "japanese",
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "medium"
+    },
+    "claude-fable-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "medium"
+    }
+  },
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
   "autoMemoryEnabled": false,
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
