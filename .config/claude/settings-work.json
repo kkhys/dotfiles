@@ -188,5 +188,6 @@
   "autoMemoryEnabled": false,
   "theme": "dark",
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "teammateMode": "auto"
 }
