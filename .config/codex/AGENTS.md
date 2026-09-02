@@ -21,5 +21,8 @@
 - Write tests for new features and bug fixes
 - Document breaking changes
 
+## Git
+- End every commit message with the trailer `Co-authored-by: Codex <noreply@openai.com>`. Keep existing trailers and never duplicate it
+
 ## Proactive
 - Suggest improvements proactively
