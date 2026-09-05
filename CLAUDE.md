@@ -25,14 +25,13 @@ The active host also exposes shell aliases `dr` / `drb` / `drc` for the same thr
 
 Homebrew is fully declarative via nix-homebrew — never run `brew bundle` or `brew install` manually.
 
-## Agent permission mirrors
+## Agent permission mirror
 
-The Claude Code permission tiers in `.config/claude/settings.json` (`permissions.allow` / `ask` / `deny`) are mirrored into each coding agent's native format. Whenever a permission entry changes there, update both mirrors in the same change:
+The Claude Code permission tiers in `.config/claude/settings.json` (`permissions.allow` / `ask` / `deny`) are mirrored into Codex's native format. Whenever a permission entry changes there, update the mirror in the same change:
 
 - Codex — `.config/codex/rules/managed.rules` (execpolicy `prefix_rule`; allow / prompt / forbidden ≙ allow / ask / deny). Verify with `codex execpolicy check --rules <file> -- <command>`
-- Copilot — the `copilot()` function in `.config/nix/home-manager/programs/zsh.nix` (`--allow-tool` / `--deny-tool` flags; Copilot has no ask tier, so ask-tier commands are simply left out of the allow list and prompt)
 
-Known fidelity gaps, accepted deliberately: Codex rules only govern commands escalated out of the sandbox and cannot express `Read()`/`Edit()` denies; Copilot cannot express read denies and its allow list is an enumeration, so unlisted safe commands still prompt.
+Known fidelity gap, accepted deliberately: Codex rules only govern commands escalated out of the sandbox and cannot express `Read()`/`Edit()` denies.
 
 ## Where to look for task-specific context
 

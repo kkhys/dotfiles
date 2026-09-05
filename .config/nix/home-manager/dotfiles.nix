@@ -33,7 +33,6 @@ let
       # default.rules there, so the two never collide.
       "rules/managed.rules"
     ];
-    copilot = [ "copilot-instructions.md" ];
   };
 
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
