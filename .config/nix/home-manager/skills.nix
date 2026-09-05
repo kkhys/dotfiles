@@ -59,7 +59,7 @@ in
   '';
 
   # Expose every skill in the marketplace to the agents that read
-  # ~/.agents/skills: Codex and Copilot CLI. Claude Code gets
+  # ~/.agents/skills: Codex. Claude Code gets
   # the same skills through the installed base plugin and does not read
   # ~/.agents/skills, so nothing is listed twice there. Codex namespaces a
   # symlinked skill by its canonical path, so these show up as base:<name>.
