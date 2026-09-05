@@ -141,7 +141,7 @@ User (Home Manager):
 - Editors / runtimes — vim, mise, bun, deno, rustup, python3 + uv + pipx
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
 - Cloud — google-cloud-sdk; (work) colima
-- Symlinks — Karabiner, Zed, Claude, Gemini CLI, Codex, Copilot
+- Symlinks — Karabiner, Zed, Claude, Codex, Copilot
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys

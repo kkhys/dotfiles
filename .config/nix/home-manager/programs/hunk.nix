@@ -35,7 +35,7 @@ in
       rm -r "$HOME/.agents/skills/hunk-review"
     fi
     mkdir -p "$HOME/.agents/skills" "$HOME/.claude/skills"
-    # Codex, Gemini CLI and Cursor discover skills in ~/.agents/skills.
+    # Codex and Cursor discover skills in ~/.agents/skills.
     ln -sfn "$(dirname "$("${pkgs.hunk}/bin/hunk" skill path)")" "$HOME/.agents/skills/hunk-review"
     # Claude Code only reads ~/.claude/skills; relative on purpose, matching
     # the links the skills CLI maintains next to it.
