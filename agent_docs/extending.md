@@ -34,9 +34,9 @@ Edit `.config/nix/home-manager/dotfiles.nix`:
 
 ## Add an agent skill or MCP server
 
-- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills`, which Codex, Cursor, Devin and Copilot CLI read; Claude Code gets it through `~/.claude/skills`
+- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills`, which Codex, Cursor and Copilot CLI read; Claude Code gets it through `~/.claude/skills`
 - Your own skill: add it to the `base` plugin of `kkhys/claude-code-marketplace`. `skills.nix` links every `plugins/*/skills/<name>/` of the local checkout into `~/.agents/skills/<name>` on rebuild; Claude Code loads the same skill from the installed plugin, so no entry is needed here
-- An MCP server: add it to `plugins/mcp/.mcp.json` in the marketplace and bump that plugin's version. `mcp.nix` installs the plugin into Codex and Copilot, and on the work host also links it into Devin and renders Cursor's `mcp.json` from the file; Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_mcp_<server>__*` permission entries also live
+- An MCP server: add it to `plugins/mcp/.mcp.json` in the marketplace and bump that plugin's version. `mcp.nix` installs the plugin into Codex and Copilot, and on the work host also renders Cursor's `mcp.json` from the file; Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_mcp_<server>__*` permission entries also live
 
 ## Add a new host
 

@@ -146,7 +146,7 @@ User (Home Manager):
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys
 - GitHub token, NPM token (work)
-- Qase, SonarQube, Devin API tokens
+- Qase, SonarQube API tokens
 
 ## Troubleshooting
 
