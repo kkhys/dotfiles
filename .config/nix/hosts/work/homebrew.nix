@@ -11,7 +11,6 @@
 
     casks = [
       "blackhole-2ch"
-      "cursor"
       "microsoft-edge"
       "openvpn-connect"
       # "ovice"

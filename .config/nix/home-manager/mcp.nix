@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  hostSpec,
   ...
 }:
 
@@ -13,26 +12,14 @@
 #   Claude Code  enabledPlugins in ~/.claude/settings.json (dotfiles.nix)
 #   Codex        codex plugin add mcp@my-marketplace (git marketplace, auto-upgrades at startup)
 #   Copilot CLI  copilot plugin install + update mcp@my-marketplace
-#   Cursor       ~/.cursor/mcp.json generated below   work host only
-#
-# Cursor is a work tool (hosts/work/homebrew.nix), so its step is gated on
-# hostSpec.isWork.
-#
-# Cursor has no plugin path for a Claude-format .mcp.json, so its file is
-# rendered from it with jq.
 
 let
-  # Same checkout skills.nix links the skills from.
-  marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
-  mcpJson = "${marketplace}/plugins/mcp/.mcp.json";
-  jq = "${pkgs.jq}/bin/jq";
   # Homebrew casks are not on PATH during activation.
   copilot = "/opt/homebrew/bin/copilot";
 in
 {
-  # After miseInstall so the mise-managed codex is present, and after
-  # marketplaceSkills so a missing checkout is reported once, there.
-  home.activation.agentMcp = lib.hm.dag.entryAfter [ "marketplaceSkills" ] ''
+  # After miseInstall so the mise-managed codex is present.
+  home.activation.agentMcp = lib.hm.dag.entryAfter [ "miseInstall" ] ''
     export PATH="${config.home.profileDirectory}/bin:$PATH"
 
     # Codex. Both commands are idempotent: a registered marketplace answers
@@ -57,18 +44,5 @@ in
         echo "warning: Copilot mcp plugin install skipped (offline or not logged in?)" >&2
       fi
     fi
-
-    ${lib.optionalString hostSpec.isWork ''
-      if [ ! -f "${mcpJson}" ]; then
-        echo "warning: ${mcpJson} missing; Cursor MCP config not updated" >&2
-      else
-        # Cursor. Same shape as Claude Code minus the type key; url is enough
-        # for a remote server. The file is owned by this activation: servers
-        # added from Cursor's own UI are replaced on the next rebuild.
-        mkdir -p "$HOME/.cursor"
-        ${jq} '{mcpServers: (.mcpServers | map_values(del(.type)))}' "${mcpJson}" > "$HOME/.cursor/mcp.json"
-        echo "Cursor: mcp.json rendered from ${mcpJson}"
-      fi
-    ''}
   '';
 }
