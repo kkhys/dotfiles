@@ -32,7 +32,7 @@ let
   # Working tree of the plugin marketplace, not Claude Code's clone of it
   # (~/.claude/plugins/marketplaces/my-marketplace): the links below must not
   # depend on Claude Code's cache layout, and seeing work-in-progress skills in
-  # the other agents is accepted. mcp.nix reads the same checkout.
+  # the other agents is accepted.
   marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
 in
 {
@@ -44,12 +44,10 @@ in
       ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${s.pkg} ${skillFlag s}-g -y \
         || echo "warning: ${s.pkg} skills install skipped (offline?)" >&2
     '') agentSkills}
-    # Codex reads ~/.agents/skills directly, and Cursor reads ~/.codex/skills
-    # as a compatibility path, so the mirror this file used to maintain in
-    # ~/.codex/skills is harmful rather than redundant: a mirrored entry wins
-    # Codex's realpath dedup and hides the real locator, and Cursor lists every
-    # mirrored skill twice. Drop the links the mirror created; Codex's own
-    # .system directory is untouched.
+    # Codex reads ~/.agents/skills directly, so the mirror this file used to
+    # maintain in ~/.codex/skills is harmful rather than redundant: a mirrored
+    # entry wins Codex's realpath dedup and hides the real locator. Drop the
+    # links the mirror created; Codex's own .system directory is untouched.
     if [ -d "$HOME/.codex/skills" ]; then
       for link in "$HOME"/.codex/skills/*; do
         [ -L "$link" ] || continue
@@ -61,7 +59,7 @@ in
   '';
 
   # Expose every skill in the marketplace to the agents that read
-  # ~/.agents/skills: Codex, Cursor and Copilot CLI. Claude Code gets
+  # ~/.agents/skills: Codex and Copilot CLI. Claude Code gets
   # the same skills through the installed base plugin and does not read
   # ~/.agents/skills, so nothing is listed twice there. Codex namespaces a
   # symlinked skill by its canonical path, so these show up as base:<name>.

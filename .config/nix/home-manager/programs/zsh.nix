@@ -92,7 +92,6 @@ in
         yolo = "claude --dangerously-skip-permissions";
 
         # AI coding agents
-        ca = "cursor agent";
         cx = "codex";
 
         # Terminal
