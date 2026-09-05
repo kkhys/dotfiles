@@ -64,7 +64,8 @@ in
     # LOWEST-precedence layer. A key left over in ~/.codex/config.toml silently
     # shadows it, so warn instead of letting the two drift apart unnoticed.
     # Codex's own runtime keys ([projects], [notice], tui.model_availability_nux)
-    # are expected there and are not managed by this repo.
+    # and the /model selection (model, model_reasoning_effort) are expected there
+    # and are not managed by this repo.
     codexConfigShadowCheck = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       userConfig="$HOME/.codex/config.toml"
       systemConfig="/etc/codex/config.toml"

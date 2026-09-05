@@ -10,8 +10,9 @@
 # Corollary: any key set here must NOT also appear in ~/.codex/config.toml, or
 # the stale user-level copy silently shadows this file.
 
-model = "gpt-5.6-sol"
-model_reasoning_effort = "medium"
+# No model or model_reasoning_effort here: the TUI persists every /model
+# choice to ~/.codex/config.toml, which shadows this layer the moment one is
+# picked, so a pinned value only ever goes stale.
 personality = "pragmatic"
 
 # Pin the current defaults rather than inherit them, so an upstream default
