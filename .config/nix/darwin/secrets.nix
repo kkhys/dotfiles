@@ -21,7 +21,6 @@ let
     npm-token.workOnly = true;
     qase-api-token.workOnly = true;
     sonarqube-token.workOnly = true;
-    devin-api-key.workOnly = true;
   };
 
   wanted = lib.filterAttrs (

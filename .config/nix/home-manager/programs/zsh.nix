@@ -15,7 +15,6 @@ let
     GITHUB_ACCESS_TOKEN = "github-token";
     QASE_API_TOKEN = "qase-api-token";
     SONARQUBE_TOKEN = "sonarqube-token";
-    DEVIN_API_KEY = "devin-api-key";
   };
 in
 {
@@ -95,7 +94,6 @@ in
         # AI coding agents
         ca = "cursor agent";
         cx = "codex";
-        dv = "devin";
 
         # Terminal
         h = "herdr";

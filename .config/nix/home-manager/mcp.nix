@@ -13,11 +13,10 @@
 #   Claude Code  enabledPlugins in ~/.claude/settings.json (dotfiles.nix)
 #   Codex        codex plugin add mcp@my-marketplace (git marketplace, auto-upgrades at startup)
 #   Copilot CLI  copilot plugin install + update mcp@my-marketplace
-#   Devin CLI    devin plugins install <checkout>/plugins/mcp --local (live link)   work host only
-#   Cursor       ~/.cursor/mcp.json generated below                                 work host only
+#   Cursor       ~/.cursor/mcp.json generated below   work host only
 #
-# Devin and Cursor are work tools (hosts/work/homebrew.nix), so their steps
-# are gated on hostSpec.isWork.
+# Cursor is a work tool (hosts/work/homebrew.nix), so its step is gated on
+# hostSpec.isWork.
 #
 # Cursor has no plugin path for a Claude-format .mcp.json, so its file is
 # rendered from it with jq.
@@ -27,10 +26,8 @@ let
   marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
   mcpJson = "${marketplace}/plugins/mcp/.mcp.json";
   jq = "${pkgs.jq}/bin/jq";
-  timeout = "${pkgs.coreutils}/bin/timeout";
   # Homebrew casks are not on PATH during activation.
   copilot = "/opt/homebrew/bin/copilot";
-  devin = "/opt/homebrew/bin/devin";
 in
 {
   # After miseInstall so the mise-managed codex is present, and after
@@ -63,20 +60,8 @@ in
 
     ${lib.optionalString hostSpec.isWork ''
       if [ ! -f "${mcpJson}" ]; then
-        echo "warning: ${mcpJson} missing; Devin and Cursor MCP config not updated" >&2
+        echo "warning: ${mcpJson} missing; Cursor MCP config not updated" >&2
       else
-        # Devin CLI. --local links the checkout on this machine only; without it
-        # Devin would add a local path to the account-wide plugin list, which
-        # cloud sessions cannot reach. Needs `devin auth login`; the CLI has
-        # hung without a TTY before, hence stdin closed and a timeout.
-        if [ -x "${devin}" ]; then
-          if ${timeout} 60 "${devin}" plugins install "${marketplace}/plugins/mcp" --local -y </dev/null >/dev/null 2>&1; then
-            echo "Devin: mcp plugin linked"
-          else
-            echo "warning: Devin mcp plugin install skipped (run \`devin auth login\`?)" >&2
-          fi
-        fi
-
         # Cursor. Same shape as Claude Code minus the type key; url is enough
         # for a remote server. The file is owned by this activation: servers
         # added from Cursor's own UI are replaced on the next rebuild.
