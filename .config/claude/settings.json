@@ -165,5 +165,6 @@
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "theme": "dark",
+  "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
