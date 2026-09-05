@@ -13,24 +13,19 @@
 #   Claude Code  enabledPlugins in ~/.claude/settings.json (dotfiles.nix)
 #   Codex        codex plugin add mcp@my-marketplace (git marketplace, auto-upgrades at startup)
 #   Copilot CLI  copilot plugin install + update mcp@my-marketplace
-#   Gemini CLI   ~/.gemini/extensions/mcp/gemini-extension.json generated below
 #   Devin CLI    devin plugins install <checkout>/plugins/mcp --local (live link)   work host only
 #   Cursor       ~/.cursor/mcp.json generated below                                 work host only
 #
 # Devin and Cursor are work tools (hosts/work/homebrew.nix), so their steps
 # are gated on hostSpec.isWork.
 #
-# Gemini and Cursor have no plugin path for a Claude-format .mcp.json, so their
-# files are rendered from it with jq. Gemini gets an extension rather than
-# settings.json mcpServers because settings.json is a symlink into this repo
-# and must stay static; an extension directory placed by hand is loaded like
-# an installed one.
+# Cursor has no plugin path for a Claude-format .mcp.json, so its file is
+# rendered from it with jq.
 
 let
   # Same checkout skills.nix links the skills from.
   marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
   mcpJson = "${marketplace}/plugins/mcp/.mcp.json";
-  pluginJson = "${marketplace}/plugins/mcp/.claude-plugin/plugin.json";
   jq = "${pkgs.jq}/bin/jq";
   timeout = "${pkgs.coreutils}/bin/timeout";
   # Homebrew casks are not on PATH during activation.
@@ -66,45 +61,29 @@ in
       fi
     fi
 
-    if [ ! -f "${mcpJson}" ]; then
-      echo "warning: ${mcpJson} missing; Gemini${lib.optionalString hostSpec.isWork ", Devin and Cursor"} MCP config not updated" >&2
-    else
-      # Gemini CLI extension. Streamable HTTP servers are keyed httpUrl there;
-      # stdio entries carry over as they are. The version tracks the plugin
-      # manifest so `gemini extensions list` shows what was rendered.
-      mkdir -p "$HOME/.gemini/extensions/mcp"
-      ${jq} --arg version "$(${jq} -r .version "${pluginJson}")" '{
-        name: "mcp",
-        version: $version,
-        mcpServers: (.mcpServers | map_values(
-          if .type == "http" then
-            {httpUrl: .url} + (if .headers then {headers: .headers} else {} end)
-          else
-            del(.type)
-          end))
-      }' "${mcpJson}" > "$HOME/.gemini/extensions/mcp/gemini-extension.json"
-      echo "Gemini: extension rendered from ${mcpJson}"
     ${lib.optionalString hostSpec.isWork ''
-
-      # Devin CLI. --local links the checkout on this machine only; without it
-      # Devin would add a local path to the account-wide plugin list, which
-      # cloud sessions cannot reach. Needs `devin auth login`; the CLI has
-      # hung without a TTY before, hence stdin closed and a timeout.
-      if [ -x "${devin}" ]; then
-        if ${timeout} 60 "${devin}" plugins install "${marketplace}/plugins/mcp" --local -y </dev/null >/dev/null 2>&1; then
-          echo "Devin: mcp plugin linked"
-        else
-          echo "warning: Devin mcp plugin install skipped (run \`devin auth login\`?)" >&2
+      if [ ! -f "${mcpJson}" ]; then
+        echo "warning: ${mcpJson} missing; Devin and Cursor MCP config not updated" >&2
+      else
+        # Devin CLI. --local links the checkout on this machine only; without it
+        # Devin would add a local path to the account-wide plugin list, which
+        # cloud sessions cannot reach. Needs `devin auth login`; the CLI has
+        # hung without a TTY before, hence stdin closed and a timeout.
+        if [ -x "${devin}" ]; then
+          if ${timeout} 60 "${devin}" plugins install "${marketplace}/plugins/mcp" --local -y </dev/null >/dev/null 2>&1; then
+            echo "Devin: mcp plugin linked"
+          else
+            echo "warning: Devin mcp plugin install skipped (run \`devin auth login\`?)" >&2
+          fi
         fi
-      fi
 
-      # Cursor. Same shape as Claude Code minus the type key; url is enough
-      # for a remote server. The file is owned by this activation: servers
-      # added from Cursor's own UI are replaced on the next rebuild.
-      mkdir -p "$HOME/.cursor"
-      ${jq} '{mcpServers: (.mcpServers | map_values(del(.type)))}' "${mcpJson}" > "$HOME/.cursor/mcp.json"
-      echo "Cursor: mcp.json rendered from ${mcpJson}"
+        # Cursor. Same shape as Claude Code minus the type key; url is enough
+        # for a remote server. The file is owned by this activation: servers
+        # added from Cursor's own UI are replaced on the next rebuild.
+        mkdir -p "$HOME/.cursor"
+        ${jq} '{mcpServers: (.mcpServers | map_values(del(.type)))}' "${mcpJson}" > "$HOME/.cursor/mcp.json"
+        echo "Cursor: mcp.json rendered from ${mcpJson}"
+      fi
     ''}
-    fi
   '';
 }

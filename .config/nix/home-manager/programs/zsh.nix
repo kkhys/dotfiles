@@ -96,7 +96,6 @@ in
         ca = "cursor agent";
         cx = "codex";
         dv = "devin";
-        ge = "gemini";
 
         # Terminal
         h = "herdr";

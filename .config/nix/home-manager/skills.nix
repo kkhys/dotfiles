@@ -61,10 +61,10 @@ in
   '';
 
   # Expose every skill in the marketplace to the agents that read
-  # ~/.agents/skills: Codex, Gemini CLI, Cursor, Devin and Copilot CLI. Claude
-  # Code gets the same skills through the installed base plugin and does not
-  # read ~/.agents/skills, so nothing is listed twice there. Codex namespaces
-  # a symlinked skill by its canonical path, so these show up as base:<name>.
+  # ~/.agents/skills: Codex, Cursor, Devin and Copilot CLI. Claude Code gets
+  # the same skills through the installed base plugin and does not read
+  # ~/.agents/skills, so nothing is listed twice there. Codex namespaces a
+  # symlinked skill by its canonical path, so these show up as base:<name>.
   home.activation.marketplaceSkills = lib.hm.dag.entryAfter [ "agentSkills" ] ''
     if [ ! -d "${marketplace}/plugins" ]; then
       echo "warning: ${marketplace} not checked out; marketplace skills not linked" >&2
@@ -78,8 +78,6 @@ in
         esac
       done
       for dir in "${marketplace}"/plugins/*/skills/*/; do
-        # Gemini only globs SKILL.md one level deep and drops anything without
-        # it, so a directory that is not a skill must not be linked at all.
         [ -f "$dir/SKILL.md" ] || continue
         name="$(basename "$dir")"
         target="$HOME/.agents/skills/$name"
