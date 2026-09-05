@@ -111,7 +111,7 @@
       "Bash(cargo* publish*)"
     ]
   },
-  "model": "claude-fable-5[1m]",
+  "model": "fable[1m]",
   "disableClaudeAiConnectors": true,
   "statusLine": {
     "type": "command",
@@ -166,5 +166,6 @@
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "theme": "dark",
+  "agentPushNotifEnabled": true,
   "voiceEnabled": true
 }
