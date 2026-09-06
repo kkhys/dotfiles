@@ -6,7 +6,7 @@ Encrypted secrets live in `.config/nix/secrets/` and are decrypted automatically
 
 - `.config/nix/secrets/secrets.nix` — declares the public-key recipients for each `*.age` file
 - `.config/nix/secrets/*.age` — encrypted payloads (committed)
-- `.config/nix/darwin/secrets.nix` — declares which secrets are decrypted, where, and under what conditions (e.g. `lib.mkIf config.hostSpec.isWork`). This file is the source of truth for the current set of secrets and their target paths — read it before assuming a secret exists.
+- `.config/nix/darwin/secrets.nix` — a `secrets` table declaring which secrets are decrypted and where: `dest` overrides the target path, `workOnly = true` restricts decryption to work hosts. This file is the source of truth for the current set of secrets and their target paths — read it before assuming a secret exists.
 - `~/.config/age/keys.txt` — the age private key. Never committed; restore from password manager on a new machine.
 
 ## New machine setup
@@ -26,7 +26,7 @@ Encrypted secrets live in `.config/nix/secrets/` and are decrypted automatically
    ```bash
    nix-shell -p age --run "age -r <age-public-key> -o .config/nix/secrets/<name>.age /path/to/plaintext"
    ```
-3. Add an `age.secrets.<name>` block in `.config/nix/darwin/secrets.nix`, wrapping in `lib.mkIf` if it should only decrypt on certain hosts. Match the existing entries in that file for `path` / `owner` / `mode` conventions.
+3. Add `<name>` to the `secrets` table in `.config/nix/darwin/secrets.nix`: `{ }` decrypts to `~/.config/secrets/<name>`, `dest` puts it elsewhere, `workOnly = true` limits it to work hosts.
 4. If the secret is loaded as an env var, wire it up in `.config/nix/home-manager/programs/zsh.nix` (see the `NPM_TOKEN` block as an example).
 5. `git add .config/nix/secrets/<name>.age` and apply.
 

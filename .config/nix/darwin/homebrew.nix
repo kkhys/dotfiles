@@ -22,7 +22,6 @@
 
   nix-homebrew = {
     enable = true;
-    enableRosetta = true;
     user = config.hostSpec.username;
     autoMigrate = true;
     taps = {

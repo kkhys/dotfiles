@@ -1,9 +1,8 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.herdr = {
     enable = true;
-    package = pkgs.herdr;
 
     settings = {
       # Configuration is declarative, so skip the first-run setup prompt

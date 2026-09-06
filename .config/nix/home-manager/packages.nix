@@ -12,18 +12,13 @@
     [
       # Git Tools
       ghq
-      gibo
-      lefthook
 
       # Development Tools
       rustup
-      python3
+      # Python is reached through uv (`uv run`, `uvx`), which manages its own
+      # interpreters, so no standalone python3 or pipx.
       uv
-      pipx
       shellcheck
-
-      # Cloud Tools
-      google-cloud-sdk
 
       # Editor
       vim
@@ -38,9 +33,6 @@
 
       # Data Processing
       jq
-
-      # JavaScript/TypeScript Runtime
-      deno
     ]
     ++ [
       # Agent-oriented HTTP client; not in nixpkgs, so it comes from its own flake
@@ -48,6 +40,7 @@
     ]
     ++ lib.optionals hostSpec.isWork [
       # Work-only Tools
+      google-cloud-sdk
       colima
     ];
 }

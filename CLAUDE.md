@@ -9,10 +9,11 @@ Entry point: `.config/nix/flake.nix` (defines `darwinConfigurations.{personal,wo
 ```bash
 sudo darwin-rebuild switch --flake .config/nix#personal   # apply (use #work on the work host)
 sudo darwin-rebuild build  --flake .config/nix#personal   # build only, no activation
+sudo darwin-rebuild check  --flake .config/nix#personal   # build + activation checks, no switch
 nix flake check .config/nix                               # syntax / eval check
 ```
 
-The active host also exposes shell aliases `dr` / `drb` / `drc` for the same three commands.
+The active host also exposes shell aliases `dr` / `drb` / `drc` for the three `darwin-rebuild` commands.
 
 ## Layout
 

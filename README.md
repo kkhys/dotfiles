@@ -76,7 +76,7 @@ After the first activation, the active host exposes shell aliases that wrap `dar
 ```bash
 dr     # switch  — apply (sudo darwin-rebuild switch  ...)
 drb    # build   — build only, no activation
-drc    # check   — eval/syntax check
+drc    # check   — build + activation checks, no switch
 nfu    # nix flake update
 ```
 
@@ -110,7 +110,7 @@ sudo nix-collect-garbage --delete-older-than 30d   # prune old generations
 │   ├── mcp.nix            one MCP server list (marketplace mcp plugin) delivered to every agent
 │   └── programs/          one file per tool (zsh, git, gh, ghostty, ...)
 ├── hosts/
-│   ├── common/            shared system packages + shared Homebrew list
+│   ├── common/            shared Homebrew list
 │   ├── personal/          personal hostSpec values + personal-only Homebrew list
 │   └── work/              work hostSpec values + work-only Homebrew list
 └── secrets/               agenix-encrypted secrets + recipient list
@@ -138,9 +138,9 @@ User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
 - Git stack — git (with GPG signing), gh, hunk
 - Terminal — ghostty (auto-launches herdr), herdr, bat, eza
-- Editors / runtimes — vim, mise, bun, deno, rustup, python3 + uv + pipx
+- Editors / runtimes — vim, mise, bun, rustup, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
-- Cloud — google-cloud-sdk; (work) colima
+- Work only — google-cloud-sdk, colima
 - Symlinks — Karabiner, Zed, Claude, Codex
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):

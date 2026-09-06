@@ -8,7 +8,7 @@ How the flake composes a full nix-darwin + Home Manager system.
 
 - `./modules/host-spec.nix` — declares the `config.hostSpec` options and derives system identity (`networking.hostName`, `system.primaryUser`, `users.users.<username>`) from them
 - `./hosts/<host>` — that host's `hostSpec` values plus its host-only Homebrew list
-- `./hosts/common` — shared system packages and the shared Homebrew list
+- `./hosts/common` — the shared Homebrew list
 - `./darwin` — system-level configuration; each file also imports and wires the upstream module it configures:
   - `home-manager.nix` — Home Manager integration; `users.<username>` imports `./home-manager`
   - `homebrew.nix` — nix-homebrew (declarative, pinned taps) plus Homebrew activation settings
