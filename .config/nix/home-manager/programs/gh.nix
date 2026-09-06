@@ -5,14 +5,8 @@
     enable = true;
 
     settings = {
-      git_protocol = "https";
-      prompt = "enabled";
-      prefer_editor_prompt = "disabled";
-      pager = "";
-      color_labels = "disabled";
-      accessible_colors = "disabled";
-      accessible_prompter = "disabled";
-      spinner = "enabled";
+      # Every other tool here has telemetry off; gh alone defaults to on.
+      telemetry = "disabled";
 
       aliases = {
         co = "pr checkout";

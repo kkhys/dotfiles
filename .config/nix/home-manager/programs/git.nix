@@ -47,15 +47,6 @@
         ignorecase = false;
       };
 
-      color = {
-        status = "auto";
-        diff = "auto";
-        branch = "auto";
-        interactive = "auto";
-        grep = "auto";
-        ui = "auto";
-      };
-
       credential = {
         helper = "osxkeychain";
       };
@@ -66,21 +57,10 @@
 
       pull = {
         ff = "only";
-        rebase = false;
       };
 
       merge = {
         ff = false;
-      };
-
-      url = {
-        "https://" = {
-          insteadOf = "git://";
-        };
-      };
-
-      github = {
-        user = "kkhys";
       };
 
       ghq = {
