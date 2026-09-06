@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hostSpec,
   ...
 }:
 
@@ -14,9 +15,10 @@
       tools = {
         node = "latest";
         "npm:pnpm" = "latest";
-        "npm:yarn" = "latest";
         "npm:@openai/codex" = "latest";
-        "npm:vercel" = "latest";
+      }
+      // lib.optionalAttrs hostSpec.isWork {
+        "npm:yarn" = "latest";
       };
 
       settings = {
@@ -27,7 +29,9 @@
 
   # `mise install` only installs missing tools, so tools pinned to "latest"
   # stay frozen at whatever version was current on first install. Upgrade
-  # afterwards so "latest" actually tracks latest.
+  # afterwards so "latest" actually tracks latest, then prune what nothing
+  # references any more: superseded "latest" versions, tools dropped from this
+  # config, and ad-hoc `mise use` leftovers.
   #
   # After linkGeneration, not writeBoundary: the DAG otherwise orders this
   # step before the dotfile links, so mise would read the previous
@@ -38,7 +42,8 @@
     PATH="${config.home.profileDirectory}/bin:$PATH"
     if ! (
       ${pkgs.mise}/bin/mise install \
-        && ${pkgs.mise}/bin/mise upgrade
+        && ${pkgs.mise}/bin/mise upgrade \
+        && ${pkgs.mise}/bin/mise prune --yes
     ); then
       echo "warning: mise tool refresh incomplete (offline or registry error?)" >&2
     fi
