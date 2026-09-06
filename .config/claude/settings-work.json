@@ -26,13 +26,11 @@
       "Skill(base:*)",
       "Skill(pr-review-toolkit:*)",
       "Skill(codex:*)",
-      "Skill(code-simplifier:*)",
       "Skill(skill-creator:*)",
       "Skill(modern-web-guidance:*)"
     ],
     "deny": [
       "mcp__plugin_mcp_serena__execute_shell_command",
-      "mcp__plugin_serena_serena__execute_shell_command",
       "Bash(rm* -rf*)",
       "Bash(chmod* 777*)",
       "Bash(dd:*)",
