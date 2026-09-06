@@ -51,13 +51,6 @@
       /usr/sbin/chown -R "$USERNAME":admin /opt/homebrew 2>/dev/null || true
     fi
 
-    # Intel Homebrew (Rosetta)
-    if [[ -d /usr/local/Homebrew && "$(/usr/bin/stat -f %Su /usr/local/Homebrew)" != "$USERNAME" ]]; then
-      echo "Fixing Intel Homebrew directory permissions for $USERNAME..."
-      /usr/sbin/chown -R "$USERNAME":admin /usr/local/Homebrew 2>/dev/null || true
-      /usr/sbin/chown -R "$USERNAME":admin /usr/local/bin 2>/dev/null || true
-    fi
-
     # Xcode Command Line Tools check and installation
     if ! /usr/bin/xcrun -f clang >/dev/null 2>&1; then
       echo "Installing Xcode Command Line Tools..."
