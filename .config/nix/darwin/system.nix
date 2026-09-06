@@ -32,7 +32,6 @@
     };
 
     screencapture = {
-      location = "~/Desktop/screenshots";
       show-thumbnail = false;
     };
   };
