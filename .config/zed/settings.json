@@ -40,12 +40,7 @@
     "trust_all_worktrees": false
   },
   "agent": {
-    "dock": "right",
-    "default_model": {
-      "provider": "copilot_chat",
-      "model": "gpt-5-mini"
-    },
-    "model_parameters": []
+    "dock": "right"
   },
   "autosave": {
     "after_delay": {
