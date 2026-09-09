@@ -15,8 +15,12 @@
 
       # Development Tools
       rustup
-      # Python is reached through uv (`uv run`, `uvx`), which manages its own
-      # interpreters, so no standalone python3 or pipx.
+      # Agent tooling shells out to a bare `python3`: the security-guidance
+      # plugin hooks and the trend digest skill. macOS only offers 3.9.6 behind
+      # an xcrun shim, which is below the 3.10 claude_agent_sdk requires and
+      # fails outright inside a nix devShell, where DEVELOPER_DIR points at an
+      # SDK that carries no interpreter.
+      python3
       uv
       shellcheck
 
