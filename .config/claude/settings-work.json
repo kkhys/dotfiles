@@ -109,8 +109,8 @@
       "Bash(cargo* publish*)"
     ]
   },
-  "model": "sonnet",
   "disableClaudeAiConnectors": true,
+  "disableRemoteControl": true,
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh",
@@ -172,7 +172,7 @@
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "medium"
+      "effortLevel": "xhigh"
     },
     "claude-fable-5": {
       "effortLevel": "xhigh"
@@ -185,8 +185,8 @@
   "emojiCompletionEnabled": false,
   "autoMemoryEnabled": false,
   "theme": "dark",
+  "teammateMode": "auto",
   "agentPushNotifEnabled": true,
   "voiceEnabled": true,
-  "teammateMode": "auto",
-  "disableRemoteControl": true
+  "skipWorkflowUsageWarning": true
 }
