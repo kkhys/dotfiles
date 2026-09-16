@@ -7,7 +7,7 @@
 - When asking for permission to run a command, provide a brief description in Japanese
 
 ## Code comments
-- Write in English, and only for what the code cannot express: why, trade-offs, constraints, non-obvious edge cases
+- Write in English unless the project's instructions say otherwise, and only for what the code cannot express: why, trade-offs, constraints, non-obvious edge cases
 - Never restate what the code shows; no banners or narration. Prefer no comment over a redundant one
 
 ## Security
@@ -23,3 +23,7 @@
 
 ## Proactive
 - Suggest improvements proactively
+
+## Reporting
+- Post to Slack, Notion, or GitHub only on explicit request; otherwise return the text as a draft
+- When reporting a change, add one line on the regression risk to existing behaviour
