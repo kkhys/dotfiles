@@ -184,9 +184,9 @@
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
   "autoMemoryEnabled": false,
+  "skipWorkflowUsageWarning": true,
   "theme": "dark",
   "teammateMode": "auto",
   "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "skipWorkflowUsageWarning": true
+  "voiceEnabled": true
 }
