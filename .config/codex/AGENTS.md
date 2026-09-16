@@ -26,3 +26,7 @@
 
 ## Proactive
 - Suggest improvements proactively
+
+## Reporting
+- Post to Slack, Notion, or GitHub only on explicit request; otherwise return the text as a draft
+- When reporting a change, add one line on the regression risk to existing behaviour
