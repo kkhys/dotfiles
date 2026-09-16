@@ -58,16 +58,26 @@ prefix_rule(pattern = ["brew"], decision = "allow")
 
 # --- ask tier ---------------------------------------------------------------
 
+# Plain push, rebase, and non-hard reset were approved on every prompt, so
+# only the variants that discard work stay gated. `--force-with-lease` is a
+# separate token and therefore not matched.
 prefix_rule(
-    pattern = ["git", ["push", "rebase", "reset", "clean"]],
+    pattern = ["git", "push", ["--force", "-f"]],
     decision = "prompt",
-    justification = "Rewrites history or publishes; mirrors Claude's ask tier",
-    match = ["git push origin main", "git reset --hard HEAD~1"],
-    not_match = ["git status", "git fetch origin"],
+    justification = "Overwrites remote history; mirrors Claude's ask tier",
+    match = ["git push --force origin main", "git push -f"],
+    not_match = ["git push origin main", "git push --force-with-lease origin main"],
 )
-prefix_rule(pattern = ["gh", "pr", ["create", "merge"]], decision = "prompt")
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "prompt",
+    justification = "Discards uncommitted work; mirrors Claude's ask tier",
+    match = ["git reset --hard HEAD~1"],
+    not_match = ["git reset --soft HEAD~1", "git reset HEAD"],
+)
+prefix_rule(pattern = ["git", "clean"], decision = "prompt")
+prefix_rule(pattern = ["gh", "pr", "merge"], decision = "prompt")
 prefix_rule(pattern = ["gh", ["issue", "release", "gist"], "create"], decision = "prompt")
-prefix_rule(pattern = ["gh", "workflow", "run"], decision = "prompt")
 prefix_rule(pattern = ["sudo"], decision = "prompt")
 prefix_rule(pattern = ["npm", ["uninstall", "remove", "publish"]], decision = "prompt")
 prefix_rule(pattern = ["pnpm", "publish"], decision = "prompt")

@@ -23,11 +23,17 @@
       "mcp__plugin_mcp_chrome-devtools__*",
       "mcp__plugin_mcp_astro-docs__*",
       "mcp__plugin_mcp_analytics-mcp__*",
+      "mcp__claude-in-chrome__*",
+      "mcp__plugin_base_chrome-devtools__*",
       "Skill(base:*)",
       "Skill(pr-review-toolkit:*)",
       "Skill(codex:*)",
       "Skill(skill-creator:*)",
-      "Skill(modern-web-guidance:*)"
+      "Skill(modern-web-guidance:*)",
+      "Skill(gh-stack *)",
+      "Skill(claude-in-chrome *)",
+      "Skill(claude-api *)",
+      "Skill(artifact-design *)"
     ],
     "deny": [
       "mcp__plugin_mcp_serena__execute_shell_command",
@@ -79,10 +85,11 @@
       "Bash(rm* --recursive*)"
     ],
     "ask": [
-      "Bash(git push:*)",
-      "Bash(git rebase:*)",
-      "Bash(git* reset*)",
-      "Bash(gh pr create:*)",
+      "Bash(git push* --force *)",
+      "Bash(git push* --force)",
+      "Bash(git push* -f *)",
+      "Bash(git push* -f)",
+      "Bash(git reset* --hard*)",
       "Bash(gh issue create:*)",
       "Bash(gh release create:*)",
       "Bash(aws s3 cp:*)",
@@ -98,12 +105,11 @@
       "Bash(sudo:*)",
       "Bash(npm uninstall:*)",
       "Bash(npm remove:*)",
-      "Bash(git* clean*)",
+      "Bash(git clean:*)",
       "Bash(docker* system prune*)",
       "Bash(kubectl* delete*)",
       "Bash(gh* pr merge*)",
       "Bash(gh gist create:*)",
-      "Bash(gh workflow run:*)",
       "Bash(npm* publish*)",
       "Bash(pnpm* publish*)",
       "Bash(cargo* publish*)"
