@@ -14,7 +14,10 @@
     globalConfig = {
       tools = {
         node = "latest";
-        "npm:pnpm" = "latest";
+        # pnpm 12's npm package swaps in a native binary from an install
+        # script, which mise's npm backend skips (its shim also launches the
+        # bin through node), so take the release binary via the aqua backend.
+        pnpm = "latest";
         "npm:@openai/codex" = "latest";
       }
       // lib.optionalAttrs hostSpec.isWork {
