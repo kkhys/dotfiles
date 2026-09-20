@@ -24,6 +24,10 @@
       url = "github:datadog-labs/homebrew-pack";
       flake = false;
     };
+    homebrew-orca = {
+      url = "github:stablyai/homebrew-orca";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";

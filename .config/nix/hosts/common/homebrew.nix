@@ -13,6 +13,7 @@
       "ghostty"
       "zed"
       "cleanshot"
+      "stablyai/orca/orca"
     ];
   };
 }

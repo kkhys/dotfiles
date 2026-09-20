@@ -17,6 +17,7 @@
       "homebrew/core"
       "homebrew/cask"
       "datadog-labs/pack"
+      "stablyai/orca"
     ];
   };
 
@@ -28,6 +29,7 @@
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "datadog-labs/homebrew-pack" = inputs.homebrew-datadog;
+      "stablyai/homebrew-orca" = inputs.homebrew-orca;
     };
     mutableTaps = true;
   };
