@@ -1,0 +1,2 @@
+# Backup copies written by tools in place (Orca rewrites .config/claude/settings.json)
+*.bak
