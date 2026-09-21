@@ -26,4 +26,6 @@ in
   # SonarQube token
   "sonarqube-token.age".publicKeys = allKeys;
 
+  # TypeSafe API key
+  "typesafe-api-key.age".publicKeys = allKeys;
 }
