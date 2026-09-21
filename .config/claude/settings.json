@@ -115,63 +115,8 @@
       "Bash(cargo* publish*)"
     ]
   },
-  "model": "fable[1m]",
+  "model": "claude-fable-5-1[1m]",
   "disableClaudeAiConnectors": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh",
-    "padding": 0,
-    "refreshInterval": 30
-  },
-  "enabledPlugins": {
-    "base@my-marketplace": true,
-    "mcp@my-marketplace": true,
-    "codex@openai-codex": true,
-    "security-guidance@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true,
-    "modern-web-guidance@googlechrome": true
-  },
-  "extraKnownMarketplaces": {
-    "my-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "kkhys/claude-code-marketplace"
-      },
-      "autoUpdate": true
-    },
-    "claude-plugins-official": {
-      "source": {
-        "source": "github",
-        "repo": "anthropics/claude-plugins-official"
-      },
-      "autoUpdate": true
-    },
-    "openai-codex": {
-      "source": {
-        "source": "github",
-        "repo": "openai/codex-plugin-cc"
-      },
-      "autoUpdate": true
-    },
-    "googlechrome": {
-      "source": {
-        "source": "github",
-        "repo": "GoogleChrome/modern-web-guidance"
-      },
-      "autoUpdate": true
-    }
-  },
-  "outputStyle": "base:terse-japanese",
-  "language": "japanese",
-  "effortLevel": "xhigh",
-  "promptSuggestionEnabled": false,
-  "emojiCompletionEnabled": false,
-  "tui": "fullscreen",
-  "autoMemoryEnabled": false,
-  "theme": "dark",
-  "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
   "hooks": {
     "SessionStart": [
       {
@@ -320,5 +265,60 @@
         ]
       }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh",
+    "padding": 0,
+    "refreshInterval": 30
+  },
+  "enabledPlugins": {
+    "base@my-marketplace": true,
+    "mcp@my-marketplace": true,
+    "codex@openai-codex": true,
+    "security-guidance@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "modern-web-guidance@googlechrome": true
+  },
+  "extraKnownMarketplaces": {
+    "my-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "kkhys/claude-code-marketplace"
+      },
+      "autoUpdate": true
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      },
+      "autoUpdate": true
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      },
+      "autoUpdate": true
+    },
+    "googlechrome": {
+      "source": {
+        "source": "github",
+        "repo": "GoogleChrome/modern-web-guidance"
+      },
+      "autoUpdate": true
+    }
+  },
+  "outputStyle": "base:terse-japanese",
+  "language": "japanese",
+  "effortLevel": "xhigh",
+  "promptSuggestionEnabled": false,
+  "emojiCompletionEnabled": false,
+  "tui": "fullscreen",
+  "autoMemoryEnabled": false,
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
+  "voiceEnabled": true
 }
