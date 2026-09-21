@@ -25,6 +25,12 @@ let
       # Teaches the ax CLI installed in packages.nix.
       pkg = "yusukebe/ax";
     }
+    {
+      # TypeSafe System One (jev): question primitives, patterns, cookbooks.
+      # Inert without TYPESAFE_API_KEY, wired up in programs/zsh.nix.
+      pkg = "typesafe-ai/skills";
+      skill = "typesafe-ai";
+    }
   ];
 
   skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
