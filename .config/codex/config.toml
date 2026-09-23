@@ -23,6 +23,14 @@ personality = "pragmatic"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
+# Escalations that reach an approval prompt go to the reviewer subagent instead
+# of stopping for a keystroke. This swaps who answers the prompt; the sandbox
+# boundary, the writable roots and the rules tiers are all unchanged. It needs
+# an interactive approval_policy — under "never" no approval request is raised
+# for the reviewer to see, and commands matched by an `allow` rule bypass it
+# entirely, so that tier stays narrow on purpose.
+approvals_reviewer = "auto_review"
+
 # Always fetch fresh results instead of the cached index.
 web_search = "live"
 
