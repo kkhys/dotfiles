@@ -20,7 +20,8 @@ let
   # Codex's config.toml is deliberately absent: Codex rewrites ~/.codex/config.toml
   # in place (project trust levels, feature toggles, TUI state), so it cannot be
   # a symlink into this repo. The managed settings ship through Codex's system
-  # config layer instead; see darwin/codex.nix.
+  # config layer instead; see darwin/codex.nix. Its rules/managed.rules is
+  # copied by the codexRulesSync activation below, not linked.
   agentFiles = {
     claude = [
       "CLAUDE.md"
@@ -28,10 +29,6 @@ let
     ];
     codex = [
       "AGENTS.md"
-      # Execpolicy mirror of the Claude permission tiers. Codex scans every
-      # *.rules under ~/.codex/rules/; its own TUI-added allows land in
-      # default.rules there, so the two never collide.
-      "rules/managed.rules"
     ];
   };
 
@@ -60,6 +57,21 @@ in
     };
 
   home.activation = {
+    # Execpolicy mirror of the Claude permission tiers. Codex enumerates
+    # ~/.codex/rules/*.rules with DirEntry::file_type(), which does not follow
+    # symlinks, so a Home Manager link there is silently skipped and every
+    # escalation keeps prompting; the file has to be a regular file. Codex's
+    # own TUI-added allows land in default.rules next to it, so the two never
+    # collide. Runs after linkGeneration so the symlink from the earlier
+    # home.file delivery is cleaned up before the copy lands.
+    codexRulesSync = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      managed=${../../codex/rules/managed.rules}
+      target="$HOME/.codex/rules/managed.rules"
+      if [ -L "$target" ] || ! ${pkgs.diffutils}/bin/cmp -s "$managed" "$target"; then
+        ${pkgs.coreutils}/bin/install -D -m 0644 "$managed" "$target"
+      fi
+    '';
+
     # The managed Codex settings live in /etc/codex/config.toml, which is the
     # LOWEST-precedence layer. A key left over in ~/.codex/config.toml silently
     # shadows it, so warn instead of letting the two drift apart unnoticed.
