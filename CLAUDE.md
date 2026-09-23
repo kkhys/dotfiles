@@ -28,11 +28,15 @@ Homebrew is fully declarative via nix-homebrew — never run `brew bundle` or `b
 
 ## Agent permission mirror
 
-The Claude Code permission tiers in `.config/claude/settings.json` (`permissions.allow` / `ask` / `deny`) are mirrored into Codex's native format. Whenever a permission entry changes there, update the mirror in the same change:
+The Claude Code permission tiers in `.config/claude/settings.json` (`permissions.allow` / `ask` / `deny`) are mirrored into each other agent's native format. Whenever a permission entry changes there, update the mirrors in the same change:
 
 - Codex — `.config/codex/rules/managed.rules` (execpolicy `prefix_rule`; allow / prompt / forbidden ≙ allow / ask / deny). Verify with `codex execpolicy check --rules <file> -- <command>`
+- Devin CLI — `.config/devin/permissions.json` (same `allow` / `ask` / `deny` keys; `Bash(...)` ≙ `Exec(<prefix>)`, `Edit`/`Write` ≙ `Write(<glob>)`, `Bash` ≙ tool name `exec`). The `devinPermissionsSync` activation in `home-manager/dotfiles.nix` replaces the `permissions` block of `~/.config/devin/config.json` on every `darwin-rebuild switch` (work host only) and warns about entries it drops. Devin imports Claude's rules / skills / MCP servers but never its permissions, hence this mirror
 
-Known fidelity gap, accepted deliberately: Codex rules only govern commands escalated out of the sandbox and cannot express `Read()`/`Edit()` denies.
+Known fidelity gaps, accepted deliberately:
+
+- Codex rules only govern commands escalated out of the sandbox and cannot express `Read()`/`Edit()` denies.
+- Devin `Exec()` is an argv prefix, so Claude globs with a wildcard in the middle (`rm* -rf*`, `aws* iam delete-*`, `git push* --force*`) are enumerated the same way as in Codex; a flag placed after the target (`git push origin main --force`, `rm -rfv`) is not caught. `Read()`/`Write()` globs without a leading `/` or `~` are cwd-relative in Devin, so the mirror prefixes them with `/**/`. MCP entries use Devin's server names (`mcp__context7__*`, not `mcp__plugin_mcp_context7__*`) and list only servers configured for Devin; `Skill(...)` has no equivalent.
 
 ## Where to look for task-specific context
 
