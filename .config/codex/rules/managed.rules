@@ -9,6 +9,15 @@
 # allow), same precedence as Claude's deny > ask > allow, so the broad allow
 # rules below are safely narrowed by the prompt/forbidden overrides.
 #
+# One deliberate departure from that mapping: config.toml sets
+# `approvals_reviewer = "auto_review"`, so a `prompt` decision no longer stops
+# for a person — it goes to the reviewer subagent, which is another model and
+# can be wrong. Claude `ask` entries whose blast radius a wrong answer cannot
+# undo (published packages, force-pushed history, deployed infrastructure) are
+# therefore `forbidden` here rather than `prompt`; see the deny tier below.
+# Run them by hand when they are genuinely needed. The other mirrors keep
+# `ask`, because Devin and Cursor still put those prompts in front of a person.
+#
 # What this file cannot mirror:
 # - Rules only govern commands escalated OUT of the sandbox. Inside the
 #   workspace-write sandbox commands run unprompted, so an in-workspace
@@ -17,6 +26,11 @@
 #   execpolicy equivalent; Codex sandbox reads are unrestricted.
 # - Patterns are argv prefixes, not globs: `rm -rf` variants are enumerated,
 #   flags appearing after the target path are not caught.
+# - A shell script is split into its component commands only when it is a
+#   linear chain of plain words joined by `&&`, `||`, `;` or `|`. Add a
+#   redirect, a substitution, a variable or a glob and the whole thing is
+#   matched as one `zsh -lc <script>` argv that no prefix below can cover, so
+#   it reaches the reviewer no matter what these rules say.
 #
 # Copied to ~/.codex/rules/ as a regular file by the codexRulesSync activation
 # in home-manager/dotfiles.nix: Codex skips symlinked *.rules, so edits here
@@ -59,48 +73,84 @@ prefix_rule(pattern = ["just"], decision = "allow")
 prefix_rule(pattern = ["brew"], decision = "allow")
 
 # --- ask tier ---------------------------------------------------------------
+# What is left here is recoverable by hand: the reviewer answering wrongly
+# costs a re-run, a delete, or a re-install, not a rewritten history or a
+# published artifact. The rest of Claude's ask tier moved to the deny tier.
+
+prefix_rule(pattern = ["gh", ["issue", "release", "gist"], "create"], decision = "prompt")
+prefix_rule(pattern = ["npm", ["uninstall", "remove"]], decision = "prompt")
+prefix_rule(pattern = ["docker", "system", "prune"], decision = "prompt")
+prefix_rule(pattern = ["aws", "s3", ["cp", "sync"]], decision = "prompt")
+prefix_rule(pattern = ["aws", "lambda", "create-function"], decision = "prompt")
+
+# --- deny tier --------------------------------------------------------------
+
+# Promoted from Claude's ask tier: under auto_review a `prompt` is answered by
+# a model, and these are the invocations where a wrong answer cannot be taken
+# back. Run them by hand instead.
 
 # Plain push, rebase, and non-hard reset were approved on every prompt, so
 # only the variants that discard work stay gated. `--force-with-lease` is a
 # separate token and therefore not matched.
 prefix_rule(
     pattern = ["git", "push", ["--force", "-f"]],
-    decision = "prompt",
-    justification = "Overwrites remote history; mirrors Claude's ask tier",
+    decision = "forbidden",
+    justification = "Overwrites remote history; push by hand if it is really needed",
     match = ["git push --force origin main", "git push -f"],
     not_match = ["git push origin main", "git push --force-with-lease origin main"],
 )
 prefix_rule(
     pattern = ["git", "reset", "--hard"],
-    decision = "prompt",
-    justification = "Discards uncommitted work; mirrors Claude's ask tier",
+    decision = "forbidden",
+    justification = "Discards uncommitted work with no way back",
     match = ["git reset --hard HEAD~1"],
     not_match = ["git reset --soft HEAD~1", "git reset HEAD"],
 )
-prefix_rule(pattern = ["git", "clean"], decision = "prompt")
-prefix_rule(pattern = ["gh", "pr", "merge"], decision = "prompt")
-prefix_rule(pattern = ["gh", ["issue", "release", "gist"], "create"], decision = "prompt")
-prefix_rule(pattern = ["sudo"], decision = "prompt")
-prefix_rule(pattern = ["npm", ["uninstall", "remove", "publish"]], decision = "prompt")
-prefix_rule(pattern = ["pnpm", "publish"], decision = "prompt")
-prefix_rule(pattern = ["cargo", "publish"], decision = "prompt")
-prefix_rule(pattern = ["docker", "system", "prune"], decision = "prompt")
-prefix_rule(pattern = ["kubectl", "delete"], decision = "prompt")
-prefix_rule(pattern = ["aws", "s3", ["cp", "sync", "mv"]], decision = "prompt")
 prefix_rule(
-    pattern = ["aws", "ec2", ["run-instances", "start-instances", "stop-instances"]],
-    decision = "prompt",
+    pattern = ["git", "clean"],
+    decision = "forbidden",
+    justification = "Deletes untracked files with no way back",
 )
 prefix_rule(
-    pattern = ["aws", "lambda", ["create-function", "update-function-code"]],
-    decision = "prompt",
+    pattern = ["gh", "pr", "merge"],
+    decision = "forbidden",
+    justification = "Merging is the human decision the review process exists for",
+)
+prefix_rule(
+    pattern = ["sudo"],
+    decision = "forbidden",
+    justification = "System-wide changes; this machine is declarative via nix-darwin",
+)
+prefix_rule(
+    pattern = [["npm", "pnpm", "cargo"], "publish"],
+    decision = "forbidden",
+    justification = "A published version cannot be unpublished",
+    match = ["npm publish", "pnpm publish --access public", "cargo publish"],
+    not_match = ["npm install", "cargo build"],
+)
+prefix_rule(
+    pattern = ["kubectl", "delete"],
+    decision = "forbidden",
+    justification = "Deletes live cluster resources",
+)
+prefix_rule(pattern = ["aws", "s3", "mv"], decision = "forbidden")
+prefix_rule(
+    pattern = ["aws", "ec2", ["run-instances", "start-instances", "stop-instances"]],
+    decision = "forbidden",
+    justification = "Changes running infrastructure and billing",
+)
+prefix_rule(
+    pattern = ["aws", "lambda", "update-function-code"],
+    decision = "forbidden",
+    justification = "Overwrites deployed code",
 )
 prefix_rule(
     pattern = ["aws", "cloudformation", ["create-stack", "update-stack"]],
-    decision = "prompt",
+    decision = "forbidden",
+    justification = "Deploys infrastructure",
 )
 
-# --- deny tier --------------------------------------------------------------
+# Mirroring Claude's own deny tier:
 
 prefix_rule(
     pattern = ["rm", ["-rf", "-fr", "--recursive"]],
