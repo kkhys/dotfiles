@@ -137,7 +137,7 @@ System (nix-darwin):
 User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
 - Git stack — git (with GPG signing), gh, hunk
-- Terminal — ghostty (auto-launches herdr), herdr, bat, eza
+- Terminal — ghostty, bat, eza
 - Editors / runtimes — vim, mise, bun, rustup, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
 - Work only — google-cloud-sdk, colima

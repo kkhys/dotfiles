@@ -15,13 +15,6 @@ let
       pkg = "github/gh-stack";
     }
     {
-      # Lets an agent drive the herdr CLI from inside its own pane: inspect
-      # workspaces, run commands in siblings, wait on other agents. The skill
-      # no-ops unless HERDR_ENV=1, so it stays inert outside herdr.
-      pkg = "herdrdev/herdr";
-      skill = "herdr";
-    }
-    {
       # Teaches the ax CLI installed in packages.nix.
       pkg = "yusukebe/ax";
     }

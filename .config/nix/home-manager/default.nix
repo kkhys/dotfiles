@@ -13,7 +13,6 @@
     ./programs/ghostty.nix
     ./programs/git.nix
     ./programs/gpg.nix
-    ./programs/herdr.nix
     ./programs/hunk.nix
     ./programs/mise.nix
     ./programs/sheldon.nix

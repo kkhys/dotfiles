@@ -95,9 +95,6 @@ in
         # AI coding agents
         cx = "codex";
 
-        # Terminal
-        h = "herdr";
-
         # Nix
         nfu = "nix flake update --flake ${flakePath}";
 
