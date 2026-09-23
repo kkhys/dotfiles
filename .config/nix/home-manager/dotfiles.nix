@@ -139,5 +139,42 @@ in
         fi
       fi
     '';
+
+    # Cursor permission mirror (Cursor is a work-host cask). The CLI owns
+    # ~/.cursor/cli-config.json (model picker, auth cache, self-repair via temp
+    # file + rename), so as with Devin the file cannot be a symlink; only its
+    # permissions block and the WebSearch auto-accept flag are replaced. `~/`
+    # in Read()/Write() tokens is expanded because the username differs per
+    # host and Cursor does not document tilde expansion.
+    cursorPermissionsSync = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      managed=${../../cursor/permissions.json}
+      userConfig="$HOME/.cursor/cli-config.json"
+      jq=${pkgs.jq}/bin/jq
+      prelude='
+        def rules: [ (.permissions // {}) | to_entries[] | .key as $tier | .value[] | "\($tier): \(.)" ];
+        def expand: map(sub("^(?<kind>Read|Write)\\(~/"; "\(.kind)(\($home)/"));
+        ($m[0] | map_values(expand)) as $want |
+      '
+      mkdir -p "$(dirname "$userConfig")"
+      [ -f "$userConfig" ] || (umask 077; echo '{"version":1}' > "$userConfig")
+      if ! "$jq" -e . "$userConfig" >/dev/null 2>&1; then
+        echo "warning: $userConfig is not valid JSON; Cursor permissions were not synced" >&2
+      else
+        dropped=$("$jq" -r --slurpfile m "$managed" --arg home "$HOME" \
+          "$prelude"' (rules - ({ permissions: $want } | rules))[]' "$userConfig")
+        if [ -n "$dropped" ]; then
+          echo "warning: dropping Cursor permission entries not in .config/cursor/permissions.json:" >&2
+          echo "$dropped" | ${pkgs.gnused}/bin/sed 's/^/  /' >&2
+        fi
+        tmp=$(${pkgs.coreutils}/bin/mktemp "$userConfig.XXXXXX")
+        "$jq" --slurpfile m "$managed" --arg home "$HOME" \
+          "$prelude"' .permissions = $want | .autoAcceptWebSearch = true' "$userConfig" > "$tmp"
+        if ${pkgs.diffutils}/bin/cmp -s "$tmp" "$userConfig"; then
+          rm -f "$tmp"
+        else
+          mv "$tmp" "$userConfig"
+        fi
+      fi
+    '';
   };
 }
