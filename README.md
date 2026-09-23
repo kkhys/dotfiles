@@ -136,7 +136,7 @@ System (nix-darwin):
 
 User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
-- Git stack — git (with GPG signing), gh, hunk
+- Git stack — git (with GPG signing), gh
 - Terminal — ghostty, bat, eza
 - Editors / runtimes — vim, mise, bun, rustup, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
