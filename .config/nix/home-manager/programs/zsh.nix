@@ -74,11 +74,6 @@ in
         "z." = "zed .";
         cf = "caffeinate -id";
 
-        # Diff review (hunk). Preferred over routing git through `hunk pager`:
-        # the native loader also picks up untracked files and supports --watch
-        hd = "hunk diff";
-        hs = "hunk show";
-
         # Docker
         dc = "docker compose";
         de = "docker exec";
@@ -94,9 +89,6 @@ in
 
         # AI coding agents
         cx = "codex";
-
-        # Terminal
-        h = "herdr";
 
         # Nix
         nfu = "nix flake update --flake ${flakePath}";
