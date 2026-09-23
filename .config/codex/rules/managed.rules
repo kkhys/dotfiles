@@ -18,8 +18,10 @@
 # - Patterns are argv prefixes, not globs: `rm -rf` variants are enumerated,
 #   flags appearing after the target path are not caught.
 #
-# Delivered by the dotfiles repo (home-manager/dotfiles.nix); Codex's own TUI
-# additions go to default.rules in this directory, not here.
+# Copied to ~/.codex/rules/ as a regular file by the codexRulesSync activation
+# in home-manager/dotfiles.nix: Codex skips symlinked *.rules, so edits here
+# take effect after `darwin-rebuild switch` plus a Codex restart. Codex's own
+# TUI additions go to default.rules in that directory, not here.
 # Test: codex execpolicy check --pretty --rules <this file> -- <command>
 
 # --- allow tier -------------------------------------------------------------
