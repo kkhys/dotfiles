@@ -13,6 +13,7 @@
       "blackhole-2ch"
       "cursor"
       "devin-cli"
+      "grok-bot"
       "microsoft-edge"
       "openvpn-connect"
       # "ovice"
