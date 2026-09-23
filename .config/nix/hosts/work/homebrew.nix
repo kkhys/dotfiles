@@ -18,7 +18,6 @@
       "microsoft-edge"
       "openvpn-connect"
       # "ovice"
-      "slack"
       # "zoom"
     ];
   };
