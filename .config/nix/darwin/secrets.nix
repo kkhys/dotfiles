@@ -22,6 +22,7 @@ let
     npm-token.workOnly = true;
     qase-api-token.workOnly = true;
     sonarqube-token.workOnly = true;
+    cursor-token.workOnly = true;
   };
 
   wanted = lib.filterAttrs (

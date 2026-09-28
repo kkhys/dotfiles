@@ -46,5 +46,6 @@
       # Work-only Tools
       google-cloud-sdk
       colima
+      terraform
     ];
 }
