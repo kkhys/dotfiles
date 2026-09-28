@@ -28,4 +28,7 @@ in
 
   # TypeSafe API key
   "typesafe-api-key.age".publicKeys = allKeys;
+
+  # Cursor token
+  "cursor-token.age".publicKeys = allKeys;
 }
