@@ -4,6 +4,7 @@
   homebrew = {
     brews = [
       "ffmpeg"
+      "xcodes"
     ];
 
     casks = [
