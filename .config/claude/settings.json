@@ -116,7 +116,7 @@
       "Bash(cargo* publish*)"
     ]
   },
-  "model": "opus[1m]",
+  "model": "opus",
   "disableClaudeAiConnectors": true,
   "hooks": {
     "SessionStart": [
@@ -315,6 +315,11 @@
   "outputStyle": "base:terse-japanese",
   "language": "japanese",
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
   "tui": "fullscreen",
