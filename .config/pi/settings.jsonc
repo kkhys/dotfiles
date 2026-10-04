@@ -1,0 +1,40 @@
+// Managed Pi settings. Pi parses its own settings.json as strict JSON and
+// rewrites it at runtime, so this file is not what Pi reads: the
+// piSettingsSync activation in home-manager/dotfiles.nix drops the comment
+// lines and merges the rest over ~/.pi/agent/settings.json. Only whole-line
+// comments are supported.
+{
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6.1-sol",
+  "defaultThinkingLevel": "xhigh",
+  "enabledModels": [
+    "openai-codex/gpt-6.1-sol",
+    // Not usable on this account.
+    // "openai-codex/gpt-6-astra",
+    "openai-codex/gpt-6-luna"
+  ],
+  "enableInstallTelemetry": false,
+  // Extensions run inside the Pi process with full user permissions, so every
+  // source is pinned and a bump is a reviewed change here.
+  "packages": [
+    "npm:pi-subagents@0.75.0",
+    "npm:@juicesharp/rpiv-ask-user-question@2.12.0",
+    "npm:pi-web-access@0.35.0"
+  ],
+  // Read by the claude-compat extension, which loads the skills and MCP
+  // servers of every plugin enabled in Claude Code. codex is Claude Code's
+  // bridge to the Codex CLI and has nothing to drive from here.
+  "claudePlugins": {
+    "exclude": ["codex"]
+  },
+  "subagents": {
+    "agentOverrides": {
+      // Recon is high-volume reading; the parent's model is slow and costly for it.
+      "scout": { "model": "openai-codex/gpt-6-luna" },
+      // These two pr-review-toolkit agents pin Claude's `opus`, which no
+      // provider signed in here serves, and fail to launch without this.
+      "code-reviewer": { "model": "inherit" },
+      "code-simplifier": { "model": "inherit" }
+    }
+  }
+}

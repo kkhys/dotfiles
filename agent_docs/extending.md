@@ -44,9 +44,12 @@ Edit `.config/nix/home-manager/dotfiles.nix`:
 
 ## Add an agent skill or MCP server
 
-- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills`, which Codex reads; Claude Code gets it through `~/.claude/skills`
+- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills`, which Codex and Pi read; Claude Code gets it through `~/.claude/skills`
 - Your own skill: add it to the `base` plugin of `kkhys/claude-code-marketplace`. `skills.nix` links every `plugins/*/skills/<name>/` of the local checkout into `~/.agents/skills/<name>` on rebuild; Claude Code loads the same skill from the installed plugin, so no entry is needed here
-- An MCP server: add it to `plugins/mcp/.mcp.json` in the marketplace and bump that plugin's version. `mcp.nix` installs the plugin into Codex; Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_mcp_<server>__*` permission entries also live
+- An MCP server: add it to `plugins/mcp/.mcp.json` in the marketplace and bump that plugin's version. `mcp.nix` installs the plugin into Codex and copies its `.mcp.json` to `~/.pi/agent/mcp.json` for Pi; Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_mcp_<server>__*` permission entries also live
+- A Claude Code plugin from another marketplace needs nothing here for Pi: the `claude-compat` extension reads Claude Code's `enabledPlugins` and install registry at session start and loads the skills (as `<plugin>:<name>`) and MCP servers of whatever is enabled there, for the user and for the project Pi runs in. To keep one out of Pi, add its name to `claudePlugins.exclude` in `.config/pi/settings.jsonc`
+- A Pi extension: add a `.ts` file, or a directory with an `index.ts`, under `.config/pi/extensions/`. The directory is linked as a whole, so `/reload` in Pi picks it up without a rebuild; any other file in a subdirectory (helpers, tests) is not loaded as an extension
+- A third-party Pi package: add it to `packages` in `.config/pi/settings.jsonc`, pinned to an exact version or commit, since extensions run inside the Pi process with full user permissions. The `piSettingsSync` activation merges that file over `~/.pi/agent/settings.json` on the next rebuild
 
 ## Add a new host
 

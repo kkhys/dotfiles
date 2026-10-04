@@ -3,6 +3,7 @@
   lib,
   pkgs,
   hostSpec,
+  inputs,
   ...
 }:
 
@@ -33,6 +34,12 @@ let
   };
 
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
+
+  # Working tree of the plugin marketplace; skills.nix explains why this and
+  # not Claude Code's clone of it.
+  marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
+
+  prReviewToolkit = "${inputs.claude-plugins-official}/plugins/pr-review-toolkit";
 in
 {
   xdg.configFile = lib.genAttrs configFiles (file: {
@@ -52,6 +59,22 @@ in
     // {
       # Claude settings (host-specific: personal uses settings.json, work uses settings-work.json)
       ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
+      # Pi keeps its user-level files in ~/.pi/agent, one level below the
+      # ~/.<tool>/<file> shape agentFiles produces. Its settings.json is absent
+      # for the reason Codex's config.toml is; see piSettingsSync below.
+      ".pi/agent/AGENTS.md".source = mkLink ".config/pi/AGENTS.md";
+      ".pi/agent/extensions".source = mkLink ".config/pi/extensions";
+      # Pi has no output-style setting. A Claude Code output style is text
+      # appended to the system prompt, which is what APPEND_SYSTEM.md is, so
+      # the style Claude Code selects with outputStyle is linked in as is.
+      ".pi/agent/APPEND_SYSTEM.md".source =
+        config.lib.file.mkOutOfStoreSymlink "${marketplace}/plugins/base/output-styles/terse-japanese.md";
+      # The review agents and /review-pr command of the pr-review-toolkit
+      # Claude Code plugin. pi-subagents and Pi's prompt templates read both
+      # in their Claude Code format. From a pinned flake input rather than
+      # Claude Code's plugin cache, whose layout is Claude Code's to change.
+      ".pi/agent/agents/pr-review-toolkit".source = "${prReviewToolkit}/agents";
+      ".pi/agent/prompts/review-pr.md".source = "${prReviewToolkit}/commands/review-pr.md";
       # SSH public key
       ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
     };
@@ -101,6 +124,38 @@ in
           echo "warning: $userConfig shadows settings managed in $systemConfig:" >&2
           echo "$shadowed" | ${pkgs.gnused}/bin/sed 's/^/  /' >&2
           echo "  The user layer wins. Remove those keys to let the managed values apply." >&2
+        fi
+      fi
+    '';
+
+    # Pi rewrites ~/.pi/agent/settings.json in place (lastChangelogVersion on
+    # every upgrade, /model and /settings saves, `pi install`) and has no
+    # system layer to ship managed values through, so the file can be neither
+    # a symlink into this repo nor left alone. Merge the managed keys over it:
+    # they win on every switch, and keys Pi or the user added are kept. A key
+    # removed from the managed file therefore stays behind until deleted by
+    # hand. The source is JSONC so entries can be commented out; Pi itself
+    # only parses strict JSON.
+    piSettingsSync = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      managed=${../../pi/settings.jsonc}
+      userConfig="$HOME/.pi/agent/settings.json"
+      jq=${pkgs.jq}/bin/jq
+      mkdir -p "$(dirname "$userConfig")"
+      [ -f "$userConfig" ] || echo '{}' > "$userConfig"
+      if ! "$jq" -e . "$userConfig" >/dev/null 2>&1; then
+        echo "warning: $userConfig is not valid JSON; Pi settings were not synced" >&2
+      else
+        tmp=$(${pkgs.coreutils}/bin/mktemp "$userConfig.XXXXXX")
+        if ${pkgs.gnused}/bin/sed -E '/^[[:space:]]*\/\//d' "$managed" \
+          | "$jq" --slurpfile user "$userConfig" '$user[0] * .' > "$tmp"; then
+          if ${pkgs.diffutils}/bin/cmp -s "$tmp" "$userConfig"; then
+            rm -f "$tmp"
+          else
+            mv "$tmp" "$userConfig"
+          fi
+        else
+          rm -f "$tmp"
+          echo "warning: .config/pi/settings.jsonc did not parse; Pi settings were not synced" >&2
         fi
       fi
     '';
