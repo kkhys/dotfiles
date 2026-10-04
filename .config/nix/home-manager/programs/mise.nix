@@ -19,6 +19,7 @@
         # bin through node), so take the release binary via the aqua backend.
         pnpm = "latest";
         "npm:@openai/codex" = "latest";
+        "npm:@earendil-works/pi-coding-agent" = "latest";
       }
       // lib.optionalAttrs hostSpec.isWork {
         "npm:yarn" = "latest";

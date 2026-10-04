@@ -36,6 +36,12 @@
       url = "github:yusukebe/ax";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Source of the pr-review-toolkit agents and command that
+    # home-manager/dotfiles.nix links into Pi.
+    claude-plugins-official = {
+      url = "github:anthropics/claude-plugins-official";
+      flake = false;
+    };
   };
 
   outputs =
