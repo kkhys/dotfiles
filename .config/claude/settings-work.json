@@ -129,6 +129,7 @@
       "mcp__plugin_miitel-softphone_qase__qase_*_delete"
     ]
   },
+  "model": "opus",
   "disableClaudeAiConnectors": true,
   "hooks": {
     "SessionStart": [
