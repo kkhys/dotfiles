@@ -11,7 +11,18 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+      inputs.brew-src.follows = "brew-src";
+    };
+    # nix-homebrew still pins brew 7.0.4, which cannot load homebrew-core
+    # formulae declaring `resource "...", :test` (supported since 7.0.9).
+    # Drop this override once upstream bumps brew-src past 7.0.9.
+    # https://github.com/zhaofengli/nix-homebrew/issues/192
+    brew-src = {
+      url = "github:Homebrew/brew/7.0.10";
+      flake = false;
+    };
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
