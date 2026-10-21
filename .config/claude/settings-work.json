@@ -298,7 +298,8 @@
     "figma@claude-plugins-official": true,
     "notion@claude-plugins-official": true,
     "softphone-team@revcomm": true,
-    "modern-web-guidance@googlechrome": true
+    "modern-web-guidance@googlechrome": true,
+    "qa@revcomm": true
   },
   "extraKnownMarketplaces": {
     "my-marketplace": {
