@@ -5,6 +5,7 @@
 - Do not use emojis unless explicitly instructed
 - Do not use bold text (**text**) in responses
 - When asking for permission to run a command, provide a brief description in Japanese
+- Put a URL on its own line, or end the line right after it. Never follow a URL with text or punctuation on the same line: terminals linkify the trailing characters into the URL
 
 ## Code comments
 - Write in English unless the project's instructions say otherwise, and only for what the code cannot express: why, trade-offs, constraints, non-obvious edge cases
