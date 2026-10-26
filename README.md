@@ -108,7 +108,7 @@ sudo nix-collect-garbage --delete-older-than 30d   # prune old generations
 │   ├── dotfiles.nix       symlinks back into this repo
 │   ├── skills.nix         agent skills: skills CLI installs + claude-code-marketplace links into ~/.agents/skills
 │   ├── mcp.nix            one MCP server list (marketplace mcp plugin) delivered to every agent
-│   └── programs/          one file per tool (zsh, git, gh, ghostty, ...)
+│   └── programs/          one file per tool (zsh, git, gh, starship, ...)
 ├── hosts/
 │   ├── common/            shared Homebrew list
 │   ├── personal/          personal hostSpec values + personal-only Homebrew list
@@ -137,7 +137,7 @@ System (nix-darwin):
 User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
 - Git stack — git (with GPG signing), gh
-- Terminal — ghostty, bat, eza
+- Terminal — bat, eza
 - Editors / runtimes — vim, mise, bun, rustup, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
 - Work only — google-cloud-sdk, colima
