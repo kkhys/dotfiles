@@ -11,7 +11,6 @@
       "google-chrome"
       "karabiner-elements"
       "logi-options+"
-      "ghostty"
       "zed"
       "cleanshot"
       "stablyai/orca/orca"
