@@ -2,11 +2,12 @@
 
 let
   # gh extensions kept latest on every rebuild, mirroring how mise tools are
-  # refreshed. nixpkgs carries gh-stack, but trails upstream releases, and it
-  # is a pre-1.0 tool that changes behaviour between minors, so install it via
-  # the gh CLI rather than programs.gh.extensions.
+  # refreshed. nixpkgs carries both, but trails upstream releases, and these
+  # are pre-1.0 tools that change behaviour between minors, so install them
+  # via the gh CLI rather than programs.gh.extensions.
   ghExtensions = [
     "github/gh-stack"
+    "github/gh-actions-lock"
   ];
 in
 {
