@@ -43,6 +43,7 @@
       "Skill(modern-web-guidance:*)",
       "Skill(softphone-team:*)",
       "Skill(gh-stack *)",
+      "Skill(gh-actions-lock *)",
       "Skill(claude-in-chrome *)",
       "Skill(claude-api *)",
       "Skill(artifact-design *)"

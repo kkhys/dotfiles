@@ -15,6 +15,9 @@ let
       pkg = "github/gh-stack";
     }
     {
+      pkg = "github/gh-actions-lock";
+    }
+    {
       # Teaches the ax CLI installed in packages.nix.
       pkg = "yusukebe/ax";
     }

@@ -1,5 +1,15 @@
 { config, lib, ... }:
 
+let
+  # gh extensions kept latest on every rebuild, mirroring how mise tools are
+  # refreshed. nixpkgs carries both, but trails upstream releases, and these
+  # are pre-1.0 tools that change behaviour between minors, so install them
+  # via the gh CLI rather than programs.gh.extensions.
+  ghExtensions = [
+    "github/gh-stack"
+    "github/gh-actions-lock"
+  ];
+in
 {
   programs.gh = {
     enable = true;
@@ -26,15 +36,15 @@
     };
   };
 
-  # Keep the gh-stack (GitHub Stacked PRs) extension up to date on every
-  # rebuild, mirroring how mise tools are refreshed. gh-stack
-  # is not in nixpkgs (private preview), so install it via the gh CLI rather
-  # than programs.gh.extensions.
-  home.activation.ghStackExtension = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  # `gh extension install` exits 0 when the extension is already installed, so
+  # an `install || upgrade` chain never upgrades. --force upgrades an installed
+  # extension in place and does nothing when it is already up to date.
+  home.activation.ghExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export PATH="${config.home.profileDirectory}/bin:$PATH"
-    echo "Installing gh-stack extension..."
-    gh extension install github/gh-stack 2>/dev/null \
-      || gh extension upgrade gh-stack 2>/dev/null \
-      || echo "warning: gh-stack extension install skipped (offline or no access?)" >&2
+    ${lib.concatMapStringsSep "\n" (ext: ''
+      echo "Installing ${ext} extension..."
+      gh extension install --force ${ext} \
+        || echo "warning: ${ext} extension install skipped (offline or no access?)" >&2
+    '') ghExtensions}
   '';
 }
