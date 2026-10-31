@@ -43,6 +43,17 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Third-party agent skills, pinned like the Homebrew taps above so
+    # `nix flake update` is what moves them. home-manager/skills.nix links
+    # each skill directory into place.
+    skills-gh-stack = {
+      url = "github:github/gh-stack";
+      flake = false;
+    };
+    skills-gh-actions-lock = {
+      url = "github:github/gh-actions-lock";
+      flake = false;
+    };
   };
 
   outputs =
