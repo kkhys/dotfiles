@@ -134,7 +134,7 @@ System (nix-darwin):
 - agenix secret decryption
 
 User (Home Manager):
-- Shell — zsh, sheldon (plugin manager), starship (prompt)
+- Shell — zsh (autosuggestions, fast-syntax-highlighting, zsh-abbr), starship (prompt)
 - Git stack — git (with GPG signing), gh
 - Terminal — bat, eza
 - Editors / runtimes — vim, mise, bun, uv
@@ -143,8 +143,8 @@ User (Home Manager):
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys
-- GitHub token, NPM token (work)
-- Qase API token
+- GitHub token
+- NPM token, Qase API token (work)
 
 ## Troubleshooting
 

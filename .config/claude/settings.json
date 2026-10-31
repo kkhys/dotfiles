@@ -50,6 +50,8 @@
       "Read(~/.gnupg/**)",
       "Read(**/secrets/*.age)",
       "Read(/run/agenix/**)",
+      "Read(/run/agenix.d/**)",
+      "Read(~/.config/age/**)",
       "Read(~/.config/secrets/**)",
       "Read(**/credentials.json)",
       "Edit(.env*)",
@@ -305,11 +307,6 @@
   "outputStyle": "Concise",
   "language": "japanese",
   "effortLevel": "xhigh",
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "xhigh"
-    }
-  },
   "promptSuggestionEnabled": false,
   "emojiCompletionEnabled": false,
   "tui": "fullscreen",

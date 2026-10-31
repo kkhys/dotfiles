@@ -19,12 +19,6 @@ used_tokens=$(echo "$input" | jq -r '
   | if . == 0 then empty else . end
 ')
 
-cache_read=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
-cache_write=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
-cache_input=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')
-cache_total=$(( cache_read + cache_write + cache_input ))
-
-# prompt_cache needs Claude Code 2.1.251+
 cache_ttl=$(echo "$input" | jq -r '.prompt_cache.ttl // empty')
 cache_warm=$(echo "$input" | jq -r '.prompt_cache.warm // false')
 pc_hit_ratio=$(echo "$input" | jq -r '.prompt_cache.hit_ratio // empty')
@@ -67,9 +61,6 @@ if [[ -n "$pc_hit_ratio" ]]; then
   hit=$(awk "BEGIN {printf \"%.0f\", $pc_hit_ratio * 100}")
   printf " | cache hit %b%s%%\033[0m" "$(cache_color "$hit")" "$hit"
   [[ "$pc_misses" -gt 0 ]] && printf " · %s miss" "$pc_misses"
-elif [[ "$cache_total" -gt 0 ]]; then
-  hit=$(( cache_read * 100 / cache_total ))
-  printf " | cache hit %b%s%%\033[0m" "$(cache_color "$hit")" "$hit"
 fi
 
 if [[ -n "$cache_ttl" ]]; then

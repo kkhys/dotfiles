@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ config, ... }:
 
 {
   system.stateVersion = 5;
@@ -8,7 +8,6 @@
     enableCompletion = false;
     enableBashCompletion = false;
     promptInit = "";
-    interactiveShellInit = lib.mkForce "";
   };
 
   security.pam.services.sudo_local = {

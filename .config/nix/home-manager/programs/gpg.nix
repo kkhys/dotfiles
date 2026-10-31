@@ -1,13 +1,10 @@
-{ pkgs, hostSpec, ... }:
+{ pkgs, ... }:
 
 {
-  programs.gpg = {
+  programs.gpg.enable = true;
+
+  services.gpg-agent = {
     enable = true;
+    pinentry.package = pkgs.pinentry_mac;
   };
-
-  home.packages = [ pkgs.pinentry_mac ];
-
-  home.file.".gnupg/gpg-agent.conf".text = ''
-    pinentry-program /etc/profiles/per-user/${hostSpec.username}/bin/pinentry-mac
-  '';
 }

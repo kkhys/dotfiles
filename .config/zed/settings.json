@@ -1,5 +1,4 @@
 {
-  "diff_view_style": "split",
   "cli_default_open_behavior": "new_window",
   "project_panel": {
     "dock": "left"
@@ -13,24 +12,8 @@
   "git_panel": {
     "dock": "left"
   },
-  "terminal": {
-    "toolbar": {
-      "breadcrumbs": false
-    }
-  },
-  "toolbar": {
-    "code_actions": false,
-    "agent_review": true,
-    "selections_menu": true,
-    "quick_actions": true,
-    "breadcrumbs": true
-  },
-  "cursor_shape": "bar",
   "cursor_blink": false,
   "auto_update": false,
-  "session": {
-    "trust_all_worktrees": false
-  },
   "agent": {
     "dock": "right"
   },
@@ -43,7 +26,6 @@
   "buffer_font_family": "JetBrains Mono",
   "agent_ui_font_size": 16.0,
   "agent_buffer_font_size": 15.0,
-  "ui_font_weight": 400.0,
   "telemetry": {
     "diagnostics": false,
     "metrics": false
@@ -53,11 +35,7 @@
   "icon_theme": "Catppuccin Mocha",
   "ui_font_size": 15.0,
   "buffer_font_size": 13.0,
-  "theme": {
-    "mode": "dark",
-    "light": "Catppuccin Mocha",
-    "dark": "Catppuccin Mocha"
-  },
+  "theme": "Catppuccin Mocha",
   "languages": {
     "Markdown": {
       "show_edit_predictions": false

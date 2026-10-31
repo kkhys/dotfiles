@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 ## Communication
 - Always communicate in Japanese

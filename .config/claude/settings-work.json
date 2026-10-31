@@ -62,6 +62,8 @@
       "Read(~/.gnupg/**)",
       "Read(**/secrets/*.age)",
       "Read(/run/agenix/**)",
+      "Read(/run/agenix.d/**)",
+      "Read(~/.config/age/**)",
       "Read(~/.config/secrets/**)",
       "Read(**/credentials.json)",
       "Edit(.env*)",
@@ -332,17 +334,8 @@
   "language": "japanese",
   "effortLevel": "xhigh",
   "modelSettings": {
-    "claude-opus-5": {
-      "effortLevel": "xhigh"
-    },
-    "claude-fable-5": {
-      "effortLevel": "xhigh"
-    },
     "claude-sonnet-5": {
       "effortLevel": "medium"
-    },
-    "claude-opus-5-5": {
-      "effortLevel": "xhigh"
     }
   },
   "promptSuggestionEnabled": false,
