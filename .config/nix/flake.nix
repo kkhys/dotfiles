@@ -43,10 +43,6 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ax = {
-      url = "github:yusukebe/ax";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

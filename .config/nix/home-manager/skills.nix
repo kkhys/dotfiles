@@ -19,10 +19,6 @@ let
       pkg = "github/gh-actions-lock";
     }
     {
-      # Teaches the ax CLI installed in packages.nix.
-      pkg = "yusukebe/ax";
-    }
-    {
       # TypeSafe System One (jev): question primitives, patterns, cookbooks.
       # Inert without TYPESAFE_API_KEY, wired up in programs/zsh.nix.
       pkg = "typesafe-ai/skills";
