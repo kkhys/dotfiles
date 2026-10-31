@@ -37,4 +37,4 @@
 
 ## Reporting
 - Post to Slack, Notion, or GitHub only on explicit request; otherwise return the text as a draft
-- When reporting a change, add one line on the regression risk to existing behaviour
+- When reporting a change, end with one or two lines: what was skipped or not checked, and the regression risk to existing behaviour
