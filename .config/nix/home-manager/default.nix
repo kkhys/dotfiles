@@ -12,7 +12,6 @@
     ./programs/git.nix
     ./programs/gpg.nix
     ./programs/mise.nix
-    ./programs/sheldon.nix
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/zsh.nix

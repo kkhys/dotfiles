@@ -19,6 +19,8 @@ in
 {
   programs.zsh = {
     enable = true;
+    autosuggestion.enable = true;
+    fastSyntaxHighlighting.enable = true;
 
     # One dump per zsh version: the Nix zsh (5.9.2) and /bin/zsh (5.9) would
     # otherwise take turns invalidating a shared ~/.zcompdump.

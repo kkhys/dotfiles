@@ -18,8 +18,6 @@
 
     bat
     eza
-    # Here rather than via sheldon so its completions sit on fpath before
-    # compinit; sheldon sources plugins after compinit.
     zsh-completions
 
     jq

@@ -134,7 +134,7 @@ System (nix-darwin):
 - agenix secret decryption
 
 User (Home Manager):
-- Shell — zsh, sheldon (plugin manager), starship (prompt)
+- Shell — zsh (autosuggestions, fast-syntax-highlighting, zsh-abbr), starship (prompt)
 - Git stack — git (with GPG signing), gh
 - Terminal — bat, eza
 - Editors / runtimes — vim, mise, bun, uv
