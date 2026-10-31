@@ -188,7 +188,41 @@
         "homebrew-datadog": "homebrew-datadog",
         "homebrew-orca": "homebrew-orca",
         "nix-homebrew": "nix-homebrew",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "skills-gh-actions-lock": "skills-gh-actions-lock",
+        "skills-gh-stack": "skills-gh-stack"
+      }
+    },
+    "skills-gh-actions-lock": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793120716,
+        "narHash": "sha256-NHquKR4lvjJWMJ3GQKH1q4nml82+yxU9oEWTi3negKU=",
+        "owner": "github",
+        "repo": "gh-actions-lock",
+        "rev": "113f91d77e0af03838b6ae3bef0e038cbab4c696",
+        "type": "github"
+      },
+      "original": {
+        "owner": "github",
+        "repo": "gh-actions-lock",
+        "type": "github"
+      }
+    },
+    "skills-gh-stack": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793057232,
+        "narHash": "sha256-dENuxVuz68Y7P8WW5C7pzVbfJRxGMGIKQ2AnWrTacOs=",
+        "owner": "github",
+        "repo": "gh-stack",
+        "rev": "2a49e6751238633db504655d8a8eba3e433e827d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "github",
+        "repo": "gh-stack",
+        "type": "github"
       }
     }
   },

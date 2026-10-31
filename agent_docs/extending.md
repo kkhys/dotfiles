@@ -37,14 +37,14 @@ If the tool needs raw config files rather than a `programs.<tool>` HM module, ma
 
 Edit `.config/nix/home-manager/dotfiles.nix`:
 
-- For `~/.config/<...>` files, append to the `configFiles` list
+- For `~/.config/<...>` files, append to the `configFiles` list. An entry may name a directory instead of a file (`karabiner`) when the tool wants the whole directory linked
 - For files at `$HOME`, add an entry to `home.file` using the `mkLink` helper defined in the same file
 
 `mkLink` produces an out-of-store symlink back into this repo, so edits in the working tree are picked up without rebuilding.
 
 ## Add an agent skill or MCP server
 
-- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills` and links it into `~/.claude/skills`
+- A third-party skill: add a `flake = false` input for its repository in `.config/nix/flake.nix` (see `skills-gh-stack`), then map the skill name to the directory holding its `SKILL.md` in `skills` in `.config/nix/home-manager/skills.nix`. It is linked into both `~/.agents/skills` (Codex) and `~/.claude/skills` (Claude Code); like the Homebrew taps, `nix flake update` is what moves it
 - Your own skill or MCP server: add it to the `base` plugin of `kkhys/claude-code-marketplace` and bump that plugin's version. Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_base_<server>__*` permission entries also live; nothing in this repo needs to change
 
 ## Add a new host

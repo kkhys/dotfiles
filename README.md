@@ -106,7 +106,7 @@ sudo nix-collect-garbage --delete-older-than 30d   # prune old generations
 ├── home-manager/
 │   ├── packages.nix       user-level Nix packages
 │   ├── dotfiles.nix       symlinks back into this repo
-│   ├── skills.nix         third-party agent skills installed by the skills CLI
+│   ├── skills.nix         third-party agent skills, pinned as flake inputs
 │   └── programs/          one file per tool (zsh, git, gh, starship, ...)
 ├── hosts/
 │   ├── common/            shared Homebrew list
