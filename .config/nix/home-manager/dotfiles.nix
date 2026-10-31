@@ -54,51 +54,6 @@ in
     };
 
   home.activation = {
-    # ~/.config/karabiner used to be a real directory holding a per-file link
-    # to karabiner.json, which Home Manager would move aside as karabiner.backup.
-    # Dissolve it first, carrying Karabiner's own state into the repo directory.
-    karabinerDirMigration = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
-      karabinerDir="$HOME/.config/karabiner"
-      karabinerRelinked=
-      if [ -d "$karabinerDir" ] && [ ! -L "$karabinerDir" ]; then
-        if [ -L "$karabinerDir/karabiner.json" ]; then
-          run rm "$karabinerDir/karabiner.json"
-        fi
-        for state in assets automatic_backups; do
-          [ -d "$karabinerDir/$state" ] || continue
-          if [ -z "$(find "$karabinerDir/$state" -type f)" ]; then
-            run rm -r "$karabinerDir/$state"
-          elif [ -e "${dotfilesPath}/.config/karabiner/$state" ]; then
-            echo "error: both $karabinerDir/$state and ${dotfilesPath}/.config/karabiner/$state exist; merge them by hand and rerun" >&2
-            exit 1
-          else
-            run mv "$karabinerDir/$state" "${dotfilesPath}/.config/karabiner/"
-          fi
-        done
-        if ! run rmdir "$karabinerDir"; then
-          echo "error: unexpected entries left in $karabinerDir; move them aside and rerun" >&2
-          exit 1
-        fi
-        karabinerRelinked=1
-      fi
-    '';
-
-    # Karabiner-Console-User-Server keeps watching the path it started with, so
-    # restart it once after the relink. karabinerRelinked comes from the entry
-    # above; activation entries run in one shell.
-    karabinerReload = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-      if [ -n "''${karabinerRelinked:-}" ]; then
-        run /bin/launchctl kickstart -k "gui/$(id -u)/org.pqrs.service.agent.Karabiner-Console-User-Server" \
-          || echo "warning: restart Karabiner-Console-User-Server by hand so it watches ~/.config/karabiner" >&2
-      fi
-    '';
-
-    # Leftover of a Claude permission mirror this file used to install; a stale
-    # copy keeps enforcing the old tiers.
-    codexRulesCleanup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      rm -f "$HOME/.codex/rules/managed.rules"
-    '';
-
     # /etc/codex/config.toml is Codex's lowest-precedence layer, so a key left
     # in ~/.codex/config.toml silently shadows it.
     codexConfigShadowCheck = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
