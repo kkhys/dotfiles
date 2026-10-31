@@ -37,7 +37,7 @@ If the tool needs raw config files rather than a `programs.<tool>` HM module, ma
 
 Edit `.config/nix/home-manager/dotfiles.nix`:
 
-- For `~/.config/<...>` files, append to the `configFiles` list
+- For `~/.config/<...>` files, append to the `configFiles` list. An entry may name a directory instead of a file (`karabiner`) when the tool wants the whole directory linked
 - For files at `$HOME`, add an entry to `home.file` using the `mkLink` helper defined in the same file
 
 `mkLink` produces an out-of-store symlink back into this repo, so edits in the working tree are picked up without rebuilding.

@@ -1,2 +1,5 @@
 # Backup copies written by tools in place (Orca rewrites .config/claude/settings.json)
 *.bak
+
+# Karabiner writes these next to karabiner.json, which is linked as a directory
+.config/karabiner/automatic_backups/

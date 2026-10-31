@@ -10,9 +10,13 @@ let
   dotfilesPath = "${config.home.homeDirectory}/projects/github.com/kkhys/dotfiles";
   mkLink = path: config.lib.file.mkOutOfStoreSymlink "${dotfilesPath}/${path}";
 
-  # XDG config files (under .config/)
+  # XDG config under .config/. Karabiner is linked as a whole directory: its
+  # documentation warns that a symlinked karabiner.json is not watched for
+  # changes, while a symlinked ~/.config/karabiner is supported. Karabiner then
+  # writes assets/ and automatic_backups/ into this repo; .gitignore covers the
+  # backups.
   configFiles = [
-    "karabiner/karabiner.json"
+    "karabiner"
     "zed/settings.json"
   ];
 
@@ -56,6 +60,47 @@ in
     };
 
   home.activation = {
+    # ~/.config/karabiner used to be a real directory holding a per-file link
+    # to karabiner.json. Home Manager would move it aside as karabiner.backup,
+    # so dissolve it first: drop the old link, carry Karabiner's own state into
+    # the repo directory when it holds any files, and stop on anything else.
+    karabinerDirMigration = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
+      karabinerDir="$HOME/.config/karabiner"
+      karabinerRelinked=
+      if [ -d "$karabinerDir" ] && [ ! -L "$karabinerDir" ]; then
+        if [ -L "$karabinerDir/karabiner.json" ]; then
+          run rm "$karabinerDir/karabiner.json"
+        fi
+        for state in assets automatic_backups; do
+          [ -d "$karabinerDir/$state" ] || continue
+          if [ -z "$(find "$karabinerDir/$state" -type f)" ]; then
+            run rm -r "$karabinerDir/$state"
+          elif [ -e "${dotfilesPath}/.config/karabiner/$state" ]; then
+            echo "error: both $karabinerDir/$state and ${dotfilesPath}/.config/karabiner/$state exist; merge them by hand and rerun" >&2
+            exit 1
+          else
+            run mv "$karabinerDir/$state" "${dotfilesPath}/.config/karabiner/"
+          fi
+        done
+        if ! run rmdir "$karabinerDir"; then
+          echo "error: unexpected entries left in $karabinerDir; move them aside and rerun" >&2
+          exit 1
+        fi
+        karabinerRelinked=1
+      fi
+    '';
+
+    # Karabiner-Console-User-Server keeps watching the path it started with, so
+    # restart it once after the directory was relinked (the documented step)
+    # rather than on every switch. Reads karabinerRelinked from the entry
+    # above; the activation entries run in one shell.
+    karabinerReload = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+      if [ -n "''${karabinerRelinked:-}" ]; then
+        run /bin/launchctl kickstart -k "gui/$(id -u)/org.pqrs.service.agent.Karabiner-Console-User-Server" \
+          || echo "warning: restart Karabiner-Console-User-Server by hand so it watches ~/.config/karabiner" >&2
+      fi
+    '';
+
     # This file used to copy a Claude permission mirror to
     # ~/.codex/rules/managed.rules. The mirror is gone, and a stale copy would
     # keep enforcing the old tiers, so remove it.
