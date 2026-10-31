@@ -113,8 +113,7 @@
       "Bash(gh* pr merge*)",
       "Bash(gh gist create:*)",
       "Bash(npm* publish*)",
-      "Bash(pnpm* publish*)",
-      "Bash(cargo* publish*)"
+      "Bash(pnpm* publish*)"
     ]
   },
   "model": "opus",
