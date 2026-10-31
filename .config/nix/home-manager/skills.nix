@@ -17,9 +17,9 @@ let
 
   # Named explicitly: left to detect agents, `-y` also targets every agent
   # sharing ~/.agents/skills, including ones with no global skills dir
-  # (PromptScript), and reports each of those as a failed install. Codex and
-  # the other agents that read ~/.agents/skills see the skills either way; only
-  # Claude Code needs a link.
+  # (PromptScript), and reports each of those as a failed install. Codex reads
+  # ~/.agents/skills and sees the skills either way; only Claude Code needs a
+  # link.
   skillAgents = [
     "claude-code"
     "codex"
@@ -28,7 +28,7 @@ let
   # Working tree of the plugin marketplace, not Claude Code's clone of it
   # (~/.claude/plugins/marketplaces/my-marketplace): the links below must not
   # depend on Claude Code's cache layout, and seeing work-in-progress skills in
-  # the other agents is accepted.
+  # Codex is accepted.
   marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
 in
 {
