@@ -20,11 +20,7 @@ let
     qase-api-token.workOnly = true;
   };
 
-  wanted = lib.filterAttrs (
-    name: secret:
-    builtins.pathExists "${secretsPath}/${name}.age"
-    && (config.hostSpec.isWork || !(secret.workOnly or false))
-  ) secrets;
+  wanted = lib.filterAttrs (_: secret: config.hostSpec.isWork || !(secret.workOnly or false)) secrets;
 in
 {
   imports = [ inputs.agenix.darwinModules.default ];

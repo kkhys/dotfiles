@@ -12,8 +12,6 @@
       "grok-bot"
       "microsoft-edge"
       "openvpn-connect"
-      # "ovice"
-      # "zoom"
     ];
   };
 }
