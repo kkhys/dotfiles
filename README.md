@@ -140,7 +140,7 @@ User (Home Manager):
 - Terminal — bat, eza
 - Editors / runtimes — vim, mise, bun, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
-- Work only — google-cloud-sdk, colima
+- Work only — colima
 - Symlinks — Karabiner, Zed, Claude, Codex
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):

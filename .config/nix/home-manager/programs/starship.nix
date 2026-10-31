@@ -8,7 +8,6 @@
       add_newline = true;
       package.disabled = true;
       aws.disabled = true;
-      gcloud.disabled = true;
     };
   };
 }
