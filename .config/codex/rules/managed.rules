@@ -41,7 +41,7 @@
 # --- allow tier -------------------------------------------------------------
 # Claude allows all of Bash. The sandbox already runs workspace commands
 # unprompted, so only the commands that routinely need to escape it (network,
-# package managers, infra CLIs) are auto-approved here. Interpreters (python,
+# package managers) are auto-approved here. Interpreters (python,
 # node, bash -c ...) are deliberately absent: they stay sandboxed and their
 # rare escalations keep prompting.
 
@@ -61,7 +61,6 @@ prefix_rule(pattern = ["uv"], decision = "allow")
 prefix_rule(pattern = ["curl"], decision = "allow")
 prefix_rule(pattern = ["mise"], decision = "allow")
 prefix_rule(pattern = ["nix"], decision = "allow")
-prefix_rule(pattern = ["terraform"], decision = "allow")
 prefix_rule(pattern = ["brew"], decision = "allow")
 
 # --- ask tier ---------------------------------------------------------------
@@ -135,8 +134,6 @@ prefix_rule(pattern = ["dd"], decision = "forbidden")
 prefix_rule(pattern = ["gh", "repo", "delete"], decision = "forbidden")
 prefix_rule(pattern = ["gh", "auth", "logout"], decision = "forbidden")
 prefix_rule(pattern = ["gh", ["secret", "variable"], "delete"], decision = "forbidden")
-prefix_rule(pattern = ["terraform", ["apply", "destroy"]], decision = "forbidden")
-prefix_rule(pattern = ["terraform", "state", ["push", "rm"]], decision = "forbidden")
 prefix_rule(
     pattern = ["brew", ["install", "uninstall", "bundle"]],
     decision = "forbidden",
