@@ -15,8 +15,7 @@
 # can be wrong. Claude `ask` entries whose blast radius a wrong answer cannot
 # undo (published packages, force-pushed history, discarded local work) are
 # therefore `forbidden` here rather than `prompt`; see the deny tier below.
-# Run them by hand when they are genuinely needed. The other mirrors keep
-# `ask`, because Devin and Cursor still put those prompts in front of a person.
+# Run them by hand when they are genuinely needed.
 #
 # What this file cannot mirror:
 # - Rules only govern commands escalated OUT of the sandbox. Inside the

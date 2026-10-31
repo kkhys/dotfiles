@@ -106,43 +106,9 @@ in
     '';
   }
   // lib.optionalAttrs hostSpec.isWork {
-    # Devin permission mirror (devin-cli is a work-host cask). Devin rewrites
-    # ~/.config/devin/config.json in place for its own runtime state (org_id,
-    # model choice, Orca hooks, "always allow" grants), so the file cannot be a
-    # symlink into this repo, and its system.json layer only accepts login and
-    # proxy policy. Replace just the permissions block instead. Entries Devin
-    # saved there that the managed file does not list are reported so they can
-    # be ported into .config/devin/permissions.json if still wanted.
-    devinPermissionsSync = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      managed=${../../devin/permissions.json}
-      userConfig="$HOME/.config/devin/config.json"
-      jq=${pkgs.jq}/bin/jq
-      mkdir -p "$(dirname "$userConfig")"
-      [ -f "$userConfig" ] || (umask 077; echo '{}' > "$userConfig")
-      if ! "$jq" -e . "$userConfig" >/dev/null 2>&1; then
-        echo "warning: $userConfig is not valid JSON; Devin permissions were not synced" >&2
-      else
-        dropped=$("$jq" -r --slurpfile m "$managed" '
-          def rules: [ (.permissions // {}) | to_entries[] | .key as $tier | .value[] | "\($tier): \(.)" ];
-          (rules - ($m[0] | rules))[]
-        ' "$userConfig")
-        if [ -n "$dropped" ]; then
-          echo "warning: dropping Devin permission entries not in .config/devin/permissions.json:" >&2
-          echo "$dropped" | ${pkgs.gnused}/bin/sed 's/^/  /' >&2
-        fi
-        tmp=$(${pkgs.coreutils}/bin/mktemp "$userConfig.XXXXXX")
-        "$jq" --slurpfile m "$managed" '.permissions = $m[0].permissions' "$userConfig" > "$tmp"
-        if ${pkgs.diffutils}/bin/cmp -s "$tmp" "$userConfig"; then
-          rm -f "$tmp"
-        else
-          mv "$tmp" "$userConfig"
-        fi
-      fi
-    '';
-
     # Cursor permission mirror (Cursor is a work-host cask). The CLI owns
     # ~/.cursor/cli-config.json (model picker, auth cache, self-repair via temp
-    # file + rename), so as with Devin the file cannot be a symlink; only its
+    # file + rename), so the file cannot be a symlink into this repo; only its
     # permissions block and the WebSearch auto-accept flag are replaced. `~/`
     # in Read()/Write() tokens is expanded because the username differs per
     # host and Cursor does not document tilde expansion.

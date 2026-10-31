@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  hostSpec,
   ...
 }:
 
@@ -20,12 +19,11 @@ let
   # sharing ~/.agents/skills, including ones with no global skills dir
   # (PromptScript), and reports each of those as a failed install. Codex and
   # the other agents that read ~/.agents/skills see the skills either way; only
-  # Claude Code, and Devin (a work-host cask), need a link.
+  # Claude Code needs a link.
   skillAgents = [
     "claude-code"
     "codex"
-  ]
-  ++ lib.optional hostSpec.isWork "devin";
+  ];
 
   # Working tree of the plugin marketplace, not Claude Code's clone of it
   # (~/.claude/plugins/marketplaces/my-marketplace): the links below must not
