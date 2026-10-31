@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  hostSpec,
   ...
 }:
 
@@ -31,6 +32,17 @@ let
 
   skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
 
+  # Named explicitly: left to detect agents, `-y` also targets every agent
+  # sharing ~/.agents/skills, including ones with no global skills dir
+  # (PromptScript), and reports each of those as a failed install. Codex and
+  # the other agents that read ~/.agents/skills see the skills either way; only
+  # Claude Code, and Devin (a work-host cask), need a link.
+  skillAgents = [
+    "claude-code"
+    "codex"
+  ]
+  ++ lib.optional hostSpec.isWork "devin";
+
   # Working tree of the plugin marketplace, not Claude Code's clone of it
   # (~/.claude/plugins/marketplaces/my-marketplace): the links below must not
   # depend on Claude Code's cache layout, and seeing work-in-progress skills in
@@ -43,7 +55,7 @@ in
     export PATH="${config.home.profileDirectory}/bin:$PATH"
     ${lib.concatMapStringsSep "\n" (s: ''
       echo "Installing ${s.pkg} skills..."
-      ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${s.pkg} ${skillFlag s}-g -y \
+      ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${s.pkg} ${skillFlag s}-a ${toString skillAgents} -g -y \
         || echo "warning: ${s.pkg} skills install skipped (offline?)" >&2
     '') agentSkills}
     # Codex reads ~/.agents/skills directly, so the mirror this file used to
