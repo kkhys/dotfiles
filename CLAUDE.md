@@ -26,17 +26,6 @@ The active host also exposes shell aliases `dr` / `drb` / `drc` for the three `d
 
 Homebrew is fully declarative via nix-homebrew — never run `brew bundle` or `brew install` manually.
 
-## Agent permission mirror
-
-The Claude Code permission tiers in `.config/claude/settings.json` (`permissions.allow` / `ask` / `deny`) are mirrored into Codex's `.config/codex/rules/managed.rules` (execpolicy `prefix_rule`; allow / prompt / forbidden ≙ allow / ask / deny, except for the irreversible part of `ask` noted below). Whenever a permission entry changes there, update the mirror in the same change.
-
-Verify with `codex execpolicy check --rules <file> -- <command>`; a rule's `match` / `not_match` examples are checked whenever the file is loaded, so a wrong prefix fails the command rather than passing silently. The `codexRulesSync` activation in `home-manager/dotfiles.nix` copies it to `~/.codex/rules/managed.rules` as a regular file on every `darwin-rebuild switch` — Codex skips symlinked `*.rules`, so it must not be a `home.file` link — and Codex loads rules only at startup, so restart it after a switch.
-
-Known fidelity gaps, accepted deliberately:
-
-- Codex rules only govern commands escalated out of the sandbox and cannot express `Read()`/`Edit()` denies.
-- Codex answers a `prompt` decision with the reviewer subagent, not a person (`approvals_reviewer = "auto_review"` in `.config/codex/config.toml`), so Claude `ask` entries that a wrong answer cannot undo — `git push --force`, `git reset --hard`, `git clean`, `gh pr merge`, `sudo`, `npm`/`pnpm publish` — are `forbidden` there rather than `prompt`. Changing `approvals_reviewer` back to `user` is what would justify demoting them to `prompt` again.
-- Codex splits a shell script into its component commands only when it is a linear chain of plain words joined by `&&`, `||`, `;` or `|`; a redirect, substitution, variable or glob anywhere in it makes the whole script one `zsh -lc <script>` argv that no `prefix_rule` matches. Such invocations always reach the reviewer, whatever the tiers say. Note that `codex execpolicy check` does not perform that split at all, so test rules with the bare argv (`-- gh pr view 1`), never through a shell wrapper.
 ## Where to look for task-specific context
 
 Decide if any of these are relevant to the current task and read them first; otherwise skip:
