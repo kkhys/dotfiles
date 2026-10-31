@@ -17,7 +17,7 @@
     };
     # nix-homebrew still pins brew 7.0.4, which cannot load homebrew-core
     # formulae declaring `resource "...", :test` (supported since 7.0.9).
-    # Drop this override once upstream bumps brew-src past 7.0.9.
+    # Drop once upstream bumps brew-src past 7.0.9.
     # https://github.com/zhaofengli/nix-homebrew/issues/192
     brew-src = {
       url = "github:Homebrew/brew/7.0.10";
@@ -43,9 +43,7 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Third-party agent skills, pinned like the Homebrew taps above so
-    # `nix flake update` is what moves them. home-manager/skills.nix links
-    # each skill directory into place.
+    # Agent skills, linked into place by home-manager/skills.nix.
     skills-gh-stack = {
       url = "github:github/gh-stack";
       flake = false;
@@ -61,9 +59,6 @@
     let
       system = "aarch64-darwin";
 
-      # Wiring of upstream modules (home-manager, nix-homebrew, agenix) lives
-      # next to their configuration under ./darwin, reached through
-      # `specialArgs.inputs`, so adding a host stays a one-liner here.
       mkHost =
         host:
         darwin.lib.darwinSystem {

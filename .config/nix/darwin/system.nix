@@ -11,8 +11,6 @@
     interactiveShellInit = lib.mkForce "";
   };
 
-  # see: https://nix-darwin.github.io/nix-darwin/manual/index.html
-
   security.pam.services.sudo_local = {
     touchIdAuth = true;
   };
@@ -39,10 +37,9 @@
   system.activationScripts.extraActivation.text = ''
     USERNAME="${config.hostSpec.username}"
 
-    # nix-homebrew expects /opt/homebrew to exist and be owned by its user.
-    # Only chown when the root dir owner is wrong: -R over the whole prefix
-    # takes minutes on a large install, and wholesale wrong ownership (fresh
-    # machine, OS reinstall) is the only case this needs to repair.
+    # nix-homebrew needs /opt/homebrew owned by its user. chown -R takes minutes
+    # on a large install, so only run it when the root dir owner is wrong
+    # (fresh machine, OS reinstall).
     if [[ ! -d /opt/homebrew ]]; then
       /bin/mkdir -p /opt/homebrew
     fi
@@ -51,7 +48,6 @@
       /usr/sbin/chown -R "$USERNAME":admin /opt/homebrew 2>/dev/null || true
     fi
 
-    # Xcode Command Line Tools check and installation
     if ! /usr/bin/xcrun -f clang >/dev/null 2>&1; then
       echo "Installing Xcode Command Line Tools..."
       touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
@@ -60,15 +56,13 @@
       rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
     fi
 
-    # Rosetta 2 installation (Apple Silicon)
     if [[ "$(uname -m)" == "arm64" ]] && ! /usr/bin/pgrep -q oahd; then
       echo "Installing Rosetta 2..."
       /usr/sbin/softwareupdate --install-rosetta --agree-to-license
     fi
 
-    # Import the agenix-decrypted GPG key. gpg comes from the per-user Home
-    # Manager profile, not Homebrew; the -x guard covers the very first
-    # activation, when that profile does not exist yet.
+    # gpg comes from the per-user Home Manager profile, which does not exist yet
+    # on the very first activation, hence the -x guard.
     GPG="/etc/profiles/per-user/$USERNAME/bin/gpg"
     GPG_KEY="/Users/$USERNAME/.gnupg/agenix-key.asc"
     if [[ -x "$GPG" && ( -f "$GPG_KEY" || -L "$GPG_KEY" ) ]]; then

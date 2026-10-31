@@ -1,54 +1,39 @@
-# Codex system-layer configuration, installed to /etc/codex/config.toml by
-# darwin/codex.nix.
-#
-# This is Codex's LOWEST-precedence layer, below ~/.codex/config.toml. That is
-# deliberate: Codex rewrites the user config at runtime (project trust levels,
-# `codex features enable`, TUI toggles), so it cannot be a symlink into this
-# repo. Keeping the managed settings here instead means `darwin-rebuild switch`
-# always delivers them, while interactive changes still win locally.
-#
-# Corollary: any key set here must NOT also appear in ~/.codex/config.toml, or
-# the stale user-level copy silently shadows this file.
+# Installed to /etc/codex/config.toml by darwin/codex.nix: Codex's lowest
+# precedence layer, below ~/.codex/config.toml, which Codex rewrites at runtime
+# and so cannot be a symlink into this repo. A key set here must not also
+# appear in the user file, or the stale user copy silently shadows it.
 
-# No model or model_reasoning_effort here: the TUI persists every /model
-# choice to ~/.codex/config.toml, which shadows this layer the moment one is
-# picked, so a pinned value only ever goes stale.
+# No model or model_reasoning_effort: the TUI persists every /model choice to
+# the user file, which shadows this layer the moment one is picked.
 personality = "pragmatic"
 
-# Pin the current defaults rather than inherit them, so an upstream default
-# change cannot quietly alter how much the agent is allowed to do.
+# Pinned so an upstream default change cannot quietly widen what the agent may do.
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
-# Escalations that reach an approval prompt go to the reviewer subagent instead
-# of stopping for a keystroke. This swaps who answers the prompt; the sandbox
-# boundary and the writable roots are unchanged. It needs an interactive
-# approval_policy — under "never" no approval request is raised for the
-# reviewer to see.
+# Approval prompts go to the reviewer subagent instead of a keystroke; the
+# sandbox boundary is unchanged. Needs an interactive approval_policy: under
+# "never" no approval request is raised for the reviewer to see.
 approvals_reviewer = "auto_review"
 
-# Always fetch fresh results instead of the cached index.
 web_search = "live"
 
-# Codex only supports vscode/vscode-insiders/windsurf/cursor here, none of
-# which are installed on this machine (Zed is the editor), so suppress the
-# file hyperlinks rather than emit links that cannot be opened.
+# Codex only supports vscode/vscode-insiders/windsurf/cursor here; the editor is Zed.
 file_opener = "none"
 
 [sandbox_workspace_write]
 network_access = false
 
 [features]
-# The CLI is installed through mise, so the in-app updater would rewrite a
-# different npm prefix than the one actually on PATH. Upgrade with
-# `mise upgrade npm:@openai/codex` instead.
+# The CLI comes from mise, so the in-app updater would write to a different npm
+# prefix than the one on PATH. Upgrade with `mise upgrade npm:@openai/codex`.
 in_app_updates = false
 memories = true
 multi_agent_v2 = true
 
 [agents]
-# Includes the root thread, so this allows four concurrent subagents.
-# Cannot be combined with the v1 `agents.max_threads` setting.
+# Counts the root thread, so four concurrent subagents. Cannot be combined with
+# the v1 `agents.max_threads`.
 max_concurrent_threads_per_session = 5
 
 [tui]

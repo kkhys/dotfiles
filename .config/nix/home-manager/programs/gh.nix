@@ -1,10 +1,8 @@
 { config, lib, ... }:
 
 let
-  # gh extensions kept latest on every rebuild, mirroring how mise tools are
-  # refreshed. nixpkgs carries both, but trails upstream releases, and these
-  # are pre-1.0 tools that change behaviour between minors, so install them
-  # via the gh CLI rather than programs.gh.extensions.
+  # Via the gh CLI rather than programs.gh.extensions: nixpkgs trails upstream,
+  # and these pre-1.0 tools change behaviour between minors.
   ghExtensions = [
     "github/gh-stack"
     "github/gh-actions-lock"
@@ -15,7 +13,6 @@ in
     enable = true;
 
     settings = {
-      # Every other tool here has telemetry off; gh alone defaults to on.
       telemetry = "disabled";
 
       aliases = {
@@ -36,13 +33,10 @@ in
     };
   };
 
-  # `gh extension install` exits 0 when the extension is already installed, so
-  # an `install || upgrade` chain never upgrades. --force upgrades an installed
-  # extension in place and does nothing when it is already up to date.
-  #
-  # gh re-signs downloaded arm64 binaries with /usr/bin/codesign, which the
-  # activation PATH lacks. An install that fails after the download leaves the
-  # binary without manifest.yml, and gh then takes the directory for a git
+  # --force because a plain install exits 0 when already installed, so
+  # `install || upgrade` never upgrades. /usr/bin is on PATH for codesign, which
+  # gh uses to re-sign arm64 binaries. An install that failed after the download
+  # leaves a directory without manifest.yml, which gh then treats as a git
   # extension it can never upgrade, so such a leftover is removed first.
   home.activation.ghExtensions = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     export PATH="${config.home.profileDirectory}/bin:$PATH:/usr/bin"

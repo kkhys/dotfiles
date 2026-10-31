@@ -19,8 +19,6 @@
     };
   };
 
-  # System identity derives from hostSpec the same way on every host, so it is
-  # wired once here; hosts only declare their hostSpec values.
   config = {
     networking.hostName = config.hostSpec.hostName;
     system.primaryUser = config.hostSpec.username;
