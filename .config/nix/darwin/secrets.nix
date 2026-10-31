@@ -20,7 +20,6 @@ let
     github-token = { };
     npm-token.workOnly = true;
     qase-api-token.workOnly = true;
-    sonarqube-token.workOnly = true;
   };
 
   wanted = lib.filterAttrs (
