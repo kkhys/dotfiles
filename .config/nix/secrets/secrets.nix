@@ -25,7 +25,4 @@ in
 
   # SonarQube token
   "sonarqube-token.age".publicKeys = allKeys;
-
-  # Cursor token
-  "cursor-token.age".publicKeys = allKeys;
 }
