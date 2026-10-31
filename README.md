@@ -143,8 +143,8 @@ User (Home Manager):
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys
-- GitHub token, NPM token (work)
-- Qase API token
+- GitHub token
+- NPM token, Qase API token (work)
 
 ## Troubleshooting
 
