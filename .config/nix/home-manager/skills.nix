@@ -9,18 +9,12 @@
 let
   # Agent skills kept latest on every rebuild the same way mise tools are:
   # fetch the latest via the skills CLI. Each entry is the skills registry
-  # identifier; optional `skill` narrows a multi-skill source down to a single
-  # skill. The CLI installs into ~/.agents/skills and links into ~/.claude/skills.
+  # identifier. The CLI installs into ~/.agents/skills and links into
+  # ~/.claude/skills.
   agentSkills = [
-    {
-      pkg = "github/gh-stack";
-    }
-    {
-      pkg = "github/gh-actions-lock";
-    }
+    "github/gh-stack"
+    "github/gh-actions-lock"
   ];
-
-  skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
 
   # Named explicitly: left to detect agents, `-y` also targets every agent
   # sharing ~/.agents/skills, including ones with no global skills dir
@@ -43,10 +37,10 @@ in
   # Runs after miseInstall so node/npx (managed by mise) are available.
   home.activation.agentSkills = lib.hm.dag.entryAfter [ "miseInstall" ] ''
     export PATH="${config.home.profileDirectory}/bin:$PATH"
-    ${lib.concatMapStringsSep "\n" (s: ''
-      echo "Installing ${s.pkg} skills..."
-      ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${s.pkg} ${skillFlag s}-a ${toString skillAgents} -g -y \
-        || echo "warning: ${s.pkg} skills install skipped (offline?)" >&2
+    ${lib.concatMapStringsSep "\n" (pkg: ''
+      echo "Installing ${pkg} skills..."
+      ${pkgs.mise}/bin/mise exec -- npx --yes skills add ${pkg} -a ${toString skillAgents} -g -y \
+        || echo "warning: ${pkg} skills install skipped (offline?)" >&2
     '') agentSkills}
     # Codex reads ~/.agents/skills directly, so the mirror this file used to
     # maintain in ~/.codex/skills is harmful rather than redundant: a mirrored
