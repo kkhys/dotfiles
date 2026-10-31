@@ -126,7 +126,6 @@
       "Bash(gh gist create:*)",
       "Bash(npm* publish*)",
       "Bash(pnpm* publish*)",
-      "Bash(cargo* publish*)",
       "mcp__plugin_miitel-softphone_qase__qase_*_delete"
     ]
   },

@@ -14,7 +14,6 @@
       ghq
 
       # Development Tools
-      rustup
       # Agent tooling shells out to a bare `python3`: the security-guidance
       # plugin hooks and the trend digest skill. macOS only offers 3.9.6 behind
       # an xcrun shim, which is below the 3.10 claude_agent_sdk requires and

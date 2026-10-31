@@ -86,7 +86,6 @@
       "Exec(npm remove)",
       "Exec(npm publish)",
       "Exec(pnpm publish)",
-      "Exec(cargo publish)",
       "Exec(docker system prune)",
       "Exec(kubectl delete)",
       "Exec(aws s3 cp)",

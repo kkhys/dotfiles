@@ -59,7 +59,6 @@ prefix_rule(pattern = ["npx"], decision = "allow")
 prefix_rule(pattern = ["uvx"], decision = "allow")
 prefix_rule(pattern = ["uv"], decision = "allow")
 prefix_rule(pattern = [["pip", "pip3"]], decision = "allow")
-prefix_rule(pattern = ["cargo"], decision = "allow")
 prefix_rule(pattern = ["curl"], decision = "allow")
 prefix_rule(pattern = ["wget"], decision = "allow")
 prefix_rule(pattern = ["mise"], decision = "allow")
@@ -122,11 +121,11 @@ prefix_rule(
     justification = "System-wide changes; this machine is declarative via nix-darwin",
 )
 prefix_rule(
-    pattern = [["npm", "pnpm", "cargo"], "publish"],
+    pattern = [["npm", "pnpm"], "publish"],
     decision = "forbidden",
     justification = "A published version cannot be unpublished",
-    match = ["npm publish", "pnpm publish --access public", "cargo publish"],
-    not_match = ["npm install", "cargo build"],
+    match = ["npm publish", "pnpm publish --access public"],
+    not_match = ["npm install", "pnpm install"],
 )
 prefix_rule(
     pattern = ["kubectl", "delete"],

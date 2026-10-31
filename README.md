@@ -138,7 +138,7 @@ User (Home Manager):
 - Shell — zsh, sheldon (plugin manager), starship (prompt)
 - Git stack — git (with GPG signing), gh
 - Terminal — bat, eza
-- Editors / runtimes — vim, mise, bun, rustup, uv
+- Editors / runtimes — vim, mise, bun, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
 - Work only — google-cloud-sdk, colima
 - Symlinks — Karabiner, Zed, Claude, Codex
