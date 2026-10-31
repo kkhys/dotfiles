@@ -43,7 +43,6 @@
     ]
     ++ lib.optionals hostSpec.isWork [
       # Work-only Tools
-      google-cloud-sdk
       colima
       terraform
     ];
