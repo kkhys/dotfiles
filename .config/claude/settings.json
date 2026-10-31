@@ -21,7 +21,6 @@
       "mcp__plugin_base_serena__*",
       "mcp__plugin_base_playwright__*",
       "mcp__plugin_base_chrome-devtools__*",
-      "mcp__plugin_base_astro-docs__*",
       "mcp__claude-in-chrome__*",
       "Skill(base:*)",
       "Skill(pr-review-toolkit:*)",
