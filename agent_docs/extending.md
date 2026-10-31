@@ -21,7 +21,7 @@ Host scoping comes from which host imports the file — no `lib.mkIf` needed. Us
 A package from a third-party tap needs the tap registered first, in three places (see `stablyai/orca` for a worked example):
 
 1. `.config/nix/flake.nix` — a `flake = false` input pointing at the `homebrew-<name>` repository
-2. `.config/nix/darwin/homebrew.nix` — the tap name in `homebrew.taps`, and the repository-to-input mapping in `nix-homebrew.taps`
+2. `.config/nix/darwin/homebrew.nix` — the repository-to-input mapping in `nix-homebrew.taps` (`homebrew.taps` is derived from it)
 3. The host's `homebrew.nix` — the package itself, written fully qualified as `<owner>/<tap>/<package>`
 
 Taps are pinned to the flake input, so `nix flake update` is what moves them; `brew update` cannot write to the read-only store copy.

@@ -12,12 +12,9 @@
       upgrade = true;
       cleanup = "uninstall";
     };
-    taps = [
-      "homebrew/core"
-      "homebrew/cask"
-      "datadog-labs/pack"
-      "stablyai/orca"
-    ];
+    # Keeps `brew bundle cleanup` from untapping the pinned taps; brew strips
+    # the `homebrew-` repo prefix itself.
+    taps = builtins.attrNames config.nix-homebrew.taps;
   };
 
   nix-homebrew = {
