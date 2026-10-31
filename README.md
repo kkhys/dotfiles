@@ -140,7 +140,6 @@ User (Home Manager):
 - Terminal — bat, eza
 - Editors / runtimes — vim, mise, bun, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
-- Work only — terraform
 - Symlinks — Karabiner, Zed, Claude, Codex
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):

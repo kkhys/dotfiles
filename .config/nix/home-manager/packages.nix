@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  hostSpec,
   inputs,
   ...
 }:
@@ -40,9 +38,5 @@
     ++ [
       # Agent-oriented HTTP client; not in nixpkgs, so it comes from its own flake
       inputs.ax.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ]
-    ++ lib.optionals hostSpec.isWork [
-      # Work-only Tools
-      terraform
     ];
 }
