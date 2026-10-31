@@ -5,15 +5,12 @@
 }:
 
 let
-  # Third-party agent skills, pinned through flake inputs the same way the
-  # Homebrew taps are. Each value is the directory holding the skill's SKILL.md.
   skills = {
     gh-stack = "${inputs.skills-gh-stack}/skills/gh-stack";
     gh-actions-lock = "${inputs.skills-gh-actions-lock}/skills/gh-actions-lock";
   };
 
-  # Codex reads ~/.agents/skills directly; Claude Code only looks in
-  # ~/.claude/skills, so it gets its own link to the same store path.
+  # Codex reads ~/.agents/skills; Claude Code only looks in ~/.claude/skills.
   skillDirs = [
     ".agents/skills"
     ".claude/skills"
@@ -27,12 +24,10 @@ in
   );
 
   home.activation = {
-    # These skills used to be installed by `npx skills add` on every rebuild,
-    # which left real directories under ~/.agents/skills, relative links under
-    # ~/.claude/skills and the CLI's lock file. Home Manager would move the
-    # directories aside as <name>.backup, which Codex then loads as duplicate
-    # skills, and it refuses the links outright, so clear that footprint before
-    # the collision check.
+    # Leftovers of `npx skills add`: real directories under ~/.agents/skills,
+    # relative links under ~/.claude/skills and the CLI's lock file. Home Manager
+    # would keep the directories as <name>.backup, which Codex loads as duplicate
+    # skills, and refuses the links outright.
     agentSkillsMigration = lib.hm.dag.entryBefore [ "checkLinkTargets" ] ''
       skillsMigrated=
       ${lib.concatMapStringsSep "\n" (name: ''
@@ -53,10 +48,8 @@ in
     '';
 
     agentSkillsCleanup = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      # Codex reads ~/.agents/skills directly, so the mirror this file used to
-      # maintain in ~/.codex/skills is harmful rather than redundant: a mirrored
-      # entry wins Codex's realpath dedup and hides the real locator. Drop the
-      # links the mirror created; Codex's own .system directory is untouched.
+      # Links of a former mirror in ~/.codex/skills: a mirrored entry wins Codex's
+      # realpath dedup and hides the real locator. .system is Codex's own.
       if [ -d "$HOME/.codex/skills" ]; then
         for link in "$HOME"/.codex/skills/*; do
           [ -L "$link" ] || continue
@@ -65,9 +58,8 @@ in
           esac
         done
       fi
-      # This file used to link every skill of the claude-code-marketplace
-      # checkout into ~/.agents/skills for Codex. The marketplace is Claude Code
-      # only again and reaches it as an installed plugin, so drop those links.
+      # Links into the claude-code-marketplace checkout; Claude Code reaches it
+      # as an installed plugin now and Codex no longer uses it.
       if [ -d "$HOME/.agents/skills" ]; then
         for link in "$HOME"/.agents/skills/*; do
           [ -L "$link" ] || continue

@@ -11,9 +11,7 @@ let
   username = config.hostSpec.username;
   home = "/Users/${username}";
 
-  # One entry per *.age file. `dest` is relative to $HOME and defaults to
-  # .config/secrets/<name>; `workOnly` secrets decrypt only when
-  # hostSpec.isWork. Env-var wiring lives in home-manager/programs/zsh.nix.
+  # Env-var wiring for these lives in home-manager/programs/zsh.nix.
   secrets = {
     ssh-key-github.dest = ".ssh/id_ed25519_github";
     gpg-key.dest = ".gnupg/agenix-key.asc";

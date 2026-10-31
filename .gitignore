@@ -1,4 +1,4 @@
-# Backup copies written by tools in place (Orca rewrites .config/claude/settings.json)
+# Orca rewrites .config/claude/settings.json in place and leaves a .bak
 *.bak
 
 # Karabiner writes these next to karabiner.json, which is linked as a directory

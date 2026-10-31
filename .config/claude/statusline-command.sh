@@ -1,14 +1,10 @@
 #!/usr/bin/env bash
-# Claude Code statusLine script
-# Output format: Fable 5 xhigh | main | 10.2K (20%) | cache hit 94% | ttl 1h warm 43m | 5h 42% | 7d 86% | $19.13
-# (" · N miss" appears after the hit ratio only when the session has cache misses;
-#  trailing "$N.NN" is the session's estimated cost at API list prices)
+# Output: Fable 5 xhigh | main | 10.2K (20%) | cache hit 94% · 3 miss | ttl 1h warm 43m | 5h (42%) | 7d (86%) | $19.13
 
 input=$(cat)
 
 model=$(echo "$input" | jq -r '.model.display_name // "Unknown"' | sed 's/^Claude //')
 
-# effort is absent on models without the reasoning effort parameter
 effort=$(echo "$input" | jq -r '.effort.level // empty')
 fast_mode=$(echo "$input" | jq -r '.fast_mode // false')
 model_part="$model"
@@ -16,7 +12,6 @@ model_part="$model"
 [[ "$fast_mode" == "true" ]] && model_part+=" fast"
 
 used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
-# used_tokens = input + cache_creation + cache_read (matches used_percentage formula per docs)
 used_tokens=$(echo "$input" | jq -r '
   (.context_window.current_usage.input_tokens // 0)
   + (.context_window.current_usage.cache_creation_input_tokens // 0)
@@ -24,13 +19,12 @@ used_tokens=$(echo "$input" | jq -r '
   | if . == 0 then empty else . end
 ')
 
-# cache breakdown from the last API response (null before first call / right after /compact)
 cache_read=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
 cache_write=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
 cache_input=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')
 cache_total=$(( cache_read + cache_write + cache_input ))
 
-# prompt_cache is absent until the main conversation's first response (v2.1.251+)
+# prompt_cache needs Claude Code 2.1.251+
 cache_ttl=$(echo "$input" | jq -r '.prompt_cache.ttl // empty')
 cache_warm=$(echo "$input" | jq -r '.prompt_cache.warm // false')
 pc_hit_ratio=$(echo "$input" | jq -r '.prompt_cache.hit_ratio // empty')
@@ -51,7 +45,6 @@ pct_color() {
   else printf '\033[32m'; fi
 }
 
-# inverse of pct_color: high cache hit rate is good (green)
 cache_color() {
   local pct=$1
   if [[ "$pct" -ge 80 ]]; then printf '\033[32m'
@@ -59,7 +52,6 @@ cache_color() {
   else printf '\033[31m'; fi
 }
 
-# format a token count as "12.3K" (drop the .0 for whole values)
 fmt_k() {
   awk "BEGIN {printf \"%.1fK\", $1 / 1000}" | sed 's/\.0K/K/'
 }
@@ -71,7 +63,6 @@ else
   printf "%s%s | --" "$model_part" "$branch_part"
 fi
 
-# session-wide hit ratio when available (v2.1.251+); last-response ratio as fallback
 if [[ -n "$pc_hit_ratio" ]]; then
   hit=$(awk "BEGIN {printf \"%.0f\", $pc_hit_ratio * 100}")
   printf " | cache hit %b%s%%\033[0m" "$(cache_color "$hit")" "$hit"
