@@ -328,7 +328,7 @@
       "autoUpdate": true
     }
   },
-  "outputStyle": "base:terse-japanese",
+  "outputStyle": "Concise",
   "language": "japanese",
   "effortLevel": "xhigh",
   "modelSettings": {
