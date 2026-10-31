@@ -4,7 +4,7 @@ Patterns for the most common additions. In every case, the closest existing exam
 
 ## Add a Nix package (user-level)
 
-Edit `.config/nix/home-manager/packages.nix` and add to `home.packages`. Work-only packages go in the `lib.optionals hostSpec.isWork` list at the end of the file.
+Edit `.config/nix/home-manager/packages.nix` and add to `home.packages`. For work-only packages, append a `++ lib.optionals hostSpec.isWork [ ... ]` list and add `lib` / `hostSpec` to the module arguments (`programs/mise.nix` gates its work-only tools the same way with `lib.optionalAttrs`).
 
 ## Add a Homebrew package or cask
 
