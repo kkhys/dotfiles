@@ -15,12 +15,13 @@
       url = "github:zhaofengli/nix-homebrew";
       inputs.brew-src.follows = "brew-src";
     };
-    # nix-homebrew still pins brew 7.0.4, which cannot load homebrew-core
-    # formulae declaring `resource "...", :test` (supported since 7.0.9).
-    # Drop once upstream bumps brew-src past 7.0.9.
+    # nix-homebrew still pins brew 7.0.4; homebrew-core/cask are unpinned, so
+    # brew must track upstream closely enough to parse their current DSL
+    # (`resource "...", :test` needs 7.0.9, `zap :not_required` needs 7.0.11).
+    # Drop once upstream bumps brew-src past 7.0.11.
     # https://github.com/zhaofengli/nix-homebrew/issues/192
     brew-src = {
-      url = "github:Homebrew/brew/7.0.10";
+      url = "github:Homebrew/brew/7.0.11";
       flake = false;
     };
     homebrew-core = {
