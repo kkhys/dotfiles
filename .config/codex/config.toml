@@ -17,18 +17,14 @@ personality = "pragmatic"
 
 # Pin the current defaults rather than inherit them, so an upstream default
 # change cannot quietly alter how much the agent is allowed to do.
-# Command-level allow/prompt/forbidden tiers (mirroring the Claude Code
-# permission lists) live in ~/.codex/rules/managed.rules, delivered by
-# home-manager/dotfiles.nix from .config/codex/rules/managed.rules.
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 
 # Escalations that reach an approval prompt go to the reviewer subagent instead
 # of stopping for a keystroke. This swaps who answers the prompt; the sandbox
-# boundary, the writable roots and the rules tiers are all unchanged. It needs
-# an interactive approval_policy — under "never" no approval request is raised
-# for the reviewer to see, and commands matched by an `allow` rule bypass it
-# entirely, so that tier stays narrow on purpose.
+# boundary and the writable roots are unchanged. It needs an interactive
+# approval_policy — under "never" no approval request is raised for the
+# reviewer to see.
 approvals_reviewer = "auto_review"
 
 # Always fetch fresh results instead of the cached index.
@@ -60,7 +56,3 @@ status_line = ["model-with-reasoning", "git-branch", "context-used", "five-hour-
 theme = "catppuccin-mocha"
 notifications = true
 notification_condition = "unfocused"
-
-# No [mcp_servers.*] here on purpose. The servers come from the mcp plugin of
-# kkhys/claude-code-marketplace, installed by home-manager/mcp.nix; a server
-# defined in this file under the same name would shadow the plugin's copy.

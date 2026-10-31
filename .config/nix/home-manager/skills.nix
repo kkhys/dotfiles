@@ -24,12 +24,6 @@ let
     "claude-code"
     "codex"
   ];
-
-  # Working tree of the plugin marketplace, not Claude Code's clone of it
-  # (~/.claude/plugins/marketplaces/my-marketplace): the links below must not
-  # depend on Claude Code's cache layout, and seeing work-in-progress skills in
-  # Codex is accepted.
-  marketplace = "${config.home.homeDirectory}/projects/github.com/kkhys/claude-code-marketplace";
 in
 {
   # Runs after miseInstall so node/npx (managed by mise) are available.
@@ -52,36 +46,15 @@ in
         esac
       done
     fi
-  '';
-
-  # Expose every skill in the marketplace to the agents that read
-  # ~/.agents/skills: Codex. Claude Code gets
-  # the same skills through the installed base plugin and does not read
-  # ~/.agents/skills, so nothing is listed twice there. Codex namespaces a
-  # symlinked skill by its canonical path, so these show up as base:<name>.
-  home.activation.marketplaceSkills = lib.hm.dag.entryAfter [ "agentSkills" ] ''
-    if [ ! -d "${marketplace}/plugins" ]; then
-      echo "warning: ${marketplace} not checked out; marketplace skills not linked" >&2
-    else
-      mkdir -p "$HOME/.agents/skills"
-      # A link into the marketplace whose skill was renamed or deleted.
+    # This file used to link every skill of the claude-code-marketplace
+    # checkout into ~/.agents/skills for Codex. The marketplace is Claude Code
+    # only again and reaches it as an installed plugin, so drop those links.
+    if [ -d "$HOME/.agents/skills" ]; then
       for link in "$HOME"/.agents/skills/*; do
         [ -L "$link" ] || continue
         case "$(readlink "$link")" in
-          "${marketplace}"/*) [ -e "$link" ] || rm "$link" ;;
+          "$HOME"/projects/github.com/kkhys/claude-code-marketplace/*) rm "$link" ;;
         esac
-      done
-      for dir in "${marketplace}"/plugins/*/skills/*/; do
-        [ -f "$dir/SKILL.md" ] || continue
-        name="$(basename "$dir")"
-        target="$HOME/.agents/skills/$name"
-        # A real directory here is a skill the skills CLI installed; never
-        # replace it, the two would otherwise fight on every rebuild.
-        if [ -e "$target" ] && [ ! -L "$target" ]; then
-          echo "warning: $target is a real directory; not linking the marketplace skill over it" >&2
-          continue
-        fi
-        ln -sfn "''${dir%/}" "$target"
       done
     fi
   '';
