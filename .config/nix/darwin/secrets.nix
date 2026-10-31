@@ -18,7 +18,6 @@ let
     ssh-key-github.dest = ".ssh/id_ed25519_github";
     gpg-key.dest = ".gnupg/agenix-key.asc";
     github-token = { };
-    typesafe-api-key = { };
     npm-token.workOnly = true;
     qase-api-token.workOnly = true;
     sonarqube-token.workOnly = true;

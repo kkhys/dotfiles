@@ -18,12 +18,6 @@ let
     {
       pkg = "github/gh-actions-lock";
     }
-    {
-      # TypeSafe System One (jev): question primitives, patterns, cookbooks.
-      # Inert without TYPESAFE_API_KEY, wired up in programs/zsh.nix.
-      pkg = "typesafe-ai/skills";
-      skill = "typesafe-ai";
-    }
   ];
 
   skillFlag = s: lib.optionalString (s ? skill) "--skill ${s.skill} ";
