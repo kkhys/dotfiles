@@ -18,19 +18,6 @@ let
     "zed/settings.json"
   ];
 
-  # Codex's config.toml is absent on purpose: Codex rewrites ~/.codex/config.toml
-  # in place, so the managed settings ship through the system layer instead
-  # (darwin/codex.nix).
-  agentFiles = {
-    claude = [
-      "CLAUDE.md"
-      "statusline-command.sh"
-    ];
-    codex = [
-      "AGENTS.md"
-    ];
-  };
-
   claudeSettingsFile = if hostSpec.isWork then "settings-work.json" else "settings.json";
 in
 {
@@ -38,20 +25,17 @@ in
     source = mkLink ".config/${file}";
   });
 
-  home.file =
-    lib.concatMapAttrs (
-      tool: files:
-      lib.listToAttrs (
-        map (file: {
-          name = ".${tool}/${file}";
-          value.source = mkLink ".config/${tool}/${file}";
-        }) files
-      )
-    ) agentFiles
-    // {
-      ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
-      ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
-    };
+  # Codex's config.toml is absent on purpose: Codex rewrites ~/.codex/config.toml
+  # in place, so the managed settings ship through the system layer instead
+  # (darwin/codex.nix).
+  home.file = {
+    # One instruction file for every agent; each tool only reads its own name.
+    ".claude/CLAUDE.md".source = mkLink ".config/agents/AGENTS.md";
+    ".codex/AGENTS.md".source = mkLink ".config/agents/AGENTS.md";
+    ".claude/statusline-command.sh".source = mkLink ".config/claude/statusline-command.sh";
+    ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
+    ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
+  };
 
   home.activation = {
     # /etc/codex/config.toml is Codex's lowest-precedence layer, so a key left

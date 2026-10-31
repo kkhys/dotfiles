@@ -21,6 +21,10 @@ web_search = "live"
 # Codex only supports vscode/vscode-insiders/windsurf/cursor here; the editor is Zed.
 file_opener = "none"
 
+# Codex adds its own trailer only when a ChatGPT workspace policy asks for it;
+# without one (personal account, API key) nothing is added.
+developer_instructions = "End every commit message with the trailer `Co-authored-by: Codex <noreply@openai.com>`. Keep existing trailers and never duplicate it."
+
 [sandbox_workspace_write]
 network_access = false
 
