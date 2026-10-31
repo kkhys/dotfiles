@@ -3,9 +3,6 @@
 {
   homebrew = {
     brews = [
-      "docker"
-      "docker-compose"
-      "docker-buildx"
       "datadog-labs/pack/pup"
     ];
 

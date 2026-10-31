@@ -106,18 +106,6 @@ in
     '';
   }
   // lib.optionalAttrs hostSpec.isWork {
-    # Docker CLI plugins symlinks (work environment only)
-    # Uses activation script because Homebrew binaries may not exist at build time
-    dockerCliPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      mkdir -p "$HOME/.docker/cli-plugins"
-      if [ -f "/opt/homebrew/opt/docker-compose/bin/docker-compose" ]; then
-        ln -sfn "/opt/homebrew/opt/docker-compose/bin/docker-compose" "$HOME/.docker/cli-plugins/docker-compose"
-      fi
-      if [ -f "/opt/homebrew/opt/docker-buildx/bin/docker-buildx" ]; then
-        ln -sfn "/opt/homebrew/opt/docker-buildx/bin/docker-buildx" "$HOME/.docker/cli-plugins/docker-buildx"
-      fi
-    '';
-
     # Devin permission mirror (devin-cli is a work-host cask). Devin rewrites
     # ~/.config/devin/config.json in place for its own runtime state (org_id,
     # model choice, Orca hooks, "always allow" grants), so the file cannot be a
