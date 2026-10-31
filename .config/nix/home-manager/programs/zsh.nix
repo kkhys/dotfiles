@@ -15,7 +15,6 @@ let
     GITHUB_ACCESS_TOKEN = "github-token";
     QASE_API_TOKEN = "qase-api-token";
     SONARQUBE_TOKEN = "sonarqube-token";
-    TYPESAFE_API_KEY = "typesafe-api-key";
     CURSOR_TOKEN = "cursor-token";
   };
 in
