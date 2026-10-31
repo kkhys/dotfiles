@@ -75,10 +75,6 @@ in
         "z." = "zed .";
         cf = "caffeinate -id";
 
-        # Docker
-        dc = "docker compose";
-        de = "docker exec";
-
         # Package managers
         np = "npm";
         pn = "pnpm";
