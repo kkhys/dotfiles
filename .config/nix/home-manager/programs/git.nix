@@ -59,6 +59,12 @@
         ff = "only";
       };
 
+      # The base plugin's Stop hook treats a [gone] upstream as merged. Without
+      # pruning, a squash-merged branch keeps its remote-tracking ref forever.
+      fetch = {
+        prune = true;
+      };
+
       merge = {
         ff = false;
       };
