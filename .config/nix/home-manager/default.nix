@@ -3,7 +3,6 @@
 {
   imports = [
     ./dotfiles.nix
-    ./mcp.nix
     ./packages.nix
     ./skills.nix
     ./programs/bun.nix

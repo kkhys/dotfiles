@@ -44,9 +44,8 @@ Edit `.config/nix/home-manager/dotfiles.nix`:
 
 ## Add an agent skill or MCP server
 
-- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills`, which Codex reads; Claude Code gets it through `~/.claude/skills`
-- Your own skill: add it to the `base` plugin of `kkhys/claude-code-marketplace`. `skills.nix` links every `plugins/*/skills/<name>/` of the local checkout into `~/.agents/skills/<name>` on rebuild; Claude Code loads the same skill from the installed plugin, so no entry is needed here
-- An MCP server: add it to `plugins/mcp/.mcp.json` in the marketplace and bump that plugin's version. `mcp.nix` installs the plugin into Codex; Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_mcp_<server>__*` permission entries also live
+- A third-party skill from the skills registry: append to `agentSkills` in `.config/nix/home-manager/skills.nix`. The CLI installs it into `~/.agents/skills` and links it into `~/.claude/skills`
+- Your own skill or MCP server: add it to the `base` plugin of `kkhys/claude-code-marketplace` and bump that plugin's version. Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_base_<server>__*` permission entries also live; nothing in this repo needs to change
 
 ## Add a new host
 

@@ -60,7 +60,3 @@ status_line = ["model-with-reasoning", "git-branch", "context-used", "five-hour-
 theme = "catppuccin-mocha"
 notifications = true
 notification_condition = "unfocused"
-
-# No [mcp_servers.*] here on purpose. The servers come from the mcp plugin of
-# kkhys/claude-code-marketplace, installed by home-manager/mcp.nix; a server
-# defined in this file under the same name would shadow the plugin's copy.
