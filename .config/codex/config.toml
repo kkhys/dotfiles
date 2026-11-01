@@ -26,6 +26,9 @@ file_opener = "none"
 # Codex adds its own trailer only when a ChatGPT workspace policy asks for it;
 # without one (personal account) nothing is added.
 developer_instructions = "End every commit message with the trailer `Co-authored-by: Codex <noreply@openai.com>`. Keep existing trailers and never duplicate it."
+model = "gpt-6.1-sol"
+model_reasoning_effort = "xhigh"
+service_tier = "fast"
 
 [sandbox_workspace_write]
 network_access = false
@@ -91,6 +94,9 @@ status_line = ["model-with-reasoning", "git-branch", "context-used", "five-hour-
 theme = "catppuccin-mocha"
 notifications = true
 notification_condition = "unfocused"
+
+[tui.model_availability_nux]
+"gpt-6.1-sol" = 1
 
 [projects."/Users/kkhys/projects/github.com/kkhys/dotfiles"]
 trust_level = "trusted"
