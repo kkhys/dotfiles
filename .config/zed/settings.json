@@ -17,6 +17,17 @@
   "agent": {
     "dock": "right"
   },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    },
+    "pi-acp": {
+      "type": "registry"
+    }
+  },
   "autosave": {
     "after_delay": {
       "milliseconds": 1000
