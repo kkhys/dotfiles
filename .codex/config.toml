@@ -1,0 +1,7 @@
+# Project layer for Codex sessions opened in this repository.
+
+# Nix, shell, and Markdown: nothing here for a language server to index, so
+# the serena server the base plugin ships stays off and the session starts
+# without waiting for it.
+[plugins."base@codex-plugins".mcp_servers.serena]
+enabled = false
