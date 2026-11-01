@@ -23,6 +23,7 @@ The active host also exposes shell aliases `dr` / `drb` / `drc` for the three `d
 - `.config/nix/home-manager/` — user-level: Nix packages, dotfile symlinks, per-program config under `programs/`
 - `.config/nix/hosts/{personal,work}/` — per-host `hostSpec` values + host-only Homebrew lists; `hosts/common/` holds the shared system + Homebrew package lists
 - `.config/nix/secrets/` — agenix-encrypted SSH/GPG keys and API tokens
+- `.config/pi/` — pi coding agent config: `settings.json`, `permissions.json`, `presets.json`, `extensions/` (copies of pi's official examples), `agents/`, `prompts/`; linked into `~/.pi/agent/` by `home-manager/dotfiles.nix`
 
 Homebrew is fully declarative via nix-homebrew — never run `brew bundle` or `brew install` manually.
 

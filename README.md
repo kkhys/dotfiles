@@ -139,7 +139,7 @@ User (Home Manager):
 - Terminal — bat, eza
 - Editors / runtimes — vim, mise, bun, uv
 - Workflow — fzf, direnv, ssh, gpg + pinentry-mac
-- Symlinks — Karabiner, Zed, Claude, Codex
+- Symlinks — Karabiner, Zed, Claude, Codex, pi
 
 Secrets (agenix, see `secrets/secrets.nix` for the full list):
 - SSH and GPG private keys

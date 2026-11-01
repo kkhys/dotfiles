@@ -1,0 +1,86 @@
+{
+  "deny": {
+    "bash": [
+      "rm* -rf*",
+      "rm* -fr*",
+      "rm* -r -f*",
+      "rm* -f -r*",
+      "rm* --recursive*",
+      "chmod* 777*",
+      "dd",
+      "dd *",
+      "gh* repo delete*",
+      "gh auth logout",
+      "gh auth logout *",
+      "gh* secret delete*",
+      "gh* variable delete*",
+      "brew* install*",
+      "brew* uninstall*",
+      "brew* bundle*"
+    ],
+    "read": [
+      ".env",
+      ".env.*",
+      ".envrc",
+      "~/.aws/**",
+      "~/.ssh/id_*",
+      "~/.gnupg/**",
+      "**/secrets/*.age",
+      "//run/agenix/**",
+      "//run/agenix.d/**",
+      "~/.config/age/**",
+      "~/.config/secrets/**",
+      "**/credentials.json",
+      "**/*.token",
+      "**/.*token*"
+    ],
+    "edit": [
+      ".env*",
+      "~/.ssh/**",
+      "~/.aws/**",
+      "**/.git/**",
+      "**/node_modules/**"
+    ],
+    "write": [
+      ".env*",
+      "~/.ssh/**",
+      "~/.aws/**",
+      "**/.git/**",
+      "**/node_modules/**"
+    ]
+  },
+  "ask": {
+    "bash": [
+      "git push* --force *",
+      "git push* --force",
+      "git push* -f *",
+      "git push* -f",
+      "git reset* --hard*",
+      "git clean",
+      "git clean *",
+      "gh issue create",
+      "gh issue create *",
+      "gh release create",
+      "gh release create *",
+      "gh gist create",
+      "gh gist create *",
+      "gh* pr merge*",
+      "sudo",
+      "sudo *",
+      "npm uninstall",
+      "npm uninstall *",
+      "npm remove",
+      "npm remove *",
+      "npm* publish*",
+      "pnpm* publish*"
+    ],
+    "edit": [
+      "~/.pi/agent/**",
+      "**/.config/pi/**"
+    ],
+    "write": [
+      "~/.pi/agent/**",
+      "**/.config/pi/**"
+    ]
+  }
+}

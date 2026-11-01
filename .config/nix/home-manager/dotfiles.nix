@@ -29,12 +29,20 @@ in
     # One instruction file for every agent; each tool only reads its own name.
     ".claude/CLAUDE.md".source = mkLink ".config/agents/AGENTS.md";
     ".codex/AGENTS.md".source = mkLink ".config/agents/AGENTS.md";
+    ".pi/agent/AGENTS.md".source = mkLink ".config/agents/AGENTS.md";
     # Codex writes through this link (/model, trust, plugin installs), so a
     # change made in Codex lands in the repo as a diff to commit or revert. One
     # file per host: both hosts write state and a shared file conflicted on pull.
     ".codex/config.toml".source = mkLink ".config/codex/${codexConfigFile}";
     ".claude/statusline-command.sh".source = mkLink ".config/claude/statusline-command.sh";
     ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
+    # pi writes through this link too (/model Ctrl+S, /settings), like Codex.
+    ".pi/agent/settings.json".source = mkLink ".config/pi/settings.json";
+    ".pi/agent/permissions.json".source = mkLink ".config/pi/permissions.json";
+    ".pi/agent/presets.json".source = mkLink ".config/pi/presets.json";
+    ".pi/agent/extensions".source = mkLink ".config/pi/extensions";
+    ".pi/agent/agents".source = mkLink ".config/pi/agents";
+    ".pi/agent/prompts".source = mkLink ".config/pi/prompts";
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
 }

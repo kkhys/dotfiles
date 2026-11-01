@@ -53,6 +53,15 @@
       url = "github:github/gh-actions-lock";
       flake = false;
     };
+    # The pi coding agent, built from source by its own flake. The example
+    # extensions copied into .config/pi/extensions come from this same revision,
+    # so `nix flake update pi` is where both move; `pi update` is a no-op here.
+    pi = {
+      url = "github:earendil-works/pi/stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+      # Only consulted on x86_64-darwin; followed so the lock holds one nixpkgs.
+      inputs.nixpkgs-darwin-x64.follows = "nixpkgs";
+    };
   };
 
   outputs =

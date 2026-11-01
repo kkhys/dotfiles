@@ -1,0 +1,17 @@
+{
+  "$schema": "https://pi.dev/schemas/settings.schema.json",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-5-5",
+  "defaultThinkingLevel": "high",
+  "tuiMode": "regular",
+  "defaultTools": [
+    "+grep",
+    "+find",
+    "+ls"
+  ],
+  "extensions": [
+    "-builtin:llama.cpp"
+  ],
+  "enableInstallTelemetry": false,
+  "lastChangelogVersion": "1.4.0"
+}
