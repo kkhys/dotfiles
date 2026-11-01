@@ -13,9 +13,23 @@
     "dock": "left"
   },
   "cursor_blink": false,
+  "edit_predictions": {
+    "provider": "none"
+  },
   "auto_update": false,
   "agent": {
     "dock": "right"
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
+    "codex-acp": {
+      "type": "registry"
+    },
+    "pi-acp": {
+      "type": "registry"
+    }
   },
   "autosave": {
     "after_delay": {
