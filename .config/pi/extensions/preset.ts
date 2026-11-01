@@ -5,9 +5,9 @@
  * and system prompt instructions. Presets are defined in JSON config files
  * and can be activated via CLI flag, /preset command, or Ctrl+Shift+U to cycle.
  *
- * Config files (merged, project takes precedence):
- * - ~/.pi/agent/presets.json (global)
- * - <cwd>/.pi/presets.json (project-local)
+ * Config file: ~/.pi/agent/presets.json. The example also merged a
+ * project-local .pi/presets.json; that is dropped here because it bypasses
+ * project trust and its instructions land in the system prompt.
  *
  * Example presets.json:
  * ```json
@@ -42,7 +42,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Api, Model } from "@earendil-works/pi-ai";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
-import { CONFIG_DIR_NAME, DynamicBorder, getAgentDir } from "@earendil-works/pi-coding-agent";
+import { DynamicBorder, getAgentDir } from "@earendil-works/pi-coding-agent";
 import { Container, Key, type SelectItem, SelectList, Text } from "@earendil-works/pi-tui";
 
 // Preset configuration
@@ -67,35 +67,15 @@ interface PresetsConfig {
  * Load presets from config files.
  * Project-local presets override global presets with the same name.
  */
-function loadPresets(cwd: string): PresetsConfig {
+function loadPresets(): PresetsConfig {
 	const globalPath = join(getAgentDir(), "presets.json");
-	const projectPath = join(cwd, CONFIG_DIR_NAME, "presets.json");
-
-	let globalPresets: PresetsConfig = {};
-	let projectPresets: PresetsConfig = {};
-
-	// Load global presets
-	if (existsSync(globalPath)) {
-		try {
-			const content = readFileSync(globalPath, "utf-8");
-			globalPresets = JSON.parse(content);
-		} catch (err) {
-			console.error(`Failed to load global presets from ${globalPath}: ${err}`);
-		}
+	if (!existsSync(globalPath)) return {};
+	try {
+		return JSON.parse(readFileSync(globalPath, "utf-8"));
+	} catch (err) {
+		console.error(`Failed to load global presets from ${globalPath}: ${err}`);
+		return {};
 	}
-
-	// Load project presets
-	if (existsSync(projectPath)) {
-		try {
-			const content = readFileSync(projectPath, "utf-8");
-			projectPresets = JSON.parse(content);
-		} catch (err) {
-			console.error(`Failed to load project presets from ${projectPath}: ${err}`);
-		}
-	}
-
-	// Merge (project overrides global)
-	return { ...globalPresets, ...projectPresets };
 }
 
 interface OriginalState {
@@ -201,7 +181,7 @@ export default function presetExtension(pi: ExtensionAPI) {
 
 		if (presetNames.length === 0) {
 			ctx.ui.notify(
-				`No presets defined. Add presets to ${join(getAgentDir(), "presets.json")} or ${join(ctx.cwd, CONFIG_DIR_NAME, "presets.json")}`,
+				`No presets defined. Add presets to ${join(getAgentDir(), "presets.json")}`,
 				"warning",
 			);
 			return;
@@ -312,7 +292,7 @@ export default function presetExtension(pi: ExtensionAPI) {
 		const presetNames = getPresetOrder();
 		if (presetNames.length === 0) {
 			ctx.ui.notify(
-				`No presets defined. Add presets to ${join(getAgentDir(), "presets.json")} or ${join(ctx.cwd, CONFIG_DIR_NAME, "presets.json")}`,
+				`No presets defined. Add presets to ${join(getAgentDir(), "presets.json")}`,
 				"warning",
 			);
 			return;
@@ -394,7 +374,7 @@ export default function presetExtension(pi: ExtensionAPI) {
 	// Initialize on session start
 	pi.on("session_start", async (_event, ctx) => {
 		// Load presets from config files
-		presets = loadPresets(ctx.cwd);
+		presets = loadPresets();
 
 		// Check for --preset flag
 		const presetFlag = pi.getFlag("preset");
