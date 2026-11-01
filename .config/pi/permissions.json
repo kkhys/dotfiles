@@ -34,8 +34,20 @@
       "**/*.token",
       "**/.*token*"
     ],
-    "edit": [".env*", "~/.ssh/**", "~/.aws/**", "**/.git/**", "**/node_modules/**"],
-    "write": [".env*", "~/.ssh/**", "~/.aws/**", "**/.git/**", "**/node_modules/**"]
+    "edit": [
+      ".env*",
+      "~/.ssh/**",
+      "~/.aws/**",
+      "**/.git/**",
+      "**/node_modules/**"
+    ],
+    "write": [
+      ".env*",
+      "~/.ssh/**",
+      "~/.aws/**",
+      "**/.git/**",
+      "**/node_modules/**"
+    ]
   },
   "ask": {
     "bash": [
@@ -61,6 +73,14 @@
       "npm remove *",
       "npm* publish*",
       "pnpm* publish*"
+    ],
+    "edit": [
+      "~/.pi/agent/**",
+      "**/.config/pi/**"
+    ],
+    "write": [
+      "~/.pi/agent/**",
+      "**/.config/pi/**"
     ]
   }
 }
