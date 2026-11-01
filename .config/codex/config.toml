@@ -34,7 +34,8 @@ network_access = false
 # The CLI comes from mise, so the in-app updater would write to a different npm
 # prefix than the one on PATH. Upgrade with `mise upgrade npm:@openai/codex`.
 in_app_updates = false
-memories = true
+# Off by default today; pinned so a default flip cannot start storing memories.
+memories = false
 multi_agent_v2 = true
 
 [agents]
