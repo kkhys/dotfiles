@@ -13,7 +13,7 @@ How the flake composes a full nix-darwin + Home Manager system.
   - `home-manager.nix` — Home Manager integration; `users.<username>` imports `./home-manager`
   - `homebrew.nix` — nix-homebrew (declarative, pinned taps) plus Homebrew activation settings
   - `secrets.nix` — agenix module, agenix CLI, and the table of managed secrets
-  - `system.nix` / `nix.nix` / `codex.nix` — macOS prefs and activation, Nix settings and GC, managed Codex config
+  - `system.nix` / `nix.nix` — macOS prefs and activation, Nix settings and GC
 
 Flake inputs reach every darwin module via `specialArgs.inputs`, and every Home Manager module via `extraSpecialArgs` (`inputs` and `hostSpec`). Adding a host or an input never requires touching module wiring in `flake.nix`.
 

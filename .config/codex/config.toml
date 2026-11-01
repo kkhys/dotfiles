@@ -1,47 +1,11 @@
-# Installed to /etc/codex/config.toml by darwin/codex.nix: Codex's lowest
-# precedence layer, below ~/.codex/config.toml, which Codex rewrites at runtime
-# and so cannot be a symlink into this repo. A key set here must not also
-# appear in the user file, or the stale user copy silently shadows it.
+# ~/.codex/config.toml links here and Codex writes through the link (/model,
+# project trust, plugin installs, hook trust), so a change made in Codex shows
+# up as a diff in this repo: commit it or revert it. Keep this the only layer;
+# anything in /etc/codex/config.toml is shadowed by what Codex writes here.
 
-# No model or model_reasoning_effort: the TUI persists every /model choice to
-# the user file, which shadows this layer the moment one is picked.
-personality = "pragmatic"
+[marketplaces.codex-plugins]
+source_type = "git"
+source = "https://github.com/kkhys/codex-plugins.git"
 
-# Pinned so an upstream default change cannot quietly widen what the agent may do.
-approval_policy = "on-request"
-sandbox_mode = "workspace-write"
-
-# Approval prompts go to the reviewer subagent instead of a keystroke; the
-# sandbox boundary is unchanged. Needs an interactive approval_policy: under
-# "never" no approval request is raised for the reviewer to see.
-approvals_reviewer = "auto_review"
-
-web_search = "live"
-
-# Codex only supports vscode/vscode-insiders/windsurf/cursor here; the editor is Zed.
-file_opener = "none"
-
-# Codex adds its own trailer only when a ChatGPT workspace policy asks for it;
-# without one (personal account, API key) nothing is added.
-developer_instructions = "End every commit message with the trailer `Co-authored-by: Codex <noreply@openai.com>`. Keep existing trailers and never duplicate it."
-
-[sandbox_workspace_write]
-network_access = false
-
-[features]
-# The CLI comes from mise, so the in-app updater would write to a different npm
-# prefix than the one on PATH. Upgrade with `mise upgrade npm:@openai/codex`.
-in_app_updates = false
-memories = true
-multi_agent_v2 = true
-
-[agents]
-# Counts the root thread, so four concurrent subagents. Cannot be combined with
-# the v1 `agents.max_threads`.
-max_concurrent_threads_per_session = 5
-
-[tui]
-status_line = ["model-with-reasoning", "git-branch", "context-used", "five-hour-limit", "weekly-limit"]
-theme = "catppuccin-mocha"
-notifications = true
-notification_condition = "unfocused"
+[plugins."base@codex-plugins"]
+enabled = true
