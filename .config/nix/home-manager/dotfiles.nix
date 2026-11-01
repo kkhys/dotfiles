@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   hostSpec,
   ...
 }:
@@ -25,9 +24,6 @@ in
     source = mkLink ".config/${file}";
   });
 
-  # Codex's config.toml is absent on purpose: Codex rewrites ~/.codex/config.toml
-  # in place, so the managed settings ship through the system layer instead
-  # (darwin/codex.nix).
   home.file = {
     # One instruction file for every agent; each tool only reads its own name.
     ".claude/CLAUDE.md".source = mkLink ".config/agents/AGENTS.md";
@@ -35,33 +31,5 @@ in
     ".claude/statusline-command.sh".source = mkLink ".config/claude/statusline-command.sh";
     ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
-  };
-
-  home.activation = {
-    # /etc/codex/config.toml is Codex's lowest-precedence layer, so a key left
-    # in ~/.codex/config.toml silently shadows it.
-    codexConfigShadowCheck = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      userConfig="$HOME/.codex/config.toml"
-      systemConfig="/etc/codex/config.toml"
-      if [ -f "$userConfig" ] && [ -f "$systemConfig" ]; then
-        flattenToml() {
-          ${pkgs.gawk}/bin/awk '
-            /^[[:space:]]*#/ { next }
-            /^[[:space:]]*\[/ { section = $0; gsub(/^[[:space:]]*\[+|\]+[[:space:]]*$/, "", section); next }
-            /^[[:space:]]*[A-Za-z_][A-Za-z0-9_-]*[[:space:]]*=/ {
-              key = $1
-              print (section == "" ? key : section "." key)
-            }
-          ' "$1" | ${pkgs.coreutils}/bin/sort -u
-        }
-        shadowed=$(${pkgs.coreutils}/bin/comm -12 \
-          <(flattenToml "$userConfig") <(flattenToml "$systemConfig"))
-        if [ -n "$shadowed" ]; then
-          echo "warning: $userConfig shadows settings managed in $systemConfig:" >&2
-          echo "$shadowed" | ${pkgs.gnused}/bin/sed 's/^/  /' >&2
-          echo "  The user layer wins. Remove those keys to let the managed values apply." >&2
-        fi
-      fi
-    '';
   };
 }

@@ -7,6 +7,5 @@
     ./home-manager.nix
     ./nix.nix
     ./secrets.nix
-    ./codex.nix
   ];
 }
