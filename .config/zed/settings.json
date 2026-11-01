@@ -13,6 +13,9 @@
     "dock": "left"
   },
   "cursor_blink": false,
+  "edit_predictions": {
+    "provider": "none"
+  },
   "auto_update": false,
   "agent": {
     "dock": "right"
