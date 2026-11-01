@@ -36,6 +36,8 @@ in
     ".codex/config.toml".source = mkLink ".config/codex/${codexConfigFile}";
     ".claude/statusline-command.sh".source = mkLink ".config/claude/statusline-command.sh";
     ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
+    # pi writes through this link too (/model Ctrl+S, /settings), like Codex.
+    ".pi/agent/settings.json".source = mkLink ".config/pi/settings.json";
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
 }
