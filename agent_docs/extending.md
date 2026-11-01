@@ -48,6 +48,17 @@ Edit `.config/nix/home-manager/dotfiles.nix`:
 - Your own skill or MCP server: add it to the `base` plugin of `kkhys/claude-code-marketplace` (Claude Code) or `kkhys/codex-plugins` (Codex) and bump that plugin's version. Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_base_<server>__*` permission entries also live; Codex refreshes its git marketplaces at launch. Nothing in this repo needs to change
 - Codex settings: `.config/codex/config.toml` (personal) and `config-work.toml` (work) are both the declared config and the file Codex writes to through the `~/.codex/config.toml` link; `dotfiles.nix` picks the file by `hostSpec.isWork`, like the Claude settings. Codex has no include, so a setting meant for both hosts is changed in both files. After changing something in Codex (`/model`, `codex plugin add`, trusting a project), review the diff here and commit or revert it. There is no second layer to fall back to, so do not add one under `/etc/codex`
 
+## Change the pi coding agent setup
+
+pi is the `pi` flake input, installed from `home-manager/packages.nix`; `nix flake update pi` moves it. Everything under `.config/pi/` is pi-only and linked into `~/.pi/agent/` by `dotfiles.nix` (`auth.json` and `sessions/` stay outside the repo). Only AGENTS.md is shared with Claude Code and Codex. Skills come from `~/.agents/skills` (see above), so nothing pi-specific is needed for them.
+
+- Settings: `.config/pi/settings.json`. pi writes to it through the link (`/model` + Ctrl+S, `/settings`), so review the diff afterwards like the Codex config
+- Permissions: `.config/pi/permissions.json` holds `deny` and `ask` globs per tool (`bash`, `read`, `edit`, `write`), read by `extensions/permission-gate/`. `*` matches anything in a command and one segment in a path, `**` crosses segments, `~/` and `//` anchor a path. Run `node --test .config/pi/extensions/permission-gate/rules.test.ts` after touching the matcher
+- Extensions: only pi's own code. Copy from `packages/coding-agent/examples/extensions/` in the pinned source (`nix eval --raw --impure --expr '(builtins.getFlake (toString ./.config/nix)).inputs.pi.outPath'`), a file as `extensions/<name>.ts` or a directory as `extensions/<name>/index.ts`; pi discovers one level deep, so helper files and tests live inside a directory. After `nix flake update pi`, diff the copied files against the new examples
+- Subagents and workflow prompts: `.config/pi/agents/*.md` (frontmatter `name`, `description`, `tools`, optional `model`) and `.config/pi/prompts/*.md` (`/name` commands)
+- Model presets: `.config/pi/presets.json`, one entry per `/preset` name; add a provider's entry after its `/login`
+- MCP servers: none yet. Create `.config/pi/mcp.json` and link it as `.pi/agent/mcp.json` in `dotfiles.nix`; set `exposure: "direct"` on a server whose tools the model should see like built-in tools
+
 ## Add a new host
 
 1. Create `.config/nix/hosts/<host>/default.nix` modeled on `hosts/personal/default.nix`. It only sets `hostSpec.{hostName,username,isWork}` and imports a sibling `homebrew.nix` for host-only packages — hostname, primary user, and the `dr` / `drb` / `drc` aliases all derive from `hostSpec` automatically
