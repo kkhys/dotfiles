@@ -12,7 +12,10 @@ sandbox_mode = "workspace-write"
 
 # Approval prompts go to the reviewer subagent instead of a keystroke; the
 # sandbox boundary is unchanged. Needs an interactive approval_policy: under
-# "never" no approval request is raised for the reviewer to see.
+# "never" no approval request is raised for the reviewer to see. Accepted
+# trade-off: the reviewer reads the same tool output as the agent, so content
+# fetched from the web can reach both at once; convenience won over a human
+# in the loop.
 approvals_reviewer = "auto_review"
 
 web_search = "live"
