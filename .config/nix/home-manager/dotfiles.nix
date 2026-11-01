@@ -39,6 +39,7 @@ in
     # pi writes through this link too (/model Ctrl+S, /settings), like Codex.
     ".pi/agent/settings.json".source = mkLink ".config/pi/settings.json";
     ".pi/agent/permissions.json".source = mkLink ".config/pi/permissions.json";
+    ".pi/agent/presets.json".source = mkLink ".config/pi/presets.json";
     ".pi/agent/extensions".source = mkLink ".config/pi/extensions";
     ".pi/agent/agents".source = mkLink ".config/pi/agents";
     ".pi/agent/prompts".source = mkLink ".config/pi/prompts";
