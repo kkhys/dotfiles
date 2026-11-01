@@ -40,6 +40,8 @@ in
     ".pi/agent/settings.json".source = mkLink ".config/pi/settings.json";
     ".pi/agent/permissions.json".source = mkLink ".config/pi/permissions.json";
     ".pi/agent/extensions".source = mkLink ".config/pi/extensions";
+    ".pi/agent/agents".source = mkLink ".config/pi/agents";
+    ".pi/agent/prompts".source = mkLink ".config/pi/prompts";
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
 }
