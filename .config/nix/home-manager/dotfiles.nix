@@ -29,6 +29,7 @@ in
     # One instruction file for every agent; each tool only reads its own name.
     ".claude/CLAUDE.md".source = mkLink ".config/agents/AGENTS.md";
     ".codex/AGENTS.md".source = mkLink ".config/agents/AGENTS.md";
+    ".pi/agent/AGENTS.md".source = mkLink ".config/agents/AGENTS.md";
     # Codex writes through this link (/model, trust, plugin installs), so a
     # change made in Codex lands in the repo as a diff to commit or revert. One
     # file per host: both hosts write state and a shared file conflicted on pull.
