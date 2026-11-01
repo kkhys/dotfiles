@@ -125,7 +125,9 @@ export function pathForms(path: string, fs: FsLike, maxHops = 32): string[] {
 			target = undefined;
 		}
 		if (target !== undefined) {
-			current = isAbsolute(target) ? target : resolve(dirname(current), target);
+			// A relative target is relative to where the link really lives.
+			const parent = canonical(dirname(current), fs, maxHops - hop - 1);
+			current = isAbsolute(target) ? target : resolve(parent, target);
 			forms.push(join(current, ...tail));
 			continue;
 		}
@@ -135,6 +137,12 @@ export function pathForms(path: string, fs: FsLike, maxHops = 32): string[] {
 		current = parent;
 	}
 	return [...new Set(forms)];
+}
+
+/** The last form of a path: its canonical path, or the path itself when nothing resolves. */
+export function canonical(path: string, fs: FsLike, maxHops = 32): string {
+	const forms = pathForms(path, fs, maxHops);
+	return forms[forms.length - 1];
 }
 
 /**
@@ -169,6 +177,12 @@ export function withCanonicalPrefixes(rules: Rules, home: string, realpath: (p: 
 	return out;
 }
 
+function isSameOrBelow(path: string, directory: string, ignoreCase?: boolean): boolean {
+	const fold = (s: string) => (ignoreCase ? s.toLowerCase() : s);
+	const prefix = directory.endsWith("/") ? directory : `${directory}/`;
+	return fold(path) === fold(directory) || fold(path).startsWith(fold(prefix));
+}
+
 function firstMatch(
 	subjects: string[],
 	patterns: string[],
@@ -200,7 +214,7 @@ export function decide(rules: Rules, tool: Tool, subjects: string[], options: Ma
 			for (const pattern of patterns) {
 				const dir = literalDirectory(pattern, options.home);
 				if (dir === undefined) continue;
-				const subject = subjects.find((s) => dir === s || dir.startsWith(`${s}/`));
+				const subject = subjects.find((s) => isSameOrBelow(dir, s, options.ignoreCase));
 				if (subject !== undefined) return { decision, pattern, subject };
 			}
 		}

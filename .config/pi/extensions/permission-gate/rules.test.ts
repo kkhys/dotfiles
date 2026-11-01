@@ -116,7 +116,10 @@ test("directory: a rule rooted under the directory applies to it", () => {
 	assert.equal(decide(rules, "read", ["/Users/me/.ssh"], dir)?.decision, "deny");
 	assert.equal(decide(rules, "read", ["/Users/me"], dir)?.decision, "deny");
 	assert.equal(decide(rules, "read", ["/run"], dir)?.decision, "deny");
+	assert.equal(decide(rules, "read", ["/"], dir)?.decision, "deny");
+	assert.equal(decide(rules, "read", ["/users/ME/.SSH"], { ...dir, ignoreCase: true })?.decision, "deny");
 	assert.equal(decide(rules, "read", ["/Users/me/projects"], dir), undefined);
+	assert.equal(decide(rules, "read", ["/Users/me/.sshd"], dir), undefined);
 	assert.equal(decide(rules, "read", ["/Users/me/.ssh"], opts), undefined);
 });
 
@@ -173,6 +176,13 @@ test("pathForms: a dangling symlink yields its target so a write through it is s
 	assert.equal(decide(rules, "read", pathForms("/repo/key", fs), opts), undefined);
 	const sshRules: Rules = { deny: { write: ["~/.ssh/**"] } };
 	assert.equal(decide(sshRules, "write", pathForms("/repo/key", fs), opts)?.decision, "deny");
+});
+
+test("pathForms: a relative dangling link under a symlinked parent resolves against the real parent", () => {
+	const fs = fakeFs({ "/repo": "/elsewhere/repo", "/elsewhere/repo": "/elsewhere/repo", "/elsewhere": "/elsewhere", "/": "/" }, {
+		"/repo/key": "../.ssh/newkey",
+	});
+	assert.deepEqual(pathForms("/repo/key", fs), ["/repo/key", "/elsewhere/.ssh/newkey"]);
 });
 
 test("pathForms: a symlink loop stops at the hop limit", () => {
