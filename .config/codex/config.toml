@@ -1,0 +1,4 @@
+# ~/.codex/config.toml links here and Codex writes through the link (/model,
+# project trust, plugin installs, hook trust), so a change made in Codex shows
+# up as a diff in this repo: commit it or revert it. Keep this the only layer;
+# anything in /etc/codex/config.toml is shadowed by what Codex writes here.

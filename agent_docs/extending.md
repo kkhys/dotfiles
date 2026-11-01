@@ -45,7 +45,8 @@ Edit `.config/nix/home-manager/dotfiles.nix`:
 ## Add an agent skill or MCP server
 
 - A third-party skill: add a `flake = false` input for its repository in `.config/nix/flake.nix` (see `skills-gh-stack`), then map the skill name to the directory holding its `SKILL.md` in `skills` in `.config/nix/home-manager/skills.nix`. It is linked into both `~/.agents/skills` (Codex) and `~/.claude/skills` (Claude Code); like the Homebrew taps, `nix flake update` is what moves it
-- Your own skill or MCP server: add it to the `base` plugin of `kkhys/claude-code-marketplace` and bump that plugin's version. Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_base_<server>__*` permission entries also live; nothing in this repo needs to change
+- Your own skill or MCP server: add it to the `base` plugin of `kkhys/claude-code-marketplace` (Claude Code) or `kkhys/codex-plugins` (Codex) and bump that plugin's version. Claude Code picks it up through `enabledPlugins` in `.config/claude/settings*.json`, where the `mcp__plugin_base_<server>__*` permission entries also live; Codex refreshes its git marketplaces at launch. Nothing in this repo needs to change
+- Codex settings: `.config/codex/config.toml` is both the declared config and the file Codex writes to through the `~/.codex/config.toml` link. After changing something in Codex (`/model`, `codex plugin add`, trusting a project), review the diff here and commit or revert it. There is no second layer to fall back to, so do not add one under `/etc/codex`
 
 ## Add a new host
 

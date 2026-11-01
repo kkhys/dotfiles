@@ -28,6 +28,9 @@ in
     # One instruction file for every agent; each tool only reads its own name.
     ".claude/CLAUDE.md".source = mkLink ".config/agents/AGENTS.md";
     ".codex/AGENTS.md".source = mkLink ".config/agents/AGENTS.md";
+    # Codex writes through this link (/model, trust, plugin installs), so a
+    # change made in Codex lands in the repo as a diff to commit or revert.
+    ".codex/config.toml".source = mkLink ".config/codex/config.toml";
     ".claude/statusline-command.sh".source = mkLink ".config/claude/statusline-command.sh";
     ".claude/settings.json".source = mkLink ".config/claude/${claudeSettingsFile}";
     ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
