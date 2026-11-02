@@ -12,6 +12,7 @@
       "grok-bot"
       "microsoft-edge"
       "openvpn-connect"
+      "anomalyco/tap/hex"
     ];
   };
 }

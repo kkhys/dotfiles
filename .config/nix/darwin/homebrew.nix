@@ -26,6 +26,7 @@
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
       "datadog-labs/homebrew-pack" = inputs.homebrew-datadog;
       "stablyai/homebrew-orca" = inputs.homebrew-orca;
+      "anomalyco/homebrew-tap" = inputs.homebrew-anomalyco;
     };
     mutableTaps = true;
   };

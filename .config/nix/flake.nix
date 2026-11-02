@@ -40,6 +40,10 @@
       url = "github:stablyai/homebrew-orca";
       flake = false;
     };
+    homebrew-anomalyco = {
+      url = "github:anomalyco/homebrew-tap";
+      flake = false;
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
