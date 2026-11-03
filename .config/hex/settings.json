@@ -187,7 +187,10 @@
     "parakeet_ultra": false,
     "standalone_special_keys": false,
     "history_stats": false,
-    "recent_dictations": false
+    "recent_dictations": false,
+    "skip_pauses": false,
+    "stop_when_call_ends": false,
+    "output_fixes": false
   },
   "enable_on_launch": true,
   "paste_with_shift": false,
@@ -198,7 +201,1090 @@
   "updates": {
     "channel": null
   },
-  "vocabulary": [],
+  "vocabulary": [
+    {
+      "term": "MiiTel",
+      "sounds_like": [
+        "Militel",
+        "ミーテル",
+        "ミーテール",
+        "Mitel",
+        "Meetel",
+        "Mytel",
+        "ミィテル"
+      ]
+    },
+    {
+      "term": "OpenCode",
+      "sounds_like": [
+        "オープンコード",
+        "Open Code"
+      ]
+    },
+    {
+      "term": "Claude Code",
+      "sounds_like": [
+        "クロードコード",
+        "クロード コード"
+      ]
+    },
+    {
+      "term": "Codex",
+      "sounds_like": [
+        "コーデックス"
+      ]
+    },
+    {
+      "term": "MiiTel Phone",
+      "sounds_like": [
+        "ミーテルフォン",
+        "ミーテルホン",
+        "Militel Phone",
+        "MiiTelフォン"
+      ]
+    },
+    {
+      "term": "MiiTel Analytics",
+      "sounds_like": [
+        "ミーテルアナリティクス",
+        "Militel Analytics"
+      ]
+    },
+    {
+      "term": "MiiTel Admin",
+      "sounds_like": [
+        "ミーテルアドミン",
+        "Militel Admin"
+      ]
+    },
+    {
+      "term": "MiiTel Call Center",
+      "sounds_like": [
+        "ミーテルコールセンター",
+        "Militel Call Center"
+      ]
+    },
+    {
+      "term": "MiiTel Desktop",
+      "sounds_like": [
+        "ミーテルデスクトップ"
+      ]
+    },
+    {
+      "term": "RevComm",
+      "sounds_like": [
+        "レブコム",
+        "レヴコム",
+        "Revcom",
+        "Rev Comm"
+      ]
+    },
+    {
+      "term": "Softphone",
+      "sounds_like": [
+        "ソフトフォン",
+        "ソフトホン",
+        "Soft Phone"
+      ]
+    },
+    {
+      "term": "PBX",
+      "sounds_like": [
+        "ピービーエックス",
+        "PVX"
+      ]
+    },
+    {
+      "term": "SIP",
+      "sounds_like": [
+        "シップ"
+      ]
+    },
+    {
+      "term": "WebRTC",
+      "sounds_like": [
+        "ウェブアールティーシー",
+        "Web RTC"
+      ]
+    },
+    {
+      "term": "Asterisk",
+      "sounds_like": [
+        "アスタリスク"
+      ]
+    },
+    {
+      "term": "Salesforce",
+      "sounds_like": [
+        "セールスフォース",
+        "Sales Force"
+      ]
+    },
+    {
+      "term": "HubSpot",
+      "sounds_like": [
+        "ハブスポット",
+        "Hub Spot"
+      ]
+    },
+    {
+      "term": "Open CTI",
+      "sounds_like": [
+        "オープンCTI",
+        "オープンシーティーアイ",
+        "OpenCTI"
+      ]
+    },
+    {
+      "term": "Lightning",
+      "sounds_like": [
+        "ライトニング"
+      ]
+    },
+    {
+      "term": "Electron",
+      "sounds_like": [
+        "エレクトロン"
+      ]
+    },
+    {
+      "term": "Chrome 拡張",
+      "sounds_like": [
+        "クローム拡張",
+        "クロム拡張",
+        "Chrome拡張"
+      ]
+    },
+    {
+      "term": "Chrome",
+      "sounds_like": [
+        "クローム",
+        "クロム"
+      ]
+    },
+    {
+      "term": "Realtime Talk Assist",
+      "sounds_like": [
+        "リアルタイムトークアシスト"
+      ]
+    },
+    {
+      "term": "isviz",
+      "sounds_like": [
+        "イズビズ",
+        "イスビズ"
+      ]
+    },
+    {
+      "term": "Copilot",
+      "sounds_like": [
+        "コパイロット",
+        "コーパイロット",
+        "Co-pilot"
+      ]
+    },
+    {
+      "term": "EMBus",
+      "sounds_like": [
+        "イーエムバス",
+        "EM Bus"
+      ]
+    },
+    {
+      "term": "GitHub",
+      "sounds_like": [
+        "ギットハブ",
+        "Git Hub"
+      ]
+    },
+    {
+      "term": "Slack",
+      "sounds_like": [
+        "スラック",
+        "スラッグ"
+      ]
+    },
+    {
+      "term": "Notion",
+      "sounds_like": [
+        "ノーション",
+        "Lotion",
+        "ノション"
+      ]
+    },
+    {
+      "term": "Datadog",
+      "sounds_like": [
+        "データドッグ",
+        "Data Dog"
+      ]
+    },
+    {
+      "term": "Sentry",
+      "sounds_like": [
+        "セントリー",
+        "セントリ"
+      ]
+    },
+    {
+      "term": "Devin",
+      "sounds_like": [
+        "デビン",
+        "デヴィン"
+      ]
+    },
+    {
+      "term": "DeepWiki",
+      "sounds_like": [
+        "ディープウィキ",
+        "Deep Wiki"
+      ]
+    },
+    {
+      "term": "Playwright",
+      "sounds_like": [
+        "プレイライト",
+        "プレーライト",
+        "Play Write",
+        "Playwrite"
+      ]
+    },
+    {
+      "term": "Vitest",
+      "sounds_like": [
+        "ヴィーテスト",
+        "ビーテスト",
+        "ビテスト",
+        "ヴィテスト",
+        "V-test",
+        "Vtest"
+      ]
+    },
+    {
+      "term": "pnpm",
+      "sounds_like": [
+        "ピーエヌピーエム"
+      ]
+    },
+    {
+      "term": "oxlint",
+      "sounds_like": [
+        "オックスリント",
+        "オクスリント",
+        "ox lint",
+        "オイクスリン",
+        "oxline"
+      ]
+    },
+    {
+      "term": "TypeScript",
+      "sounds_like": [
+        "タイプスクリプト",
+        "Type Script"
+      ]
+    },
+    {
+      "term": "JavaScript",
+      "sounds_like": [
+        "ジャバスクリプト",
+        "ジャヴァスクリプト"
+      ]
+    },
+    {
+      "term": "React",
+      "sounds_like": [
+        "リアクト"
+      ]
+    },
+    {
+      "term": "Storybook",
+      "sounds_like": [
+        "ストーリーブック",
+        "Story Book"
+      ]
+    },
+    {
+      "term": "Figma",
+      "sounds_like": [
+        "フィグマ"
+      ]
+    },
+    {
+      "term": "Qase",
+      "sounds_like": [
+        "Kase",
+        "Qaase"
+      ]
+    },
+    {
+      "term": "Dependabot",
+      "sounds_like": [
+        "ディペンダボット",
+        "デペンダボット",
+        "Dependa bot"
+      ]
+    },
+    {
+      "term": "Renovate",
+      "sounds_like": [
+        "リノベート"
+      ]
+    },
+    {
+      "term": "SonarQube",
+      "sounds_like": [
+        "ソナーキューブ",
+        "ソナキューブ",
+        "Sonar Cube",
+        "ソナアキューブ"
+      ]
+    },
+    {
+      "term": "Cursor",
+      "sounds_like": [
+        "カーソル"
+      ]
+    },
+    {
+      "term": "Claude",
+      "sounds_like": [
+        "クロード"
+      ]
+    },
+    {
+      "term": "Anthropic",
+      "sounds_like": [
+        "アンソロピック",
+        "アントロピック"
+      ]
+    },
+    {
+      "term": "OpenAI",
+      "sounds_like": [
+        "オープンエーアイ",
+        "オープンAI",
+        "Open AI"
+      ]
+    },
+    {
+      "term": "Orca",
+      "sounds_like": [
+        "オルカ"
+      ]
+    },
+    {
+      "term": "mise",
+      "sounds_like": [
+        "ミーズ"
+      ]
+    },
+    {
+      "term": "Homebrew",
+      "sounds_like": [
+        "ホームブリュー",
+        "ホームブルー",
+        "Home Brew"
+      ]
+    },
+    {
+      "term": "Terraform",
+      "sounds_like": [
+        "テラフォーム"
+      ]
+    },
+    {
+      "term": "Homer",
+      "sounds_like": [
+        "ホーマー",
+        "ホームアー"
+      ]
+    },
+    {
+      "term": "Zscaler",
+      "sounds_like": [
+        "ジースケーラー",
+        "ゼットスケーラー",
+        "Z Scaler"
+      ]
+    },
+    {
+      "term": "Autify",
+      "sounds_like": [
+        "オーティファイ",
+        "オートファイ"
+      ]
+    },
+    {
+      "term": "Shokz",
+      "sounds_like": [
+        "ショックス"
+      ]
+    },
+    {
+      "term": "Jotai",
+      "sounds_like": [
+        "ジョータイ"
+      ]
+    },
+    {
+      "term": "TanStack",
+      "sounds_like": [
+        "タンスタック",
+        "Tan Stack"
+      ]
+    },
+    {
+      "term": "MSW",
+      "sounds_like": [
+        "エムエスダブリュー"
+      ]
+    },
+    {
+      "term": "sip.js",
+      "sounds_like": [
+        "シップジェイエス",
+        "SIP JS",
+        "sipjs"
+      ]
+    },
+    {
+      "term": "Zapier",
+      "sounds_like": [
+        "ザピアー",
+        "ザピエ",
+        "ザピア"
+      ]
+    },
+    {
+      "term": "Bedrock",
+      "sounds_like": [
+        "ベッドロック"
+      ]
+    },
+    {
+      "term": "OpenFeature",
+      "sounds_like": [
+        "オープンフィーチャー",
+        "Open Feature"
+      ]
+    },
+    {
+      "term": "GraphQL",
+      "sounds_like": [
+        "グラフキューエル",
+        "Graph QL"
+      ]
+    },
+    {
+      "term": "WebSocket",
+      "sounds_like": [
+        "ウェブソケット",
+        "Web Socket"
+      ]
+    },
+    {
+      "term": "BigQuery",
+      "sounds_like": [
+        "ビッグクエリ",
+        "Big Query"
+      ]
+    },
+    {
+      "term": "Hex",
+      "sounds_like": [
+        "ヘックス"
+      ]
+    },
+    {
+      "term": "Whisper",
+      "sounds_like": [
+        "ウィスパー"
+      ]
+    },
+    {
+      "term": "Parakeet",
+      "sounds_like": [
+        "パラキート"
+      ]
+    },
+    {
+      "term": "Gemini",
+      "sounds_like": [
+        "ジェミニ"
+      ]
+    },
+    {
+      "term": "Docker",
+      "sounds_like": [
+        "ドッカー"
+      ]
+    },
+    {
+      "term": "AWS",
+      "sounds_like": [
+        "エーダブリューエス",
+        "エーダブルエス"
+      ]
+    },
+    {
+      "term": "Zendesk",
+      "sounds_like": [
+        "ゼンデスク"
+      ]
+    },
+    {
+      "term": "Semantic UI",
+      "sounds_like": [
+        "セマンティックUI",
+        "セマンティックユーアイ"
+      ]
+    },
+    {
+      "term": "textlint",
+      "sounds_like": [
+        "テキストリント"
+      ]
+    },
+    {
+      "term": "commitlint",
+      "sounds_like": [
+        "コミットリント"
+      ]
+    },
+    {
+      "term": "Lefthook",
+      "sounds_like": [
+        "レフトフック"
+      ]
+    },
+    {
+      "term": "Conventional Commits",
+      "sounds_like": [
+        "コンベンショナルコミット",
+        "コンベンショナルコミッツ"
+      ]
+    },
+    {
+      "term": "Picture-in-Picture",
+      "sounds_like": [
+        "ピクチャーインピクチャー",
+        "ピクチャインピクチャ"
+      ]
+    },
+    {
+      "term": "PiP",
+      "sounds_like": [
+        "ピップ"
+      ]
+    },
+    {
+      "term": "Snackbar",
+      "sounds_like": [
+        "スナックバー"
+      ]
+    },
+    {
+      "term": "RecPod",
+      "sounds_like": [
+        "レックポッド",
+        "Rec Pod"
+      ]
+    },
+    {
+      "term": "Nitro",
+      "sounds_like": [
+        "ニトロ"
+      ]
+    },
+    {
+      "term": "Omni-Channel",
+      "sounds_like": [
+        "オムニチャネル",
+        "オムニチャンネル"
+      ]
+    },
+    {
+      "term": "OAuth",
+      "sounds_like": [
+        "オーオース",
+        "オーアウス"
+      ]
+    },
+    {
+      "term": "macOS",
+      "sounds_like": [
+        "マックオーエス",
+        "マックOS",
+        "Mac OS"
+      ]
+    },
+    {
+      "term": "Windows",
+      "sounds_like": [
+        "ウィンドウズ"
+      ]
+    },
+    {
+      "term": "Safari",
+      "sounds_like": [
+        "サファリ"
+      ]
+    },
+    {
+      "term": "Firefox",
+      "sounds_like": [
+        "ファイアフォックス",
+        "ファイヤーフォックス"
+      ]
+    },
+    {
+      "term": "Chromium",
+      "sounds_like": [
+        "クロミウム"
+      ]
+    },
+    {
+      "term": "JSON",
+      "sounds_like": [
+        "ジェイソン"
+      ]
+    },
+    {
+      "term": "YAML",
+      "sounds_like": [
+        "ヤムル",
+        "ヤメル"
+      ]
+    },
+    {
+      "term": "Markdown",
+      "sounds_like": [
+        "マークダウン"
+      ]
+    },
+    {
+      "term": "npm",
+      "sounds_like": [
+        "エヌピーエム"
+      ]
+    },
+    {
+      "term": "Git",
+      "sounds_like": [
+        "ギット"
+      ]
+    },
+    {
+      "term": "worktree",
+      "sounds_like": [
+        "ワークツリー",
+        "work tree"
+      ]
+    },
+    {
+      "term": "rebase",
+      "sounds_like": [
+        "リベース"
+      ]
+    },
+    {
+      "term": "squash",
+      "sounds_like": [
+        "スカッシュ"
+      ]
+    },
+    {
+      "term": "cherry-pick",
+      "sounds_like": [
+        "チェリーピック"
+      ]
+    },
+    {
+      "term": "stacked PR",
+      "sounds_like": [
+        "スタックPR",
+        "スタックドPR",
+        "スタックピーアール"
+      ]
+    },
+    {
+      "term": "Release Drafter",
+      "sounds_like": [
+        "リリースドラフター"
+      ]
+    },
+    {
+      "term": "CSS Modules",
+      "sounds_like": [
+        "シーエスエスモジュール",
+        "CSSモジュール"
+      ]
+    },
+    {
+      "term": "Atomic Design",
+      "sounds_like": [
+        "アトミックデザイン"
+      ]
+    },
+    {
+      "term": "PR",
+      "sounds_like": [
+        "ピーアール"
+      ]
+    },
+    {
+      "term": "QA",
+      "sounds_like": [
+        "キューエー"
+      ]
+    },
+    {
+      "term": "CI",
+      "sounds_like": [
+        "シーアイ"
+      ]
+    },
+    {
+      "term": "E2E",
+      "sounds_like": [
+        "イーツーイー",
+        "E to E",
+        "EtoE"
+      ]
+    },
+    {
+      "term": "ACW",
+      "sounds_like": [
+        "エーシーダブリュー",
+        "エーシーダブル"
+      ]
+    },
+    {
+      "term": "API",
+      "sounds_like": [
+        "エーピーアイ"
+      ]
+    },
+    {
+      "term": "UI",
+      "sounds_like": [
+        "ユーアイ"
+      ]
+    },
+    {
+      "term": "MCP",
+      "sounds_like": [
+        "エムシーピー"
+      ]
+    },
+    {
+      "term": "LLM",
+      "sounds_like": [
+        "エルエルエム"
+      ]
+    },
+    {
+      "term": "RTA",
+      "sounds_like": [
+        "アールティーエー"
+      ]
+    },
+    {
+      "term": "TECM",
+      "sounds_like": [
+        "テックエム",
+        "テクム",
+        "テッケム"
+      ]
+    },
+    {
+      "term": "PDQ",
+      "sounds_like": [
+        "ピーディーキュー"
+      ]
+    },
+    {
+      "term": "C2C",
+      "sounds_like": [
+        "シーツーシー"
+      ]
+    },
+    {
+      "term": "CTI",
+      "sounds_like": [
+        "シーティーアイ"
+      ]
+    },
+    {
+      "term": "SFDC",
+      "sounds_like": [
+        "エスエフディーシー"
+      ]
+    },
+    {
+      "term": "DTMF",
+      "sounds_like": [
+        "ディーティーエムエフ"
+      ]
+    },
+    {
+      "term": "IVR",
+      "sounds_like": [
+        "アイブイアール"
+      ]
+    },
+    {
+      "term": "ACD",
+      "sounds_like": [
+        "エーシーディー"
+      ]
+    },
+    {
+      "term": "HID",
+      "sounds_like": [
+        "エイチアイディー"
+      ]
+    },
+    {
+      "term": "SSE",
+      "sounds_like": [
+        "エスエスイー"
+      ]
+    },
+    {
+      "term": "RUM",
+      "sounds_like": [
+        "ラム"
+      ]
+    },
+    {
+      "term": "OTEL",
+      "sounds_like": [
+        "オーテル",
+        "オテル"
+      ]
+    },
+    {
+      "term": "v3",
+      "sounds_like": [
+        "ブイスリー"
+      ]
+    },
+    {
+      "term": "v2",
+      "sounds_like": [
+        "ブイツー"
+      ]
+    },
+    {
+      "term": "i18n",
+      "sounds_like": [
+        "アイエイティーンエヌ",
+        "アイイチハチエヌ"
+      ]
+    },
+    {
+      "term": "Fable",
+      "sounds_like": [
+        "フェイブル",
+        "フェーブル"
+      ]
+    },
+    {
+      "term": "Opus",
+      "sounds_like": [
+        "オーパス"
+      ]
+    },
+    {
+      "term": "Sonnet",
+      "sounds_like": [
+        "ソネット"
+      ]
+    },
+    {
+      "term": "Haiku",
+      "sounds_like": [
+        "ハイク"
+      ]
+    },
+    {
+      "term": "Apollo",
+      "sounds_like": [
+        "アポロ"
+      ]
+    },
+    {
+      "term": "WXT",
+      "sounds_like": [
+        "ダブリューエックスティー"
+      ]
+    },
+    {
+      "term": "Nix",
+      "sounds_like": [
+        "ニックス"
+      ]
+    },
+    {
+      "term": "Jest",
+      "sounds_like": [
+        "ジェスト"
+      ]
+    },
+    {
+      "term": "Vite",
+      "sounds_like": [
+        "ヴィート"
+      ]
+    },
+    {
+      "term": "Prettier",
+      "sounds_like": [
+        "プリティア"
+      ]
+    },
+    {
+      "term": "ESLint",
+      "sounds_like": [
+        "イーエスリント",
+        "ES Lint"
+      ]
+    },
+    {
+      "term": "Claude in Chrome",
+      "sounds_like": [
+        "クロードインクローム",
+        "Cloud in Chrome",
+        "Code in Chrome"
+      ]
+    },
+    {
+      "term": "pinact",
+      "sounds_like": [
+        "ピナクト",
+        "pin act"
+      ]
+    },
+    {
+      "term": "SonarJS",
+      "sounds_like": [
+        "ソナージェイエス",
+        "ソナーJS",
+        "ソナージs",
+        "sonar js"
+      ]
+    },
+    {
+      "term": "Handy",
+      "sounds_like": [
+        "ハンディ"
+      ]
+    },
+    {
+      "term": "Aqua Voice",
+      "sounds_like": [
+        "アクアボイス",
+        "aqau voice",
+        "aquavoice"
+      ]
+    },
+    {
+      "term": "ZenHub",
+      "sounds_like": [
+        "ゼンハブ",
+        "Zen Hub"
+      ]
+    },
+    {
+      "term": "nixd",
+      "sounds_like": [
+        "ニクスディー",
+        "nix d"
+      ]
+    },
+    {
+      "term": "Zed",
+      "sounds_like": [
+        "ゼッド"
+      ]
+    },
+    {
+      "term": "gcloud",
+      "sounds_like": [
+        "ジークラウド",
+        "g cloud"
+      ]
+    },
+    {
+      "term": "Squid",
+      "sounds_like": [
+        "スクイッド"
+      ]
+    },
+    {
+      "term": "ChatGPT",
+      "sounds_like": [
+        "チャットGPT",
+        "チャットジーピーティー",
+        "chat gpt"
+      ]
+    },
+    {
+      "term": "AppCleaner",
+      "sounds_like": [
+        "アップクリーナー",
+        "app cleaner"
+      ]
+    },
+    {
+      "term": "Computer Use",
+      "sounds_like": [
+        "コンピューターユース",
+        "computeruse"
+      ]
+    },
+    {
+      "term": "dotfiles",
+      "sounds_like": [
+        "ドットファイルズ",
+        "ドットファイル",
+        "dot files"
+      ]
+    },
+    {
+      "term": "dependabot-triage",
+      "sounds_like": [
+        "ディペンダボットトリアージ",
+        "dependabot triage"
+      ]
+    },
+    {
+      "term": "RCN",
+      "sounds_like": [
+        "アールシーエヌ"
+      ]
+    },
+    {
+      "term": "KPT",
+      "sounds_like": [
+        "ケーピーティー"
+      ]
+    },
+    {
+      "term": "lcov",
+      "sounds_like": [
+        "エルコブ",
+        "l cov"
+      ]
+    },
+    {
+      "term": "Session Manager",
+      "sounds_like": [
+        "セッションマネージャー"
+      ]
+    }
+  ],
   "vocabulary_boost": "normal",
   "migrations": [
     "streaming-english-model",
