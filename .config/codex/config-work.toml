@@ -65,7 +65,7 @@ notifications = true
 notification_condition = "unfocused"
 
 [tui.model_availability_nux]
-"gpt-6.1-sol" = 1
+"gpt-6.1-sol" = 4
 
 [hooks.state."/Users/keisuke.hayashi/.codex/hooks.json:session_start:0:0"]
 enabled = true
@@ -106,3 +106,14 @@ trusted_hash = "sha256:78b430d1d7794c49e6d83a36964d4082d05ec72023ccc38244e97b8e0
 [projects."/Users/keisuke.hayashi/projects/github.com/kkhys/dotfiles"]
 trust_level = "trusted"
 
+[projects."/Users/keisuke.hayashi/projects/github.com/revcomm/miitel-softphone"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/cormorant"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/anthias"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/mudskipper"]
+trust_level = "trusted"
