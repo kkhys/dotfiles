@@ -86,6 +86,58 @@
         {
           "matched_phrase": "うーんと",
           "output": ""
+        },
+        {
+          "matched_phrase": "常規",
+          "output": "上記"
+        },
+        {
+          "matched_phrase": "記表",
+          "output": "起票"
+        },
+        {
+          "matched_phrase": "出くる",
+          "output": "デグレ"
+        },
+        {
+          "matched_phrase": "蒸気",
+          "output": "上記"
+        },
+        {
+          "matched_phrase": "Cloud in Chrome",
+          "output": "Claude in Chrome"
+        },
+        {
+          "matched_phrase": "Code in Chrome",
+          "output": "Claude in Chrome"
+        },
+        {
+          "matched_phrase": "ホームアー",
+          "output": "Homer"
+        },
+        {
+          "matched_phrase": "Militel",
+          "output": "MiiTel"
+        },
+        {
+          "matched_phrase": "Lotion",
+          "output": "Notion"
+        },
+        {
+          "matched_phrase": "クロードコード",
+          "output": "Claude Code"
+        },
+        {
+          "matched_phrase": "コーデックス",
+          "output": "Codex"
+        },
+        {
+          "matched_phrase": "オープンコード",
+          "output": "OpenCode"
+        },
+        {
+          "matched_phrase": "ご視聴ありがとうございました",
+          "output": ""
         }
       ],
       "transformations": [],
@@ -1282,6 +1334,19 @@
       "term": "Session Manager",
       "sounds_like": [
         "セッションマネージャー"
+      ]
+    },
+    {
+      "term": "cron",
+      "sounds_like": [
+        "クールオン",
+        "空論"
+      ]
+    },
+    {
+      "term": "Predictive Call",
+      "sounds_like": [
+        "プレディクティブコール"
       ]
     }
   ],
