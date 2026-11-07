@@ -18,6 +18,9 @@
         # that mise's npm backend skips, so the registry (aqua) entry is used.
         pnpm = "latest";
         "npm:@openai/codex" = "latest";
+        # recording-pr-qa runs it as playwright-cli; the browser is the Homebrew
+        # Google Chrome (`open --browser=chrome`), so no browser download.
+        "npm:@playwright/cli" = "latest";
       }
       // lib.optionalAttrs hostSpec.isWork {
         "npm:yarn" = "latest";
