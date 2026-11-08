@@ -43,11 +43,8 @@ in
     ".pi/agent/extensions".source = mkLink ".config/pi/extensions";
     ".pi/agent/agents".source = mkLink ".config/pi/agents";
     ".pi/agent/prompts".source = mkLink ".config/pi/prompts";
-    ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
-  }
-  // lib.optionalAttrs hostSpec.isWork {
     # Hex writes through this link (Settings, `hex settings set`), like Codex.
-    # Work only because the cask is; elsewhere the link would dangle.
     "Library/Application Support/hex/settings.json".source = mkLink ".config/hex/settings.json";
+    ".ssh/id_ed25519_github.pub".source = mkLink ".config/nix/secrets/id_ed25519_github.pub";
   };
 }

@@ -15,6 +15,7 @@
       "zed"
       "cleanshot"
       "stablyai/orca/orca"
+      "anomalyco/tap/hex"
     ];
   };
 }
