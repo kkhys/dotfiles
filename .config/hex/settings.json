@@ -138,6 +138,94 @@
         {
           "matched_phrase": "ご視聴ありがとうございました",
           "output": ""
+        },
+        {
+          "matched_phrase": "PVX",
+          "output": "PBX"
+        },
+        {
+          "matched_phrase": "CodeCode",
+          "output": "Claude Code"
+        },
+        {
+          "matched_phrase": "出ぐれ",
+          "output": "デグレ"
+        },
+        {
+          "matched_phrase": "変身案",
+          "output": "返信案"
+        },
+        {
+          "matched_phrase": "着信陣",
+          "output": "着信時"
+        },
+        {
+          "matched_phrase": "スタックとPR",
+          "output": "Stacked PR"
+        },
+        {
+          "matched_phrase": "PDR",
+          "output": "PR"
+        },
+        {
+          "matched_phrase": "常期",
+          "output": "上記"
+        },
+        {
+          "matched_phrase": "出暮れ",
+          "output": "デグレ"
+        },
+        {
+          "matched_phrase": "3両",
+          "output": "3行"
+        },
+        {
+          "matched_phrase": "三両",
+          "output": "三行"
+        },
+        {
+          "matched_phrase": "一両",
+          "output": "一行"
+        },
+        {
+          "matched_phrase": "変身",
+          "output": "返信"
+        },
+        {
+          "matched_phrase": "GroadCode",
+          "output": "Claude Code"
+        },
+        {
+          "matched_phrase": "MiiTel Code",
+          "output": "Claude Code"
+        },
+        {
+          "matched_phrase": "ティックトップ",
+          "output": "デスクトップ"
+        },
+        {
+          "matched_phrase": "デスクとプリリリース",
+          "output": "デスクトップリリース"
+        },
+        {
+          "matched_phrase": "データドック",
+          "output": "Datadog"
+        },
+        {
+          "matched_phrase": "プレイライト",
+          "output": "Playwright"
+        },
+        {
+          "matched_phrase": "クロードインクローム",
+          "output": "Claude in Chrome"
+        },
+        {
+          "matched_phrase": "CII",
+          "output": "CI"
+        },
+        {
+          "matched_phrase": "流度",
+          "output": "粒度"
         }
       ],
       "transformations": [],
@@ -277,7 +365,10 @@
       "term": "Claude Code",
       "sounds_like": [
         "クロードコード",
-        "クロード コード"
+        "クロード コード",
+        "CodeCode",
+        "GroadCode",
+        "MiiTel Code"
       ]
     },
     {
@@ -468,7 +559,8 @@
       "term": "Datadog",
       "sounds_like": [
         "データドッグ",
-        "Data Dog"
+        "Data Dog",
+        "データドック"
       ]
     },
     {
@@ -565,7 +657,8 @@
       "term": "Qase",
       "sounds_like": [
         "Kase",
-        "Qaase"
+        "Qaase",
+        "ケース"
       ]
     },
     {
@@ -1347,6 +1440,37 @@
       "term": "Predictive Call",
       "sounds_like": [
         "プレディクティブコール"
+      ]
+    },
+    {
+      "term": "npx",
+      "sounds_like": [
+        "エヌピーエックス"
+      ]
+    },
+    {
+      "term": "curl",
+      "sounds_like": [
+        "カール"
+      ]
+    },
+    {
+      "term": "Redash",
+      "sounds_like": [
+        "リダッシュ"
+      ]
+    },
+    {
+      "term": "Rex",
+      "sounds_like": [
+        "レックス"
+      ]
+    },
+    {
+      "term": "Ghostty",
+      "sounds_like": [
+        "ゴースティ",
+        "ゴーストティ"
       ]
     }
   ],
