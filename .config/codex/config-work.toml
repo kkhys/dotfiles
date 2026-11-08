@@ -117,3 +117,33 @@ trust_level = "trusted"
 
 [projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/mudskipper"]
 trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/sandtiger"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/weakfish"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/lusca"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/ballyhoo"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/projects/github.com/revcomm/miitel-desktop"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/bowhead"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/projects/github.com/kkhys/codex-plugins"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/marron"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/sablefish"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/taniwha"]
+trust_level = "trusted"
