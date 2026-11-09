@@ -226,6 +226,58 @@
         {
           "matched_phrase": "流度",
           "output": "粒度"
+        },
+        {
+          "matched_phrase": "常見",
+          "output": "上記"
+        },
+        {
+          "matched_phrase": "定期に対する",
+          "output": "上記に対する"
+        },
+        {
+          "matched_phrase": "定期を確認",
+          "output": "上記を確認"
+        },
+        {
+          "matched_phrase": "定期の変更",
+          "output": "上記の変更"
+        },
+        {
+          "matched_phrase": "脳症",
+          "output": "Notion"
+        },
+        {
+          "matched_phrase": "ソフトボーン",
+          "output": "ソフトフォン"
+        },
+        {
+          "matched_phrase": "構数",
+          "output": "工数"
+        },
+        {
+          "matched_phrase": "2両",
+          "output": "2行"
+        },
+        {
+          "matched_phrase": "二両",
+          "output": "二行"
+        },
+        {
+          "matched_phrase": "長ついる",
+          "output": "長すぎる"
+        },
+        {
+          "matched_phrase": "Doodoo",
+          "output": "ToDo"
+        },
+        {
+          "matched_phrase": "DoDo",
+          "output": "ToDo"
+        },
+        {
+          "matched_phrase": "Stacked.pr",
+          "output": "Stacked PR"
         }
       ],
       "transformations": [],
@@ -427,7 +479,8 @@
       "sounds_like": [
         "ソフトフォン",
         "ソフトホン",
-        "Soft Phone"
+        "Soft Phone",
+        "ソフトボーン"
       ]
     },
     {
@@ -552,7 +605,8 @@
       "sounds_like": [
         "ノーション",
         "Lotion",
-        "ノション"
+        "ノション",
+        "脳症"
       ]
     },
     {
@@ -1471,6 +1525,20 @@
       "sounds_like": [
         "ゴースティ",
         "ゴーストティ"
+      ]
+    },
+    {
+      "term": "CloudFront",
+      "sounds_like": [
+        "クラウドフロント",
+        "Cloud Front"
+      ]
+    },
+    {
+      "term": "DevTools",
+      "sounds_like": [
+        "デブツール",
+        "Dev Tools"
       ]
     }
   ],
