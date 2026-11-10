@@ -10,7 +10,6 @@
       "blackhole-2ch"
       "cursor"
       "grok-bot"
-      "microsoft-edge"
       "openvpn-connect"
     ];
   };
