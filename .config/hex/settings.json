@@ -278,6 +278,46 @@
         {
           "matched_phrase": "Stacked.pr",
           "output": "Stacked PR"
+        },
+        {
+          "matched_phrase": "BitHub",
+          "output": "GitHub"
+        },
+        {
+          "matched_phrase": "OOS",
+          "output": "OAuth"
+        },
+        {
+          "matched_phrase": "Playwright.cli",
+          "output": "Playwright CLI"
+        },
+        {
+          "matched_phrase": ".files",
+          "output": "dotfiles"
+        },
+        {
+          "matched_phrase": "レコーディングPRQA",
+          "output": "recording-pr-qa"
+        },
+        {
+          "matched_phrase": "RecordingPR QA",
+          "output": "recording-pr-qa"
+        },
+        {
+          "matched_phrase": "プロリク",
+          "output": "プルリク"
+        },
+        {
+          "matched_phrase": "使用通り",
+          "output": "仕様通り"
+        },
+        {
+          "matched_phrase": "チャットGPT",
+          "output": "ChatGPT"
+        },
+        {
+          "matched_phrase": "スタックドPR",
+          "output": "stacked PR"
         }
       ],
       "transformations": [],
@@ -590,7 +630,8 @@
       "term": "GitHub",
       "sounds_like": [
         "ギットハブ",
-        "Git Hub"
+        "Git Hub",
+        "BitHub"
       ]
     },
     {
@@ -628,7 +669,8 @@
       "term": "Devin",
       "sounds_like": [
         "デビン",
-        "デヴィン"
+        "デヴィン",
+        "デビュー"
       ]
     },
     {
@@ -1006,7 +1048,8 @@
       "term": "OAuth",
       "sounds_like": [
         "オーオース",
-        "オーアウス"
+        "オーアウス",
+        "OOS"
       ]
     },
     {
@@ -1448,7 +1491,8 @@
       "sounds_like": [
         "ドットファイルズ",
         "ドットファイル",
-        "dot files"
+        "dot files",
+        ".files"
       ]
     },
     {
@@ -1539,6 +1583,34 @@
       "sounds_like": [
         "デブツール",
         "Dev Tools"
+      ]
+    },
+    {
+      "term": "Playwright CLI",
+      "sounds_like": [
+        "Playwright.cli",
+        "プレイライトCLI"
+      ]
+    },
+    {
+      "term": "CLI",
+      "sounds_like": [
+        "シーエルアイ"
+      ]
+    },
+    {
+      "term": "recording-pr-qa",
+      "sounds_like": [
+        "レコーディングPRQA",
+        "RecordingPR QA",
+        "recording PR QA"
+      ]
+    },
+    {
+      "term": "codex-plugins",
+      "sounds_like": [
+        "コーデックスプラグインズ",
+        "codex plugins"
       ]
     }
   ],
