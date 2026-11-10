@@ -171,3 +171,27 @@ trust_level = "trusted"
 
 [projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5436-feat-v3-initialize-salesforce-ope"]
 trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6090-fix-acw-confirm-before-saving-an"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5433-feat-v3-fetch-salesforce-settings"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5719-tecm-5434-feat-v3-search-salesfor"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5729-feat-v3-add-the-screen-pop-toggle"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5434-feat-v3-open-the-salesforce-recor"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5729-feat-v3-confirm-click-to-call-bef"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5914-feat-alert-guide-browser-update-o"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5914-feat-alert-guide-browser-update-o-2"]
+trust_level = "trusted"
