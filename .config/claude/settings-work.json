@@ -350,7 +350,7 @@
   "emojiCompletionEnabled": false,
   "autoMemoryEnabled": false,
   "skipWorkflowUsageWarning": true,
-  "theme": "dark",
+  "theme": "custom:orca",
   "teammateMode": "auto",
   "agentPushNotifEnabled": true,
   "voiceEnabled": true
