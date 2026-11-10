@@ -147,3 +147,27 @@ trust_level = "trusted"
 
 [projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/taniwha"]
 trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6302-fix-v3"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/fluke"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/wahoo"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/whelk"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6302-fix-v3-hide-settings-screen-durin"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6276-fix-notify-when-register-after-in"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6323-feat-v3-switch-between-v2-and-v3"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5436-feat-v3-initialize-salesforce-ope"]
+trust_level = "trusted"
