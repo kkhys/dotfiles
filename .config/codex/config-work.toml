@@ -195,3 +195,15 @@ trust_level = "trusted"
 
 [projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5914-feat-alert-guide-browser-update-o-2"]
 trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-5861-feat-enable-norecordingcall-for-a-2"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6336-fix-hubspot-defer-callcompleted-u"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/coelacanth"]
+trust_level = "trusted"
+
+[projects."/Users/keisuke.hayashi/orca/workspaces/miitel-softphone/main-tecm-6014-feat-v3-add-unconfirmed-missed-ca"]
+trust_level = "trusted"
