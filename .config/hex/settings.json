@@ -318,6 +318,94 @@
         {
           "matched_phrase": "スタックドPR",
           "output": "stacked PR"
+        },
+        {
+          "matched_phrase": "Safire",
+          "output": "Safari"
+        },
+        {
+          "matched_phrase": "アプリーブ",
+          "output": "アプルーブ"
+        },
+        {
+          "matched_phrase": "テンプ画像",
+          "output": "添付画像"
+        },
+        {
+          "matched_phrase": "トグロ",
+          "output": "トグル"
+        },
+        {
+          "matched_phrase": "ドグル",
+          "output": "トグル"
+        },
+        {
+          "matched_phrase": "一量",
+          "output": "一行"
+        },
+        {
+          "matched_phrase": "マツビ",
+          "output": "末尾"
+        },
+        {
+          "matched_phrase": "コパイロット",
+          "output": "Copilot"
+        },
+        {
+          "matched_phrase": "データドッグ",
+          "output": "Datadog"
+        },
+        {
+          "matched_phrase": "セールスフォース",
+          "output": "Salesforce"
+        },
+        {
+          "matched_phrase": "ストーリーブック",
+          "output": "Storybook"
+        },
+        {
+          "matched_phrase": "レコーディングQPRQA",
+          "output": "recording-pr-qa"
+        },
+        {
+          "matched_phrase": "Playwright, CLI",
+          "output": "Playwright CLI"
+        },
+        {
+          "matched_phrase": "SonaCube",
+          "output": "SonarQube"
+        },
+        {
+          "matched_phrase": "SonaJS",
+          "output": "SonarJS"
+        },
+        {
+          "matched_phrase": "Sona.js",
+          "output": "SonarJS"
+        },
+        {
+          "matched_phrase": "Devian",
+          "output": "Devin"
+        },
+        {
+          "matched_phrase": "終字",
+          "output": "週次"
+        },
+        {
+          "matched_phrase": "PI本文",
+          "output": "PR本文"
+        },
+        {
+          "matched_phrase": "March前",
+          "output": "マージ前"
+        },
+        {
+          "matched_phrase": "LeftHook",
+          "output": "Lefthook"
+        },
+        {
+          "matched_phrase": "PinAct",
+          "output": "pinact"
         }
       ],
       "transformations": [],
@@ -670,7 +758,8 @@
       "sounds_like": [
         "デビン",
         "デヴィン",
-        "デビュー"
+        "デビュー",
+        "Devian"
       ]
     },
     {
@@ -777,7 +866,8 @@
         "ソナーキューブ",
         "ソナキューブ",
         "Sonar Cube",
-        "ソナアキューブ"
+        "ソナアキューブ",
+        "SonaCube"
       ]
     },
     {
@@ -1069,7 +1159,8 @@
     {
       "term": "Safari",
       "sounds_like": [
-        "サファリ"
+        "サファリ",
+        "Safire"
       ]
     },
     {
@@ -1414,7 +1505,9 @@
         "ソナージェイエス",
         "ソナーJS",
         "ソナージs",
-        "sonar js"
+        "sonar js",
+        "SonaJS",
+        "Sona.js"
       ]
     },
     {
@@ -1603,7 +1696,8 @@
       "sounds_like": [
         "レコーディングPRQA",
         "RecordingPR QA",
-        "recording PR QA"
+        "recording PR QA",
+        "レコーディングQPRQA"
       ]
     },
     {
@@ -1611,6 +1705,33 @@
       "sounds_like": [
         "コーデックスプラグインズ",
         "codex plugins"
+      ]
+    },
+    {
+      "term": "Microsoft",
+      "sounds_like": [
+        "マイクロソフト"
+      ]
+    },
+    {
+      "term": "Microsoft Authenticator",
+      "sounds_like": [
+        "マイクロソフトオーセンティケーター",
+        "Microsoft オーセンティケーター"
+      ]
+    },
+    {
+      "term": "Softphone Tasks",
+      "sounds_like": [
+        "ソフトフォンタスク",
+        "ソフトフォンタスクス"
+      ]
+    },
+    {
+      "term": "Click to Call",
+      "sounds_like": [
+        "クリックトゥコール",
+        "クリックツーコール"
       ]
     }
   ],
