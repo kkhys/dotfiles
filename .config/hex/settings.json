@@ -406,6 +406,54 @@
         {
           "matched_phrase": "PinAct",
           "output": "pinact"
+        },
+        {
+          "matched_phrase": "NitHubActions",
+          "output": "GitHub Actions"
+        },
+        {
+          "matched_phrase": "PlaywrightCLI",
+          "output": "Playwright CLI"
+        },
+        {
+          "matched_phrase": "Recording.prqa",
+          "output": "recording-pr-qa"
+        },
+        {
+          "matched_phrase": "CleanShotX",
+          "output": "CleanShot X"
+        },
+        {
+          "matched_phrase": "レートドッグ",
+          "output": "Datadog"
+        },
+        {
+          "matched_phrase": "デビン",
+          "output": "Devin"
+        },
+        {
+          "matched_phrase": "マイクロソフト",
+          "output": "Microsoft"
+        },
+        {
+          "matched_phrase": "をマーチ",
+          "output": "をマージ"
+        },
+        {
+          "matched_phrase": "帰り履歴",
+          "output": "会議履歴"
+        },
+        {
+          "matched_phrase": "提携文",
+          "output": "定型文"
+        },
+        {
+          "matched_phrase": "神吹雪",
+          "output": "紙吹雪"
+        },
+        {
+          "matched_phrase": "これぞれ",
+          "output": "それぞれ"
         }
       ],
       "transformations": [],
@@ -735,7 +783,8 @@
         "ノーション",
         "Lotion",
         "ノション",
-        "脳症"
+        "脳症",
+        "Motion"
       ]
     },
     {
@@ -743,7 +792,8 @@
       "sounds_like": [
         "データドッグ",
         "Data Dog",
-        "データドック"
+        "データドック",
+        "レートドッグ"
       ]
     },
     {
@@ -759,7 +809,8 @@
         "デビン",
         "デヴィン",
         "デビュー",
-        "Devian"
+        "Devian",
+        "デビリ"
       ]
     },
     {
@@ -1682,7 +1733,8 @@
       "term": "Playwright CLI",
       "sounds_like": [
         "Playwright.cli",
-        "プレイライトCLI"
+        "プレイライトCLI",
+        "PlaywrightCLI"
       ]
     },
     {
@@ -1697,7 +1749,8 @@
         "レコーディングPRQA",
         "RecordingPR QA",
         "recording PR QA",
-        "レコーディングQPRQA"
+        "レコーディングQPRQA",
+        "Recording.prqa"
       ]
     },
     {
@@ -1732,6 +1785,105 @@
       "sounds_like": [
         "クリックトゥコール",
         "クリックツーコール"
+      ]
+    },
+    {
+      "term": "Google",
+      "sounds_like": [
+        "グーグル"
+      ]
+    },
+    {
+      "term": "TOTP",
+      "sounds_like": [
+        "ティーオーティーピー"
+      ]
+    },
+    {
+      "term": "Findy Team+",
+      "sounds_like": [
+        "Finding Team Plus",
+        "Finding Gen Plus",
+        "FindHitInPlus",
+        "ファインディチームプラス"
+      ]
+    },
+    {
+      "term": "Keeper",
+      "sounds_like": [
+        "キーパー"
+      ]
+    },
+    {
+      "term": "Keeper Commander",
+      "sounds_like": [
+        "キーパーコマンダー",
+        "keeper-commander"
+      ]
+    },
+    {
+      "term": "KSM",
+      "sounds_like": [
+        "ケーエスエム"
+      ]
+    },
+    {
+      "term": "ADR",
+      "sounds_like": [
+        "エーディーアール"
+      ]
+    },
+    {
+      "term": "agenix",
+      "sounds_like": [
+        "エージェニックス",
+        "エイジニックス"
+      ]
+    },
+    {
+      "term": "agent-browser",
+      "sounds_like": [
+        "エージェントブラウザー",
+        "エージェントブラウザ",
+        "agent browser"
+      ]
+    },
+    {
+      "term": "Vercel",
+      "sounds_like": [
+        "バーセル",
+        "ヴァーセル"
+      ]
+    },
+    {
+      "term": "publishing-pr",
+      "sounds_like": [
+        "パブリッシュPR",
+        "パブリッシングPR",
+        "publishing PR"
+      ]
+    },
+    {
+      "term": "recording-qase-qa",
+      "sounds_like": [
+        "レコーディングケースQA",
+        "recording qase qa"
+      ]
+    },
+    {
+      "term": "GitHub Actions",
+      "sounds_like": [
+        "ギットハブアクションズ",
+        "NitHubActions",
+        "GitHubActions"
+      ]
+    },
+    {
+      "term": "CleanShot X",
+      "sounds_like": [
+        "クリーンショットX",
+        "CleanShotX",
+        "クリーンショット"
       ]
     }
   ],
