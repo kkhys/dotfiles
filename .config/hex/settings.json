@@ -454,6 +454,42 @@
         {
           "matched_phrase": "これぞれ",
           "output": "それぞれ"
+        },
+        {
+          "matched_phrase": "ケースMCP",
+          "output": "Qase MCP"
+        },
+        {
+          "matched_phrase": "LGTML",
+          "output": "LGTM"
+        },
+        {
+          "matched_phrase": "取り味",
+          "output": "トリアージ"
+        },
+        {
+          "matched_phrase": "出くれ",
+          "output": "デグレ"
+        },
+        {
+          "matched_phrase": "QA以来",
+          "output": "QA依頼"
+        },
+        {
+          "matched_phrase": "QAライ",
+          "output": "QA依頼"
+        },
+        {
+          "matched_phrase": "ChromeXtension",
+          "output": "Chrome Extension"
+        },
+        {
+          "matched_phrase": "Datadoc",
+          "output": "Datadog"
+        },
+        {
+          "matched_phrase": "クリックとコール",
+          "output": "Click to Call"
         }
       ],
       "transformations": [],
@@ -793,7 +829,8 @@
         "データドッグ",
         "Data Dog",
         "データドック",
-        "レートドッグ"
+        "レートドッグ",
+        "Datadoc"
       ]
     },
     {
@@ -1784,7 +1821,8 @@
       "term": "Click to Call",
       "sounds_like": [
         "クリックトゥコール",
-        "クリックツーコール"
+        "クリックツーコール",
+        "クリックとコール"
       ]
     },
     {
@@ -1884,6 +1922,25 @@
         "クリーンショットX",
         "CleanShotX",
         "クリーンショット"
+      ]
+    },
+    {
+      "term": "Chrome Extension",
+      "sounds_like": [
+        "クロームエクステンション",
+        "ChromeXtension"
+      ]
+    },
+    {
+      "term": "PII",
+      "sounds_like": [
+        "ピーアイアイ"
+      ]
+    },
+    {
+      "term": "JS",
+      "sounds_like": [
+        "ジェイエス"
       ]
     }
   ],
